@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: wickedshop-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: wickedshop
+      POSTGRES_USER: wickedshop
+      POSTGRES_PASSWORD: wickedshop
+    ports:
+      - "5432:5432"
+    volumes:
+      - wickedshop-postgres:/var/lib/postgresql/data
+
+volumes:
+  wickedshop-postgres:

@@ -20,3 +20,91 @@
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+.rich-description {
+    line-height: 1.75;
+}
+
+.rich-description > * + * {
+    margin-top: 1rem;
+}
+
+.rich-description h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.rich-description h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.rich-description h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.rich-description ul,
+.rich-description ol {
+    padding-left: 1.25rem;
+}
+
+.rich-description ul {
+    list-style: disc;
+}
+
+.rich-description ol {
+    list-style: decimal;
+}
+
+.rich-description blockquote {
+    border-left: 3px solid #fb923c;
+    padding-left: 1rem;
+    color: #475569;
+}
+
+.rich-description code {
+    background: #f1f5f9;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.35rem;
+}
+
+.rich-description pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.rich-description pre code {
+    background: transparent;
+    padding: 0;
+}
+
+.rich-description img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.rich-description a {
+    color: #ea580c;
+    text-decoration: underline;
+}
+
+.rich-description table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.rich-description th,
+.rich-description td {
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem;
+    text-align: left;
+}

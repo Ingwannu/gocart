@@ -1,0 +1,6 @@
+ALTER TABLE "Product"
+ADD COLUMN "deliveryType" TEXT NOT NULL DEFAULT 'physical',
+ADD COLUMN "digitalAssetName" TEXT NOT NULL DEFAULT '',
+ADD COLUMN "digitalAssetUrl" TEXT NOT NULL DEFAULT '';
+
+ALTER TABLE "Order" ALTER COLUMN "addressId" DROP NOT NULL;

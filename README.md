@@ -45,23 +45,49 @@ First, install the dependencies. We recommend using `npm` for this project.
 npm install
 ```
 
-Then, run the development server:
+Create a local environment file:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start PostgreSQL, apply the Prisma schema, and seed the starter admin/store data:
 
-You can start editing the page by modifying `app/(public)/page.js`. The page auto-updates as you edit the file.
+```bash
+docker compose up -d postgres
+npm run db:push
+npm run db:seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Outfit](https://vercel.com/font), a new font family for Vercel.
+Then run the development server:
+
+```bash
+npm run dev -- --hostname 0.0.0.0 --port 3001
+```
+
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+
+Useful verification commands:
+
+```bash
+npm test
+npx prisma validate --schema=prisma/schema.prisma
+npm run build
+```
+
+Use `npm run db:migrate` instead of `npm run db:push` in production deployments.
+
+## Release Readiness
+
+Implemented core release features include credential signup/login, admin-created stores, admin user management, product group management, product search/filtering, rich product descriptions, product editing, persistent carts, coupons, order management, payouts, and PostgreSQL-backed Prisma models.
+
+Before a real public launch, confirm these items in the target environment:
+
+- PostgreSQL is reachable through `DATABASE_URL`, then run `npm run db:push` or a migration flow.
+- `NEXTAUTH_SECRET` is set to a strong production secret.
+- Production file storage is wired for product images and rich-description attachments; local data URLs are acceptable only for development.
+- Stripe or another payment processor is connected before setting `NEXT_PUBLIC_ENABLE_STRIPE=true`.
+- Email/SMS notifications and shipping/tracking integrations are configured if required by the store workflow.
 
 ---
 

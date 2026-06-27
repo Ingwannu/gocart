@@ -1,55 +1,149 @@
-'use client'
-import { XIcon } from "lucide-react"
-import { useState } from "react"
-import { toast } from "react-hot-toast"
+"use client";
+import { XIcon } from "lucide-react";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useDispatch } from "react-redux";
+import { addAddress, updateAddress } from "@/lib/features/address/addressSlice";
+import { fetchJson } from "@/lib/http";
 
-const AddressModal = ({ setShowAddressModal }) => {
+const emptyAddress = {
+	name: "",
+	email: "",
+	street: "",
+	city: "",
+	state: "",
+	zip: "",
+	country: "",
+	phone: "",
+};
 
-    const [address, setAddress] = useState({
-        name: '',
-        email: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: '',
-        phone: ''
-    })
+const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) => {
+	const { t } = useTranslation();
+	const dispatch = useDispatch();
+	const [address, setAddress] = useState(addressToEdit || emptyAddress);
 
-    const handleAddressChange = (e) => {
-        setAddress({
-            ...address,
-            [e.target.name]: e.target.value
-        })
-    }
+	const handleAddressChange = (e) => {
+		setAddress({ ...address, [e.target.name]: e.target.value });
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const endpoint = addressToEdit
+			? `/api/addresses/${addressToEdit.id}`
+			: "/api/addresses";
+		const data = await fetchJson(endpoint, {
+			method: addressToEdit ? "PATCH" : "POST",
+			body: JSON.stringify(address),
+		});
+		dispatch(addressToEdit ? updateAddress(data.address) : addAddress(data.address));
+		onSaved?.(data.address);
+		setShowAddressModal(false);
+	};
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+	return (
+		<form
+			onSubmit={(e) =>
+				toast.promise(handleSubmit(e), {
+					loading: t("addressModal.addingAddress"),
+				})
+			}
+			className="fixed inset-0 z-50 bg-white/60 backdrop-blur h-screen flex items-center justify-center"
+		>
+			<div className="flex flex-col gap-5 text-slate-700 w-full max-w-sm mx-6">
+				<h2 className="text-3xl ">
+					{addressToEdit
+						? t("addressModal.editAddress")
+						: t("addressModal.addNewAddress")}
+				</h2>
+				<input
+					name="name"
+					onChange={handleAddressChange}
+					value={address.name}
+					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					type="text"
+					placeholder={t("addressModal.enterName")}
+					required
+				/>
+				<input
+					name="email"
+					onChange={handleAddressChange}
+					value={address.email}
+					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					type="email"
+					placeholder={t("addressModal.emailPlaceholder")}
+					required
+				/>
+				<input
+					name="street"
+					onChange={handleAddressChange}
+					value={address.street}
+					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					type="text"
+					placeholder={t("addressModal.street")}
+					required
+				/>
+				<div className="flex gap-4">
+					<input
+						name="city"
+						onChange={handleAddressChange}
+						value={address.city}
+						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						type="text"
+						placeholder={t("addressModal.city")}
+						required
+					/>
+					<input
+						name="state"
+						onChange={handleAddressChange}
+						value={address.state}
+						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						type="text"
+						placeholder={t("addressModal.state")}
+						required
+					/>
+				</div>
+				<div className="flex gap-4">
+					<input
+						name="zip"
+						onChange={handleAddressChange}
+						value={address.zip}
+						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						type="number"
+						placeholder={t("addressModal.zipCode")}
+						required
+					/>
+					<input
+						name="country"
+						onChange={handleAddressChange}
+						value={address.country}
+						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						type="text"
+						placeholder={t("addressModal.country")}
+						required
+					/>
+				</div>
+				<input
+					name="phone"
+					onChange={handleAddressChange}
+					value={address.phone}
+					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					type="text"
+					placeholder={t("addressModal.phone")}
+					required
+				/>
+				<button className="bg-[#1A1A1A] text-white text-sm font-medium py-2.5 rounded-md hover:bg-orange-600 active:scale-95 transition-all">
+					{addressToEdit
+						? t("addressModal.updateAddress")
+						: t("addressModal.saveAddress")}
+				</button>
+			</div>
+			<XIcon
+				size={30}
+				className="absolute top-5 right-5 text-slate-500 hover:text-slate-700 cursor-pointer"
+				onClick={() => setShowAddressModal(false)}
+			/>
+		</form>
+	);
+};
 
-        setShowAddressModal(false)
-    }
-
-    return (
-        <form onSubmit={e => toast.promise(handleSubmit(e), { loading: 'Adding Address...' })} className="fixed inset-0 z-50 bg-white/60 backdrop-blur h-screen flex items-center justify-center">
-            <div className="flex flex-col gap-5 text-slate-700 w-full max-w-sm mx-6">
-                <h2 className="text-3xl ">Add New <span className="font-semibold">Address</span></h2>
-                <input name="name" onChange={handleAddressChange} value={address.name} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="Enter your name" required />
-                <input name="email" onChange={handleAddressChange} value={address.email} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="email" placeholder="Email address" required />
-                <input name="street" onChange={handleAddressChange} value={address.street} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="Street" required />
-                <div className="flex gap-4">
-                    <input name="city" onChange={handleAddressChange} value={address.city} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="City" required />
-                    <input name="state" onChange={handleAddressChange} value={address.state} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="State" required />
-                </div>
-                <div className="flex gap-4">
-                    <input name="zip" onChange={handleAddressChange} value={address.zip} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="number" placeholder="Zip code" required />
-                    <input name="country" onChange={handleAddressChange} value={address.country} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="Country" required />
-                </div>
-                <input name="phone" onChange={handleAddressChange} value={address.phone} className="p-2 px-4 outline-none border border-slate-200 rounded w-full" type="text" placeholder="Phone" required />
-                <button className="bg-slate-800 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-900 active:scale-95 transition-all">SAVE ADDRESS</button>
-            </div>
-            <XIcon size={30} className="absolute top-5 right-5 text-slate-500 hover:text-slate-700 cursor-pointer" onClick={() => setShowAddressModal(false)} />
-        </form>
-    )
-}
-
-export default AddressModal
+export default AddressModal;

@@ -1,0 +1,178 @@
+"use client";
+import Loading from "@/components/Loading";
+import { fetchJson } from "@/lib/http";
+import { useTranslation } from "@/lib/i18n/LanguageContext";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+export default function AdminQuestionsPage() {
+	const { t } = useTranslation();
+	const [questions, setQuestions] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [q, setQ] = useState("");
+	const [status, setStatus] = useState("");
+	const [answers, setAnswers] = useState({});
+
+	const loadQuestions = () => {
+		setLoading(true);
+		const params = new URLSearchParams({ scope: "admin" });
+		if (q.trim()) params.set("q", q.trim());
+		if (status) params.set("status", status);
+		fetchJson(`/api/product-questions?${params.toString()}`)
+			.then((data) => {
+				setQuestions(data.questions || []);
+				setAnswers(
+					Object.fromEntries(
+						(data.questions || []).map((question) => [
+							question.id,
+							question.answer || "",
+						]),
+					),
+				);
+			})
+			.catch(() => setQuestions([]))
+			.finally(() => setLoading(false));
+	};
+
+	useEffect(() => {
+		const timer = setTimeout(loadQuestions, 160);
+		return () => clearTimeout(timer);
+	}, [q, status]);
+
+	const saveAnswer = async (questionId) => {
+		const data = await fetchJson(`/api/product-questions/${questionId}`, {
+			method: "PATCH",
+			body: JSON.stringify({ answer: answers[questionId] }),
+		});
+		setQuestions((prev) =>
+			prev.map((question) =>
+				question.id === questionId ? data.question : question,
+			),
+		);
+	};
+
+	const deleteQuestion = async (questionId) => {
+		await fetchJson(`/api/product-questions/${questionId}`, { method: "DELETE" });
+		setQuestions((prev) => prev.filter((question) => question.id !== questionId));
+	};
+
+	return (
+		<div className="mb-28 text-slate-500">
+			<h1 className="text-2xl">
+				{t("admin.productQuestions")}{" "}
+				<span className="font-medium text-slate-800">
+					{t("admin.management")}
+				</span>
+			</h1>
+			<div className="mt-5 max-w-6xl rounded-lg border border-slate-200 bg-white p-4">
+				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_180px_auto]">
+					<input
+						type="search"
+						value={q}
+						onChange={(event) => setQ(event.target.value)}
+						placeholder={t("admin.searchQuestions")}
+						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+					/>
+					<select
+						value={status}
+						onChange={(event) => setStatus(event.target.value)}
+						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+					>
+						<option value="">{t("admin.allQuestions")}</option>
+						<option value="unanswered">{t("admin.unansweredQuestions")}</option>
+						<option value="answered">{t("admin.answeredQuestions")}</option>
+					</select>
+					<button
+						type="button"
+						onClick={() => {
+							setQ("");
+							setStatus("");
+						}}
+						className="h-10 rounded border border-slate-200 px-4 text-sm hover:bg-slate-50"
+					>
+						{t("ordersPage.reset")}
+					</button>
+				</div>
+			</div>
+			{loading ? <Loading /> : null}
+			<div className="mt-5 grid max-w-6xl gap-3">
+				{questions.map((question) => (
+					<div
+						key={question.id}
+						className="rounded-lg border border-slate-200 bg-white p-4"
+					>
+						<div className="flex flex-wrap items-start justify-between gap-3">
+							<div>
+								<p className="text-xs text-slate-400">
+									{new Date(question.createdAt).toLocaleString()}
+								</p>
+								<Link
+									href={`/product/${question.productId}`}
+									className="mt-1 block text-lg font-medium text-slate-800 hover:text-orange-600"
+								>
+									{question.product?.name || question.productId}
+								</Link>
+								<p className="text-sm text-slate-500">
+									{question.product?.store?.name || "-"} ·{" "}
+									{question.user?.name || "-"}
+								</p>
+							</div>
+							<span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500">
+								{question.answer
+									? t("admin.answeredQuestions")
+									: t("admin.unansweredQuestions")}
+							</span>
+						</div>
+						<p className="mt-4 whitespace-pre-wrap text-sm text-slate-700">
+							{question.question}
+						</p>
+						<textarea
+							className="mt-4 min-h-24 w-full rounded border border-slate-200 p-2 text-sm"
+							value={answers[question.id] ?? ""}
+							onChange={(event) =>
+								setAnswers((prev) => ({
+									...prev,
+									[question.id]: event.target.value,
+								}))
+							}
+							placeholder={t("admin.answerPlaceholder")}
+						/>
+						<button
+							type="button"
+							onClick={() =>
+								toast.promise(saveAnswer(question.id), {
+									loading: t("admin.savingAnswer"),
+									success: t("admin.answerSaved"),
+									error: (error) => error.message,
+								})
+							}
+							className="mt-2 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+						>
+							{t("admin.saveAnswer")}
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								if (!confirm(t("admin.deleteQuestionConfirm"))) return;
+								toast.promise(deleteQuestion(question.id), {
+									loading: t("admin.deletingQuestion"),
+									success: t("admin.questionDeleted"),
+									error: (error) => error.message,
+								});
+							}}
+							className="ml-2 mt-2 rounded border border-red-200 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+						>
+							{t("common.delete")}
+						</button>
+					</div>
+				))}
+				{questions.length === 0 && !loading && (
+					<div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-400">
+						{t("admin.noProductQuestions")}
+					</div>
+				)}
+			</div>
+		</div>
+	);
+}

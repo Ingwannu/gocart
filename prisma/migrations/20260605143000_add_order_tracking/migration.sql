@@ -1,0 +1,4 @@
+ALTER TABLE "Order"
+ADD COLUMN "trackingCarrier" TEXT NOT NULL DEFAULT '',
+ADD COLUMN "trackingNumber" TEXT NOT NULL DEFAULT '',
+ADD COLUMN "trackingUrl" TEXT NOT NULL DEFAULT '';
