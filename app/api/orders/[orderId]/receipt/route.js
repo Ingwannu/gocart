@@ -1,6 +1,7 @@
 import { json, jsonError, requireUser } from "@/lib/api";
 import { buildOrderReceipt, canAccessOrderReceipt } from "@/lib/order-receipt.mjs";
 import prisma from "@/lib/prisma";
+import { getGeneralSettings } from "@/lib/site-settings.mjs";
 
 export async function GET(_request, { params }) {
 	const { user, error } = await requireUser();
@@ -30,5 +31,10 @@ export async function GET(_request, { params }) {
 	if (!order) return jsonError("Order not found", 404);
 	if (!canAccessOrderReceipt(user, order)) return jsonError("Forbidden", 403);
 
-	return json({ receipt: buildOrderReceipt(order) });
+	const settings = await getGeneralSettings();
+	return json({
+		receipt: buildOrderReceipt(order, {
+			currency: settings.currencySymbol,
+		}),
+	});
 }

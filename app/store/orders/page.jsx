@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { fetchJson } from "@/lib/http";
 import { buildOrderQuery } from "@/lib/order-filters.mjs";
@@ -24,7 +25,7 @@ function orderToTracking(order) {
 
 export default function StoreOrders() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [selectedOrder, setSelectedOrder] = useState(null);

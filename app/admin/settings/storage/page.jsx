@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/Loading";
+import SettingsNav from "@/components/admin/SettingsNav";
 import { fetchJson } from "@/lib/http";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { HardDriveIcon, CloudIcon } from "lucide-react";
@@ -91,6 +92,7 @@ export default function AdminStorageSettings() {
 			<h1 className="text-2xl text-slate-500 mb-5">
 				{t("admin.storageSettings")}
 			</h1>
+			<SettingsNav />
 			<form
 				onSubmit={save}
 				className="rounded-md border border-gray-200 bg-white p-5 space-y-5"

@@ -15,11 +15,12 @@ import {
 import Link from "next/link";
 import React from "react";
 import CategoriesMarquee from "./CategoriesMarquee";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const Hero = () => {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const startingPrice = `${currency}4.90`;
 
 	const assetTypes = [

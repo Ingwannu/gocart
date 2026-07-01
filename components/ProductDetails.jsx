@@ -15,15 +15,16 @@ import Counter from "./Counter";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { resolveProductImages } from "@/lib/product-image.mjs";
 import { fetchJson } from "@/lib/http";
 import toast from "react-hot-toast";
 
 const ProductDetails = ({ product }) => {
 	const { t } = useTranslation();
+	const currency = useCurrencySymbol();
 	const { status } = useSession();
 	const productId = product.id;
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
 	const cart = useSelector((state) => state.cart.cartItems);
 	const dispatch = useDispatch();
 	const router = useRouter();

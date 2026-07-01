@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/Loading";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { fetchJson } from "@/lib/http";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ function buildReturnRequestQuery({ q, status, page }) {
 
 export default function AdminReturnsPage() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [requests, setRequests] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [q, setQ] = useState("");

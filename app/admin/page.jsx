@@ -10,12 +10,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { fetchJson } from "@/lib/http";
 
 export default function AdminDashboard() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [loading, setLoading] = useState(true);
 	const [dashboardData, setDashboardData] = useState({
 		products: 0,

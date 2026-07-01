@@ -7,12 +7,13 @@ import { Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { resolveProductImageSrc } from "@/lib/product-image.mjs";
 
 export default function Cart() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const { cartItems } = useSelector((state) => state.cart);
 	const products = useSelector((state) => state.product.list);
 	const dispatch = useDispatch();

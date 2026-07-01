@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/Loading";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { fetchJson } from "@/lib/http";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { EyeOffIcon, PackageSearchIcon, TrashIcon } from "lucide-react";
@@ -20,7 +21,7 @@ function getInitialFeaturedFilter() {
 
 export default function AdminProducts() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [loading, setLoading] = useState(true);
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);

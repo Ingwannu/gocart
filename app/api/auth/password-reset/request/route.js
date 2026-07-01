@@ -1,6 +1,7 @@
 import { json, jsonError } from "@/lib/api";
 import {
 	buildPasswordResetEmail,
+	getResolvedEmailSettings,
 	isResendEmailConfigured,
 	sendEmailWithResend,
 } from "@/lib/email.mjs";
@@ -13,6 +14,7 @@ import {
 	hashPasswordResetToken,
 	normalizePasswordResetRequestPayload,
 } from "@/lib/password-reset.mjs";
+import { getGeneralSettings } from "@/lib/site-settings.mjs";
 
 export async function POST(request) {
 	const body = await request.json();
@@ -27,6 +29,10 @@ export async function POST(request) {
 	let resetUrl = null;
 
 	if (user && !user.isSuspended) {
+		const [generalSettings, emailSettings] = await Promise.all([
+			getGeneralSettings(),
+			getResolvedEmailSettings(),
+		]);
 		const token = createPasswordResetToken();
 		await prisma.passwordResetToken.create({
 			data: {
@@ -37,16 +43,20 @@ export async function POST(request) {
 		});
 		resetUrl = buildPasswordResetUrl(
 			createPasswordResetBaseUrl({
+				env: {
+					NEXTAUTH_URL: generalSettings.publicUrl || process.env.NEXTAUTH_URL,
+				},
 				requestOrigin: new URL(request.url).origin,
 			}),
 			token,
 		);
-		if (isResendEmailConfigured()) {
+		if (isResendEmailConfigured(emailSettings)) {
 			await sendEmailWithResend({
 				email: buildPasswordResetEmail({
 					to: user.email,
 					resetUrl,
 				}),
+				env: emailSettings,
 			});
 		}
 	}

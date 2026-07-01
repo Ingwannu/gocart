@@ -5,6 +5,7 @@ import AddressModal from "./AddressModal";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { clearCart } from "@/lib/features/cart/cartSlice";
 import { removeAddress, setAddresses } from "@/lib/features/address/addressSlice";
@@ -13,7 +14,7 @@ import { useEffect } from "react";
 
 const OrderSummary = ({ totalPrice, items = [] }) => {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const stripeEnabled = process.env.NEXT_PUBLIC_ENABLE_STRIPE === "true";
 	const router = useRouter();
 	const dispatch = useDispatch();

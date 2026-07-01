@@ -3,12 +3,13 @@ import { Code2Icon, DownloadCloudIcon, StarIcon, StoreIcon } from "lucide-react"
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { resolveProductImageSrc } from "@/lib/product-image.mjs";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 
 const ProductCard = ({ product }) => {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 
 	// calculate the average rating of the product
 	const ratings = product.rating || [];

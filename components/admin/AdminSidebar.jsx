@@ -54,7 +54,7 @@ const AdminSidebar = () => {
 		{ name: t("admin.newsletter"), href: "/admin/newsletter", icon: MailIcon },
 		{ name: t("admin.support"), href: "/admin/support", icon: LifeBuoyIcon },
 		{ name: t("admin.auditLogs"), href: "/admin/audit-logs", icon: HistoryIcon },
-		{ name: t("admin.settings"), href: "/admin/settings/storage", icon: SettingsIcon },
+		{ name: t("admin.settings"), href: "/admin/settings/general", icon: SettingsIcon },
 	];
 
 	return (

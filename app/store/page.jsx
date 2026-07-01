@@ -11,12 +11,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { fetchJson } from "@/lib/http";
 
 export default function Dashboard() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [dashboardData, setDashboardData] = useState({

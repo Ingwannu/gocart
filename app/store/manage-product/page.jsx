@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import Loading from "@/components/Loading";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { fetchJson } from "@/lib/http";
 import { uploadFiles } from "@/lib/client-upload";
@@ -52,7 +53,7 @@ function productToEditForm(product) {
 
 export default function StoreManageProducts() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [loading, setLoading] = useState(true);
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);

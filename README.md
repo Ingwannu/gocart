@@ -77,6 +77,12 @@ npm run build
 
 Use `npm run db:migrate` instead of `npm run db:push` in production deployments.
 
+Project documentation:
+
+- [Architecture](./docs/architecture.md)
+- [Tech Stack](./docs/tech-stack.md)
+- [ADR 0001: Admin-Managed Runtime Settings](./docs/adr/0001-admin-managed-runtime-settings.md)
+
 ## Release Readiness
 
 Implemented core release features include credential signup/login, admin-created stores, admin user management, product group management, product search/filtering, rich product descriptions, product editing, persistent carts, coupons, order management, payouts, and PostgreSQL-backed Prisma models.
@@ -85,7 +91,8 @@ Before a real public launch, confirm these items in the target environment:
 
 - PostgreSQL is reachable through `DATABASE_URL`, then run `npm run db:push` or a migration flow.
 - `NEXTAUTH_SECRET` is set to a strong production secret.
-- Production file storage is wired for product images and rich-description attachments; local data URLs are acceptable only for development.
+- Non-payment runtime settings are reviewed in `/admin/settings/general`, `/admin/settings/email`, and `/admin/settings/storage`.
+- Production file storage is wired for product images and rich-description attachments; local storage is acceptable only for development.
 - Stripe or another payment processor is connected before setting `NEXT_PUBLIC_ENABLE_STRIPE=true`.
 - Email/SMS notifications and shipping/tracking integrations are configured if required by the store workflow.
 

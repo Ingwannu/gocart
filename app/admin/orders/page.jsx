@@ -1,5 +1,6 @@
 "use client";
 import Loading from "@/components/Loading";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { fetchJson } from "@/lib/http";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { buildOrderQuery } from "@/lib/order-filters.mjs";
@@ -17,7 +18,7 @@ const payoutStatuses = ["PENDING", "READY", "PAID", "HOLD"];
 
 export default function AdminOrders() {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [q, setQ] = useState("");

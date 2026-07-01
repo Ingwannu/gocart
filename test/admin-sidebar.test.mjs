@@ -12,6 +12,7 @@ describe("AdminSidebar navigation", () => {
 		assert.equal(source.includes('href: "/admin/orders"'), true);
 		assert.match(source, /admin\.approveStore/);
 		assert.equal(source.includes('href: "/admin/approve"'), true);
+		assert.equal(source.includes('href: "/admin/settings/general"'), true);
 		assert.equal(source.includes("Orders / Payouts"), false);
 	});
 });

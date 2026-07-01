@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Rating from "./Rating";
 import { useState } from "react";
 import RatingModal from "./RatingModal";
+import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { resolveProductImageSrc } from "@/lib/product-image.mjs";
 
@@ -18,7 +19,7 @@ const statusStyles = {
 
 const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 	const { t } = useTranslation();
-	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
+	const currency = useCurrencySymbol();
 	const [ratingModal, setRatingModal] = useState(null);
 	const { ratings } = useSelector((state) => state.rating);
 	const hasTracking = Boolean(order.trackingCarrier || order.trackingNumber);

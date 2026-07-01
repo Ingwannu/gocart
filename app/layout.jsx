@@ -2,6 +2,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/app/StoreProvider";
 import AuthProvider from "@/components/AuthProvider";
+import { PublicSettingsProvider } from "@/components/PublicSettingsProvider";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import "./globals.css";
 
@@ -22,10 +23,12 @@ export default function RootLayout({ children }) {
 			<body className={`${notoSansKr.className} antialiased`}>
 				<LanguageProvider>
 					<AuthProvider>
-						<StoreProvider>
-							<Toaster />
-							{children}
-						</StoreProvider>
+						<PublicSettingsProvider>
+							<StoreProvider>
+								<Toaster />
+								{children}
+							</StoreProvider>
+						</PublicSettingsProvider>
 					</AuthProvider>
 				</LanguageProvider>
 			</body>
