@@ -47,9 +47,9 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 					loading: t("addressModal.addingAddress"),
 				})
 			}
-			className="fixed inset-0 z-50 bg-white/60 backdrop-blur h-screen flex items-center justify-center"
+			className="fixed inset-0 z-50 bg-background/60 backdrop-blur h-screen flex items-center justify-center"
 		>
-			<div className="flex flex-col gap-5 text-slate-700 w-full max-w-sm mx-6">
+			<div className="flex flex-col gap-5 text-foreground w-full max-w-sm mx-6">
 				<h2 className="text-3xl ">
 					{addressToEdit
 						? t("addressModal.editAddress")
@@ -59,7 +59,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 					name="name"
 					onChange={handleAddressChange}
 					value={address.name}
-					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					className="p-2 px-4 outline-none border border-border rounded w-full"
 					type="text"
 					placeholder={t("addressModal.enterName")}
 					required
@@ -68,7 +68,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 					name="email"
 					onChange={handleAddressChange}
 					value={address.email}
-					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					className="p-2 px-4 outline-none border border-border rounded w-full"
 					type="email"
 					placeholder={t("addressModal.emailPlaceholder")}
 					required
@@ -77,7 +77,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 					name="street"
 					onChange={handleAddressChange}
 					value={address.street}
-					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					className="p-2 px-4 outline-none border border-border rounded w-full"
 					type="text"
 					placeholder={t("addressModal.street")}
 					required
@@ -87,7 +87,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 						name="city"
 						onChange={handleAddressChange}
 						value={address.city}
-						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						className="p-2 px-4 outline-none border border-border rounded w-full"
 						type="text"
 						placeholder={t("addressModal.city")}
 						required
@@ -96,7 +96,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 						name="state"
 						onChange={handleAddressChange}
 						value={address.state}
-						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						className="p-2 px-4 outline-none border border-border rounded w-full"
 						type="text"
 						placeholder={t("addressModal.state")}
 						required
@@ -107,7 +107,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 						name="zip"
 						onChange={handleAddressChange}
 						value={address.zip}
-						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						className="p-2 px-4 outline-none border border-border rounded w-full"
 						type="number"
 						placeholder={t("addressModal.zipCode")}
 						required
@@ -116,7 +116,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 						name="country"
 						onChange={handleAddressChange}
 						value={address.country}
-						className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+						className="p-2 px-4 outline-none border border-border rounded w-full"
 						type="text"
 						placeholder={t("addressModal.country")}
 						required
@@ -126,12 +126,12 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 					name="phone"
 					onChange={handleAddressChange}
 					value={address.phone}
-					className="p-2 px-4 outline-none border border-slate-200 rounded w-full"
+					className="p-2 px-4 outline-none border border-border rounded w-full"
 					type="text"
 					placeholder={t("addressModal.phone")}
 					required
 				/>
-				<button className="bg-[#1A1A1A] text-white text-sm font-medium py-2.5 rounded-md hover:bg-orange-600 active:scale-95 transition-all">
+				<button className="bg-accent text-accent-foreground text-sm font-medium py-2.5 rounded-md hover:brightness-95 active:scale-95 transition-all">
 					{addressToEdit
 						? t("addressModal.updateAddress")
 						: t("addressModal.saveAddress")}
@@ -139,7 +139,7 @@ const AddressModal = ({ addressToEdit = null, onSaved, setShowAddressModal }) =>
 			</div>
 			<XIcon
 				size={30}
-				className="absolute top-5 right-5 text-slate-500 hover:text-slate-700 cursor-pointer"
+				className="absolute top-5 right-5 text-muted-foreground hover:text-foreground cursor-pointer"
 				onClick={() => setShowAddressModal(false)}
 			/>
 		</form>

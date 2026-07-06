@@ -103,7 +103,7 @@ export default function Orders() {
 					})}
 					linkText={t("ordersPage.goToHome")}
 				/>
-				<div className="mb-8 max-w-5xl rounded-md border border-slate-200 bg-white p-4">
+				<div className="mb-8 max-w-5xl rounded-md border border-border bg-frame p-4">
 					<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_170px_150px_auto]">
 						<input
 							type="search"
@@ -113,7 +113,7 @@ export default function Orders() {
 								setPage(1);
 							}}
 							placeholder={t("ordersPage.searchPlaceholder")}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+							className="h-10 rounded border border-border bg-frame px-3 text-sm text-foreground outline-none focus:border-ring"
 						/>
 						<select
 							value={status}
@@ -121,7 +121,7 @@ export default function Orders() {
 								setStatus(e.target.value);
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+							className="h-10 rounded border border-border bg-frame px-3 text-sm text-foreground"
 						>
 							<option value="">{t("ordersPage.allStatuses")}</option>
 							<option value="ORDER_PLACED">ORDER_PLACED</option>
@@ -136,7 +136,7 @@ export default function Orders() {
 								setPaid(e.target.value);
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+							className="h-10 rounded border border-border bg-frame px-3 text-sm text-foreground"
 						>
 							<option value="">{t("ordersPage.allPayments")}</option>
 							<option value="true">{t("ordersPage.paid")}</option>
@@ -150,20 +150,20 @@ export default function Orders() {
 								setPaid("");
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-4 text-sm text-slate-700 hover:bg-slate-50"
+							className="h-10 rounded border border-border px-4 text-sm text-foreground hover:bg-muted"
 						>
 							{t("ordersPage.reset")}
 						</button>
 					</div>
 				</div>
 				{loading ? (
-					<div className="py-16 text-center text-slate-400">
+					<div className="py-16 text-center text-muted-foreground">
 						{t("common.loading")}
 					</div>
 				) : orders.length > 0 ? (
-					<table className="w-full max-w-5xl text-slate-500 table-auto border-separate border-spacing-y-12 border-spacing-x-4">
+					<table className="w-full max-w-5xl text-muted-foreground table-auto border-separate border-spacing-y-12 border-spacing-x-4">
 						<thead>
-							<tr className="max-sm:text-sm text-slate-600 max-md:hidden">
+							<tr className="max-sm:text-sm text-muted-foreground max-md:hidden">
 								<th className="text-left">{t("cartPage.product")}</th>
 								<th className="text-center">{t("cartPage.totalPrice")}</th>
 								<th className="text-left">{t("orderSummary.address")}</th>
@@ -202,12 +202,12 @@ export default function Orders() {
 						</tbody>
 					</table>
 				) : (
-					<div className="py-16 text-center text-slate-400">
+					<div className="py-16 text-center text-muted-foreground">
 						{t("ordersPage.noMatchingOrders")}
 					</div>
 				)}
 				{pagination && pagination.totalPages > 1 && (
-					<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+					<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 						<span>
 							{t("common.pageSummary", {
 								page: pagination.page,
@@ -220,7 +220,7 @@ export default function Orders() {
 								type="button"
 								disabled={!pagination.hasPreviousPage}
 								onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.previous")}
 							</button>
@@ -228,7 +228,7 @@ export default function Orders() {
 								type="button"
 								disabled={!pagination.hasNextPage}
 								onClick={() => setPage((prev) => prev + 1)}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.next")}
 							</button>
@@ -238,7 +238,7 @@ export default function Orders() {
 			</div>
 		</div>
 	) : (
-		<div className="min-h-[80vh] mx-6 flex items-center justify-center text-slate-400">
+		<div className="min-h-[80vh] mx-6 flex items-center justify-center text-muted-foreground">
 			<h1 className="text-2xl sm:text-4xl font-semibold">
 				{t("ordersPage.youHaveNoOrders")}
 			</h1>

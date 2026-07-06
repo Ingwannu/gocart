@@ -32,7 +32,7 @@ export async function POST(request) {
 
 	const uploads = [];
 	for (const file of files) {
-		const validation = validateUploadFileMeta(file);
+		const validation = validateUploadFileMeta(file, { visibility });
 		if (!validation.ok) return jsonError(validation.error);
 
 		const stored = buildStoredUpload({

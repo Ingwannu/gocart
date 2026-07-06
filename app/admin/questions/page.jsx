@@ -58,26 +58,26 @@ export default function AdminQuestionsPage() {
 	};
 
 	return (
-		<div className="mb-28 text-slate-500">
+		<div className="mb-28 text-muted-foreground">
 			<h1 className="text-2xl">
 				{t("admin.productQuestions")}{" "}
-				<span className="font-medium text-slate-800">
+				<span className="font-medium text-foreground">
 					{t("admin.management")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-6xl rounded-lg border border-slate-200 bg-white p-4">
+			<div className="mt-5 max-w-6xl rounded-lg border border-border bg-frame p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_180px_auto]">
 					<input
 						type="search"
 						value={q}
 						onChange={(event) => setQ(event.target.value)}
 						placeholder={t("admin.searchQuestions")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
 						onChange={(event) => setStatus(event.target.value)}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("admin.allQuestions")}</option>
 						<option value="unanswered">{t("admin.unansweredQuestions")}</option>
@@ -89,7 +89,7 @@ export default function AdminQuestionsPage() {
 							setQ("");
 							setStatus("");
 						}}
-						className="h-10 rounded border border-slate-200 px-4 text-sm hover:bg-slate-50"
+						className="h-10 rounded border border-border px-4 text-sm hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
@@ -100,35 +100,35 @@ export default function AdminQuestionsPage() {
 				{questions.map((question) => (
 					<div
 						key={question.id}
-						className="rounded-lg border border-slate-200 bg-white p-4"
+						className="rounded-lg border border-border bg-frame p-4"
 					>
 						<div className="flex flex-wrap items-start justify-between gap-3">
 							<div>
-								<p className="text-xs text-slate-400">
+								<p className="text-xs text-muted-foreground">
 									{new Date(question.createdAt).toLocaleString()}
 								</p>
 								<Link
 									href={`/product/${question.productId}`}
-									className="mt-1 block text-lg font-medium text-slate-800 hover:text-orange-600"
+									className="mt-1 block text-lg font-medium text-foreground hover:underline"
 								>
 									{question.product?.name || question.productId}
 								</Link>
-								<p className="text-sm text-slate-500">
+								<p className="text-sm text-muted-foreground">
 									{question.product?.store?.name || "-"} ·{" "}
 									{question.user?.name || "-"}
 								</p>
 							</div>
-							<span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500">
+							<span className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
 								{question.answer
 									? t("admin.answeredQuestions")
 									: t("admin.unansweredQuestions")}
 							</span>
 						</div>
-						<p className="mt-4 whitespace-pre-wrap text-sm text-slate-700">
+						<p className="mt-4 whitespace-pre-wrap text-sm text-foreground">
 							{question.question}
 						</p>
 						<textarea
-							className="mt-4 min-h-24 w-full rounded border border-slate-200 p-2 text-sm"
+							className="mt-4 min-h-24 w-full rounded border border-border p-2 text-sm"
 							value={answers[question.id] ?? ""}
 							onChange={(event) =>
 								setAnswers((prev) => ({
@@ -147,7 +147,7 @@ export default function AdminQuestionsPage() {
 									error: (error) => error.message,
 								})
 							}
-							className="mt-2 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+							className="mt-2 rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 						>
 							{t("admin.saveAnswer")}
 						</button>
@@ -161,14 +161,14 @@ export default function AdminQuestionsPage() {
 									error: (error) => error.message,
 								});
 							}}
-							className="ml-2 mt-2 rounded border border-red-200 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+							className="ml-2 mt-2 rounded border border-danger-soft px-4 py-2 text-sm text-danger hover:bg-danger-soft"
 						>
 							{t("common.delete")}
 						</button>
 					</div>
 				))}
 				{questions.length === 0 && !loading && (
-					<div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-400">
+					<div className="rounded-lg border border-border bg-frame p-8 text-center text-muted-foreground">
 						{t("admin.noProductQuestions")}
 					</div>
 				)}

@@ -29,7 +29,7 @@ const cardSets = {
 			titleKey: "homeAssets.pluginStackTitle",
 			descriptionKey: "homeAssets.pluginStackDesc",
 			metaKey: "homeAssets.paperReady",
-			accent: "border-green-200 bg-green-50 text-green-700",
+			accent: "border-success/30 bg-success-soft text-success",
 		},
 		{
 			icon: "website",
@@ -37,7 +37,7 @@ const cardSets = {
 			titleKey: "homeAssets.websiteSourceTitle",
 			descriptionKey: "homeAssets.websiteSourceDesc",
 			metaKey: "homeAssets.nextReady",
-			accent: "border-orange-200 bg-orange-50 text-orange-700",
+			accent: "border-accent/30 bg-accent-soft text-foreground",
 		},
 		{
 			icon: "bot",
@@ -45,7 +45,7 @@ const cardSets = {
 			titleKey: "homeAssets.discordBotTitle",
 			descriptionKey: "homeAssets.discordBotDesc",
 			metaKey: "homeAssets.nodeReady",
-			accent: "border-slate-200 bg-slate-50 text-slate-700",
+			accent: "border-border bg-muted text-foreground",
 		},
 		{
 			icon: "server",
@@ -53,7 +53,7 @@ const cardSets = {
 			titleKey: "homeAssets.serverPackTitle",
 			descriptionKey: "homeAssets.serverPackDesc",
 			metaKey: "homeAssets.configIncluded",
-			accent: "border-sky-200 bg-sky-50 text-sky-700",
+			accent: "border-border bg-muted text-muted-foreground",
 		},
 	],
 	featured: [
@@ -63,7 +63,7 @@ const cardSets = {
 			titleKey: "homeAssets.survivalBundleTitle",
 			descriptionKey: "homeAssets.survivalBundleDesc",
 			metaKey: "homeAssets.fullBundle",
-			accent: "border-green-200 bg-green-50 text-green-700",
+			accent: "border-success/30 bg-success-soft text-success",
 		},
 		{
 			icon: "code",
@@ -71,7 +71,7 @@ const cardSets = {
 			titleKey: "homeAssets.sourceCodeTitle",
 			descriptionKey: "homeAssets.sourceCodeDesc",
 			metaKey: "homeAssets.zipDelivery",
-			accent: "border-slate-200 bg-slate-50 text-slate-700",
+			accent: "border-border bg-muted text-foreground",
 		},
 		{
 			icon: "plugin",
@@ -79,7 +79,7 @@ const cardSets = {
 			titleKey: "homeAssets.cratesMenuTitle",
 			descriptionKey: "homeAssets.cratesMenuDesc",
 			metaKey: "homeAssets.configurable",
-			accent: "border-orange-200 bg-orange-50 text-orange-700",
+			accent: "border-accent/30 bg-accent-soft text-foreground",
 		},
 		{
 			icon: "website",
@@ -87,7 +87,7 @@ const cardSets = {
 			titleKey: "homeAssets.storefrontTitle",
 			descriptionKey: "homeAssets.storefrontDesc",
 			metaKey: "homeAssets.deployable",
-			accent: "border-sky-200 bg-sky-50 text-sky-700",
+			accent: "border-border bg-muted text-muted-foreground",
 		},
 	],
 };
@@ -104,7 +104,7 @@ export default function HomeAssetGrid({ variant = "latest" }) {
 					<Link
 						key={card.titleKey}
 						href={buildShopHref({ category: card.category })}
-						className="group flex min-h-56 flex-col justify-between rounded-lg border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-green-300 hover:shadow-md"
+						className="group flex min-h-56 flex-col justify-between rounded-lg border border-border bg-frame p-5 shadow-sm transition hover:-translate-y-1 hover:border-accent hover:shadow-md"
 					>
 						<div>
 							<div
@@ -112,23 +112,23 @@ export default function HomeAssetGrid({ variant = "latest" }) {
 							>
 								<Icon size={22} />
 							</div>
-							<p className="mt-5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+							<p className="mt-5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
 								{card.category}
 							</p>
-							<h3 className="mt-2 text-lg font-semibold leading-snug text-slate-900">
+							<h3 className="mt-2 text-lg font-semibold leading-snug text-foreground">
 								{t(card.titleKey)}
 							</h3>
-							<p className="mt-3 text-sm leading-6 text-slate-600">
+							<p className="mt-3 text-sm leading-6 text-muted-foreground">
 								{t(card.descriptionKey)}
 							</p>
 						</div>
-						<div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-sm">
-							<span className="font-medium text-slate-700">
+						<div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm">
+							<span className="font-medium text-foreground">
 								{t(card.metaKey)}
 							</span>
 							<ArrowRightIcon
 								size={17}
-								className="text-orange-500 transition group-hover:translate-x-1"
+								className="text-foreground transition group-hover:translate-x-1"
 							/>
 						</div>
 					</Link>

@@ -91,10 +91,10 @@ export default function Dashboard() {
 	if (loading) return <Loading />;
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("store.dashboard")}{" "}
-				<span className="text-slate-800 font-medium">
+				<span className="text-foreground font-medium">
 					{t("store.sellerDashboard")}
 				</span>
 			</h1>
@@ -102,28 +102,28 @@ export default function Dashboard() {
 				{dashboardCardsData.map((card, index) => (
 					<div
 						key={index}
-						className="flex items-center gap-11 border border-slate-200 p-3 px-6 rounded-lg"
+						className="flex items-center gap-11 border border-border p-3 px-6 rounded-lg"
 					>
 						<div className="flex flex-col gap-3 text-xs">
 							<p>{card.title}</p>
-							<b className="text-2xl font-medium text-slate-700">
+							<b className="text-2xl font-medium text-foreground">
 								{card.value}
 							</b>
 						</div>
 						<card.icon
 							size={50}
-							className="w-11 h-11 p-2.5 text-slate-400 bg-slate-100 rounded-full"
+							className="w-11 h-11 p-2.5 text-muted-foreground bg-muted rounded-full"
 						/>
 					</div>
 				))}
 			</div>
-			<div className="mb-10 max-w-5xl rounded-lg border border-slate-200 bg-white">
-				<div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 p-4">
+			<div className="mb-10 max-w-5xl rounded-lg border border-border bg-frame">
+				<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border p-4">
 					<div>
-						<h2 className="font-medium text-slate-800">
+						<h2 className="font-medium text-foreground">
 							{t("admin.lowStockProducts")}
 						</h2>
-						<p className="text-xs text-slate-400">
+						<p className="text-xs text-muted-foreground">
 							{t("admin.lowStockThreshold", {
 								count: dashboardData.lowStockThreshold,
 							})}
@@ -131,29 +131,29 @@ export default function Dashboard() {
 					</div>
 					<Link
 						href="/store/manage-product?stock=low"
-						className="rounded border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+						className="rounded border border-border px-3 py-1.5 text-sm hover:bg-muted"
 					>
 						{t("store.manageProducts")}
 					</Link>
 				</div>
-				<div className="divide-y divide-slate-100">
+				<div className="divide-y divide-border">
 					{(dashboardData.lowStockProducts || []).map((product) => (
 						<div
 							key={product.id}
 							className="grid gap-3 p-4 text-sm md:grid-cols-[minmax(220px,1fr)_160px_120px]"
 						>
 							<div>
-								<p className="font-medium text-slate-700">{product.name}</p>
-								<p className="text-xs text-slate-400">{product.category}</p>
+								<p className="font-medium text-foreground">{product.name}</p>
+								<p className="text-xs text-muted-foreground">{product.category}</p>
 							</div>
 							<p>{product.group?.name || product.category}</p>
-							<p className={product.stockQuantity === 0 ? "text-red-600" : "text-orange-600"}>
+							<p className={product.stockQuantity === 0 ? "text-danger" : "text-warning"}>
 								{product.stockQuantity}
 							</p>
 						</div>
 					))}
 					{(dashboardData.lowStockProducts || []).length === 0 && (
-						<p className="p-6 text-center text-sm text-slate-400">
+						<p className="p-6 text-center text-sm text-muted-foreground">
 							{t("admin.noLowStockProducts")}
 						</p>
 					)}
@@ -164,7 +164,7 @@ export default function Dashboard() {
 				{dashboardData.ratings.map((review, index) => (
 					<div
 						key={index}
-						className="flex max-sm:flex-col gap-5 sm:items-center justify-between py-6 border-b border-slate-200 text-sm text-slate-600 max-w-4xl"
+						className="flex max-sm:flex-col gap-5 sm:items-center justify-between py-6 border-b border-border text-sm text-muted-foreground max-w-4xl"
 					>
 						<div>
 							<div className="flex gap-3">
@@ -177,18 +177,18 @@ export default function Dashboard() {
 								/>
 								<div>
 									<p className="font-medium">{review.user.name}</p>
-									<p className="font-light text-slate-500">
+									<p className="font-light text-muted-foreground">
 										{new Date(review.createdAt).toDateString()}
 									</p>
 								</div>
 							</div>
-							<p className="mt-3 text-slate-500 max-w-xs leading-6">
+							<p className="mt-3 text-muted-foreground max-w-xs leading-6">
 								{review.review}
 							</p>
 						</div>
 						<div className="flex flex-col justify-between gap-6 sm:items-end">
 							<div className="flex flex-col sm:items-end">
-								<p className="text-slate-400">{review.product?.category}</p>
+								<p className="text-muted-foreground">{review.product?.category}</p>
 								<p className="font-medium">{review.product?.name}</p>
 								<div className="flex items-center">
 									{Array(5)
@@ -207,7 +207,7 @@ export default function Dashboard() {
 							</div>
 							<button
 								onClick={() => router.push(`/product/${review.product.id}`)}
-								className="bg-slate-100 px-5 py-2 hover:bg-slate-200 rounded transition-all"
+								className="bg-muted px-5 py-2 hover:bg-border rounded transition-all"
 							>
 								{t("store.viewProduct")}
 							</button>

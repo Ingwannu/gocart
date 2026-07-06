@@ -1,7 +1,7 @@
 "use client";
 import BestSelling from "@/components/BestSelling";
+import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
-import Newsletter from "@/components/Newsletter";
 import OurSpecs from "@/components/OurSpec";
 import LatestProducts from "@/components/LatestProducts";
 
@@ -12,7 +12,7 @@ export default function Home() {
 			<LatestProducts />
 			<BestSelling />
 			<OurSpecs />
-			<Newsletter />
+			<FAQ />
 		</div>
 	);
 }

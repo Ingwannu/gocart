@@ -128,11 +128,11 @@ export default function StoreAddProduct() {
 			onSubmit={(e) =>
 				toast.promise(onSubmitHandler(e), { loading: t("store.addingProduct") })
 			}
-			className="text-slate-500 mb-28"
+			className="text-muted-foreground mb-28"
 		>
 			<h1 className="text-2xl">
 				{t("store.addNewProducts")}{" "}
-				<span className="text-slate-800 font-medium"></span>
+				<span className="text-foreground font-medium"></span>
 			</h1>
 			<p className="mt-7">{t("store.productImages")}</p>
 			<div htmlFor="" className="flex gap-3 mt-4">
@@ -141,7 +141,7 @@ export default function StoreAddProduct() {
 						<Image
 							width={300}
 							height={300}
-							className="h-15 w-auto border border-slate-200 rounded cursor-pointer"
+							className="h-15 w-auto border border-border rounded cursor-pointer"
 							src={
 								images[key]
 									? URL.createObjectURL(images[key])
@@ -169,7 +169,7 @@ export default function StoreAddProduct() {
 					onChange={onChangeHandler}
 					value={productInfo.name}
 					placeholder={t("store.enterProductName")}
-					className="w-full max-w-sm p-2 px-4 outline-none border border-slate-200 rounded"
+					className="w-full max-w-sm p-2 px-4 outline-none border border-border rounded"
 					required
 				/>
 			</label>
@@ -180,7 +180,7 @@ export default function StoreAddProduct() {
 						type="button"
 						title={t("store.markdownHeading")}
 						onClick={() => insertDescriptionSnippet("## ", "", "Heading")}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<Heading2Icon size={17} />
 					</button>
@@ -188,7 +188,7 @@ export default function StoreAddProduct() {
 						type="button"
 						title={t("store.markdownBold")}
 						onClick={() => insertDescriptionSnippet("**", "**", "bold")}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<BoldIcon size={17} />
 					</button>
@@ -196,7 +196,7 @@ export default function StoreAddProduct() {
 						type="button"
 						title={t("store.markdownItalic")}
 						onClick={() => insertDescriptionSnippet("*", "*", "italic")}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<ItalicIcon size={17} />
 					</button>
@@ -206,7 +206,7 @@ export default function StoreAddProduct() {
 						onClick={() =>
 							insertDescriptionSnippet("[", "](https://example.com)", "link")
 						}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<LinkIcon size={17} />
 					</button>
@@ -214,7 +214,7 @@ export default function StoreAddProduct() {
 					type="button"
 					title={t("store.markdownCode")}
 					onClick={() => insertDescriptionSnippet("`", "`", "code")}
-					className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+					className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 				>
 					<Code2Icon size={17} />
 				</button>
@@ -224,7 +224,7 @@ export default function StoreAddProduct() {
 					onClick={() =>
 						insertDescriptionSnippet("\n```\n", "\n```\n", "code block")
 					}
-					className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+					className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 				>
 					<SquareCode size={17} />
 				</button>
@@ -232,7 +232,7 @@ export default function StoreAddProduct() {
 					type="button"
 					title={t("store.attachDescriptionImage")}
 						onClick={() => imageAttachmentRef.current?.click()}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<ImagePlusIcon size={17} />
 					</button>
@@ -240,7 +240,7 @@ export default function StoreAddProduct() {
 						type="button"
 						title={t("store.attachDescriptionFile")}
 						onClick={() => fileAttachmentRef.current?.click()}
-						className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+						className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 					>
 						<PaperclipIcon size={17} />
 					</button>
@@ -275,7 +275,7 @@ export default function StoreAddProduct() {
 					value={productInfo.description}
 					placeholder={t("store.enterProductDescription")}
 					rows={10}
-					className="w-full max-w-2xl p-2 px-4 outline-none border border-slate-200 rounded resize-y font-mono text-sm"
+					className="w-full max-w-2xl p-2 px-4 outline-none border border-border rounded resize-y font-mono text-sm"
 					required
 				/>
 			</label>
@@ -289,7 +289,7 @@ export default function StoreAddProduct() {
 						value={productInfo.mrp}
 						placeholder="0"
 						rows={5}
-						className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+						className="w-full max-w-45 p-2 px-4 outline-none border border-border rounded resize-none"
 						required
 					/>
 				</label>
@@ -302,7 +302,7 @@ export default function StoreAddProduct() {
 						value={productInfo.price}
 						placeholder="0"
 						rows={5}
-						className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+						className="w-full max-w-45 p-2 px-4 outline-none border border-border rounded resize-none"
 						required
 					/>
 				</label>
@@ -315,14 +315,14 @@ export default function StoreAddProduct() {
 						onChange={onChangeHandler}
 						value={productInfo.stockQuantity}
 						placeholder={t("store.unlimitedStock")}
-						className="w-full max-w-45 p-2 px-4 outline-none border border-slate-200 rounded resize-none"
+						className="w-full max-w-45 p-2 px-4 outline-none border border-border rounded resize-none"
 					/>
 				</label>
 			</div>
-			<div className="my-6 max-w-2xl rounded-lg border border-slate-200 bg-slate-50 p-4">
-				<p className="text-slate-700 font-medium">{t("store.deliveryType")}</p>
+			<div className="my-6 max-w-2xl rounded-lg border border-border bg-muted p-4">
+				<p className="text-foreground font-medium">{t("store.deliveryType")}</p>
 				<div className="mt-3 flex flex-wrap gap-3">
-					<label className="flex items-center gap-2 rounded border border-slate-200 bg-white px-3 py-2">
+					<label className="flex items-center gap-2 rounded border border-border bg-frame px-3 py-2">
 						<input
 							type="radio"
 							name="deliveryType"
@@ -332,7 +332,7 @@ export default function StoreAddProduct() {
 						/>
 						{t("store.physicalProduct")}
 					</label>
-					<label className="flex items-center gap-2 rounded border border-slate-200 bg-white px-3 py-2">
+					<label className="flex items-center gap-2 rounded border border-border bg-frame px-3 py-2">
 						<input
 							type="radio"
 							name="deliveryType"
@@ -348,7 +348,7 @@ export default function StoreAddProduct() {
 						<button
 							type="button"
 							onClick={() => digitalAssetRef.current?.click()}
-							className="inline-flex items-center gap-2 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+							className="inline-flex items-center gap-2 rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 						>
 							<DownloadIcon size={16} />
 							{t("store.uploadDigitalFile")}
@@ -365,7 +365,7 @@ export default function StoreAddProduct() {
 							}}
 							hidden
 						/>
-						<p className="mt-2 text-xs text-slate-500">
+						<p className="mt-2 text-xs text-muted-foreground">
 							{productInfo.digitalAssetName || t("store.noDigitalFile")}
 						</p>
 					</div>
@@ -379,7 +379,7 @@ export default function StoreAddProduct() {
 					});
 				}}
 				value={productInfo.category}
-				className="w-full max-w-sm p-2 px-4 my-6 outline-none border border-slate-200 rounded"
+				className="w-full max-w-sm p-2 px-4 my-6 outline-none border border-border rounded"
 				required
 			>
 				<option value="">{t("store.selectCategory")}</option>
@@ -397,7 +397,7 @@ export default function StoreAddProduct() {
 					});
 				}}
 				value={productInfo.groupId}
-				className="w-full max-w-sm p-2 px-4 my-2 outline-none border border-slate-200 rounded"
+				className="w-full max-w-sm p-2 px-4 my-2 outline-none border border-border rounded"
 			>
 				<option value="">{t("store.selectGroup")}</option>
 				{groups.map((group) => (
@@ -409,7 +409,7 @@ export default function StoreAddProduct() {
 			<br />
 			<button
 				disabled={loading}
-				className="bg-[#1A1A1A] text-white px-6 mt-7 py-2 hover:bg-orange-600 rounded transition"
+				className="bg-accent text-accent-foreground px-6 mt-7 py-2 hover:brightness-95 rounded transition"
 			>
 				{t("store.addProductButton")}
 			</button>

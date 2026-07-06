@@ -42,14 +42,14 @@ export default function AdminAuditLogs() {
 	if (loading) return <Loading />;
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.auditLogs")}{" "}
-				<span className="text-slate-800 font-medium">{t("admin.management")}</span>
+				<span className="text-foreground font-medium">{t("admin.management")}</span>
 			</h1>
 			<div className="mt-5 max-w-6xl grid gap-3 md:grid-cols-[1fr_220px_180px]">
 				<input
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					placeholder={t("admin.searchAuditLogs")}
 					value={query}
 					onChange={(event) => {
@@ -58,7 +58,7 @@ export default function AdminAuditLogs() {
 					}}
 				/>
 				<input
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					placeholder={t("admin.auditActionPlaceholder")}
 					value={action}
 					onChange={(event) => {
@@ -67,7 +67,7 @@ export default function AdminAuditLogs() {
 					}}
 				/>
 				<select
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					value={targetType}
 					onChange={(event) => {
 						setTargetType(event.target.value);
@@ -82,9 +82,9 @@ export default function AdminAuditLogs() {
 					))}
 				</select>
 			</div>
-			<div className="overflow-x-auto mt-5 rounded-lg border border-slate-200 max-w-6xl">
-				<table className="min-w-full bg-white text-sm">
-					<thead className="bg-slate-50 text-slate-600">
+			<div className="overflow-x-auto mt-5 rounded-lg border border-border max-w-6xl">
+				<table className="min-w-full bg-frame text-sm">
+					<thead className="bg-muted text-muted-foreground">
 						<tr>
 							<th className="py-3 px-4 text-left">{t("admin.date")}</th>
 							<th className="py-3 px-4 text-left">{t("admin.actor")}</th>
@@ -93,22 +93,22 @@ export default function AdminAuditLogs() {
 							<th className="py-3 px-4 text-left">{t("admin.summary")}</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-slate-200">
+					<tbody className="divide-y divide-border">
 						{logs.map((log) => (
 							<tr key={log.id}>
 								<td className="py-3 px-4 whitespace-nowrap">
 									{new Date(log.createdAt).toLocaleString()}
 								</td>
 								<td className="py-3 px-4">
-									<p className="text-slate-700">{log.actor?.name || "-"}</p>
-									<p className="text-xs text-slate-400">{log.actor?.email || "-"}</p>
+									<p className="text-foreground">{log.actor?.name || "-"}</p>
+									<p className="text-xs text-muted-foreground">{log.actor?.email || "-"}</p>
 								</td>
-								<td className="py-3 px-4 font-medium text-slate-700">{log.action}</td>
+								<td className="py-3 px-4 font-medium text-foreground">{log.action}</td>
 								<td className="py-3 px-4">
 									<p>{log.targetType}</p>
-									<p className="text-xs text-slate-400">{log.targetId}</p>
+									<p className="text-xs text-muted-foreground">{log.targetId}</p>
 								</td>
-								<td className="py-3 px-4 text-slate-700">{log.summary}</td>
+								<td className="py-3 px-4 text-foreground">{log.summary}</td>
 							</tr>
 						))}
 						{logs.length === 0 && (
@@ -122,7 +122,7 @@ export default function AdminAuditLogs() {
 				</table>
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -135,7 +135,7 @@ export default function AdminAuditLogs() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -143,7 +143,7 @@ export default function AdminAuditLogs() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

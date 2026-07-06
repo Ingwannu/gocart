@@ -26,13 +26,13 @@ export default function ResetPasswordPage() {
 	};
 
 	return (
-		<div className="min-h-[80vh] flex items-center justify-center bg-white">
+		<div className="min-h-[80vh] flex items-center justify-center bg-background">
 			<div className="w-full max-w-md mx-auto px-6">
 				<div className="text-center mb-8">
-					<h1 className="text-3xl font-semibold text-slate-700">
+					<h1 className="text-3xl font-semibold text-foreground">
 						{t("passwordReset.resetTitle")}
 					</h1>
-					<p className="text-slate-500 mt-3 text-sm">
+					<p className="text-muted-foreground mt-3 text-sm">
 						{t("passwordReset.resetSubtitle")}
 					</p>
 				</div>
@@ -44,30 +44,30 @@ export default function ResetPasswordPage() {
 					}
 					className="space-y-4"
 				>
-					<label className="block text-sm text-slate-600">
+					<label className="block text-sm text-muted-foreground">
 						{t("passwordReset.newPassword")}
 						<input
 							type="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
-							className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							required
 						/>
 					</label>
 					<button
 						disabled={!token}
-						className="w-full bg-[#1A1A1A] text-white py-3 rounded-lg hover:bg-orange-600 active:scale-[0.98] transition font-medium disabled:cursor-not-allowed disabled:opacity-50"
+						className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:brightness-95 active:scale-[0.98] transition font-medium disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						{t("passwordReset.updatePassword")}
 					</button>
 				</form>
 				{!token && (
-					<p className="mt-4 rounded-lg bg-red-50 p-3 text-center text-sm text-red-600">
+					<p className="mt-4 rounded-lg bg-danger-soft p-3 text-center text-sm text-danger">
 						{t("passwordReset.missingToken")}
 					</p>
 				)}
-				<p className="mt-5 text-center text-sm text-slate-500">
-					<Link href="/login" className="text-orange-600">
+				<p className="mt-5 text-center text-sm text-muted-foreground">
+					<Link href="/login" className="text-foreground font-medium underline">
 						{t("common.login")}
 					</Link>
 				</p>

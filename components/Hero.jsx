@@ -1,48 +1,62 @@
 "use client";
 import {
-	ArrowRightIcon,
+	ArrowDownRight,
 	BotIcon,
 	CheckCircle2Icon,
 	Code2Icon,
-	DownloadCloudIcon,
 	Globe2Icon,
 	PackageCheckIcon,
 	PlugZapIcon,
-	ServerIcon,
 	ShieldCheckIcon,
 	TerminalIcon,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useRef } from "react";
 import CategoriesMarquee from "./CategoriesMarquee";
-import { useCurrencySymbol } from "@/components/PublicSettingsProvider";
 import { useTranslation } from "@/lib/i18n/LanguageContext";
+
+// Hero ported from the saas template: parallax background, blur-in staggered
+// headline with an italic serif accent word, arrow CTA, and a masked preview
+// panel (the shop's always-dark console mock stands in for the dashboard
+// screenshot).
+const ease = [0.23, 1, 0.32, 1];
+
+const fadeInUp = {
+	hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+	visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+};
+
+const fadeInScale = {
+	hidden: { opacity: 0, scale: 0.95, filter: "blur(8px)" },
+	visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
+};
+
+const PARALLAX_INTENSITY = 20;
 
 const Hero = () => {
 	const { t } = useTranslation();
-	const currency = useCurrencySymbol();
-	const startingPrice = `${currency}4.90`;
+	const sectionRef = useRef(null);
 
-	const assetTypes = [
-		{
-			icon: PlugZapIcon,
-			title: t("hero.pluginCardTitle"),
-			description: t("hero.pluginCardDesc"),
-			className: "border-green-200 bg-green-50 text-green-700",
-		},
-		{
-			icon: Globe2Icon,
-			title: t("hero.websiteCardTitle"),
-			description: t("hero.websiteCardDesc"),
-			className: "border-orange-200 bg-orange-50 text-orange-700",
-		},
-		{
-			icon: BotIcon,
-			title: t("hero.botCardTitle"),
-			description: t("hero.botCardDesc"),
-			className: "border-slate-700 bg-slate-900 text-white",
-		},
-	];
+	const mouseX = useMotionValue(0);
+	const mouseY = useMotionValue(0);
+	const springConfig = { damping: 25, stiffness: 150 };
+	const x = useSpring(mouseX, springConfig);
+	const y = useSpring(mouseY, springConfig);
+
+	const handleMouseMove = (e) => {
+		if (!sectionRef.current || window.innerWidth < 850) return;
+		const rect = sectionRef.current.getBoundingClientRect();
+		const centerX = rect.left + rect.width / 2;
+		const centerY = rect.top + rect.height / 2;
+		mouseX.set(((e.clientX - centerX) / (rect.width / 2)) * PARALLAX_INTENSITY);
+		mouseY.set(((e.clientY - centerY) / (rect.height / 2)) * PARALLAX_INTENSITY);
+	};
+
+	const handleMouseLeave = () => {
+		mouseX.set(0);
+		mouseY.set(0);
+	};
 
 	const trustItems = [
 		t("hero.privateDelivery"),
@@ -50,134 +64,221 @@ const Hero = () => {
 		t("hero.sellerSupport"),
 	];
 
-	return (
-		<section className="mx-6">
-			<div className="max-w-7xl mx-auto my-8 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-				<div className="grid xl:grid-cols-[1.04fr_0.96fr]">
-					<div className="relative p-6 sm:p-10 lg:p-14">
-						<div className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,rgba(34,197,94,0.08)_1px,transparent_1px),linear-gradient(0deg,rgba(15,23,42,0.05)_1px,transparent_1px)] bg-[size:42px_42px]" />
-						<div className="relative">
-							<div className="mb-6 flex flex-wrap items-center gap-3 text-xs font-medium text-slate-600">
-								<span className="inline-flex items-center gap-2 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-green-700">
-									<ServerIcon size={15} />
-									{t("hero.newsText")}
-								</span>
-								<span className="inline-flex items-center gap-2 rounded-md border border-orange-200 bg-orange-50 px-3 py-2 text-orange-700">
-									<DownloadCloudIcon size={15} />
-									{t("hero.startsFrom", { price: startingPrice })}
-								</span>
-							</div>
-							<h1 className="max-w-3xl text-4xl font-semibold leading-[1.05] text-slate-950 sm:text-5xl lg:text-6xl">
-								{t("hero.headline")}
-							</h1>
-							<p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-								{t("hero.subheadline")}
-							</p>
-							<div className="mt-8 flex flex-col gap-3 sm:flex-row">
-								<Link
-									href="/shop"
-									className="inline-flex items-center justify-center gap-2 rounded-md bg-slate-950 px-6 py-3 text-sm font-medium text-white transition hover:bg-green-700"
-								>
-									{t("hero.primaryCta")}
-									<ArrowRightIcon size={17} />
-								</Link>
-								<Link
-									href="/stores"
-									className="inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-800 transition hover:border-orange-300 hover:text-orange-700"
-								>
-									{t("hero.secondaryCta")}
-								</Link>
-							</div>
-							<div className="mt-9 grid gap-3 sm:grid-cols-3">
-								{trustItems.map((item) => (
-									<div
-										key={item}
-										className="flex items-start gap-2 rounded-md border border-slate-200 bg-white/85 p-3 text-sm text-slate-700 shadow-sm"
-									>
-										<CheckCircle2Icon
-											size={16}
-											className="mt-0.5 shrink-0 text-green-600"
-										/>
-										<span>{item}</span>
-									</div>
-								))}
-							</div>
-						</div>
-					</div>
+	const assetTypes = [
+		{
+			icon: PlugZapIcon,
+			title: t("hero.pluginCardTitle"),
+			description: t("hero.pluginCardDesc"),
+		},
+		{
+			icon: Globe2Icon,
+			title: t("hero.websiteCardTitle"),
+			description: t("hero.websiteCardDesc"),
+		},
+		{
+			icon: BotIcon,
+			title: t("hero.botCardTitle"),
+			description: t("hero.botCardDesc"),
+		},
+	];
 
-					<div className="border-t border-slate-200 bg-slate-950 p-5 text-white sm:p-8 xl:border-l xl:border-t-0">
-						<div className="rounded-lg border border-white/10 bg-[#07120D] p-4 shadow-2xl shadow-black/30">
-							<div className="flex items-center justify-between border-b border-white/10 pb-4">
-								<div className="flex items-center gap-2 text-sm font-medium">
-									<TerminalIcon size={17} className="text-green-400" />
-									{t("hero.consoleTitle")}
+	const infoCards = [
+		{
+			icon: PackageCheckIcon,
+			iconClass: "text-accent",
+			title: t("hero.bestProducts"),
+			description: t("hero.bestProductsDesc"),
+		},
+		{
+			icon: Code2Icon,
+			iconClass: "text-green-300",
+			title: t("hero.discounts"),
+			description: t("hero.discountsDesc"),
+		},
+		{
+			icon: ShieldCheckIcon,
+			iconClass: "text-sky-300",
+			title: t("hero.secureDelivery"),
+			description: t("hero.secureDeliveryDesc"),
+		},
+	];
+
+	return (
+		<section
+			ref={sectionRef}
+			className="relative flex flex-col overflow-hidden"
+			onMouseMove={handleMouseMove}
+			onMouseLeave={handleMouseLeave}
+		>
+			{/* Parallax background wash */}
+			<motion.div
+				className="absolute inset-0 -z-10 rounded-b-4xl min-[850px]:inset-2.5 min-[850px]:scale-105"
+				style={{
+					backgroundImage:
+						"radial-gradient(60% 55% at 50% 0%, var(--accent-soft) 0%, transparent 75%), radial-gradient(35% 35% at 82% 18%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 70%), radial-gradient(30% 30% at 15% 30%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 70%)",
+					x,
+					y,
+				}}
+				aria-hidden="true"
+			/>
+
+			<div className="flex items-start justify-center px-6 pt-24 max-[850px]:pt-12">
+				<motion.div
+					className="flex max-w-4xl flex-col items-center text-center max-[850px]:w-full max-[850px]:items-start max-[850px]:text-left"
+					initial="hidden"
+					animate="visible"
+					transition={{ staggerChildren: 0.15, delayChildren: 0.2 }}
+				>
+					<motion.div
+						className="mb-6 inline-flex items-center gap-1.5 rounded-xl border border-border bg-frame py-1.5 pl-4 pr-3 text-sm font-medium text-foreground"
+						variants={fadeInUp}
+						transition={{ duration: 0.8, ease }}
+					>
+						{t("hero.newsText")}
+						<span className="text-accent">✦</span>
+					</motion.div>
+
+					<h1 className="mb-6 text-7xl font-medium leading-[1.1] tracking-tight text-foreground max-[850px]:text-4xl">
+						<motion.span
+							className="block"
+							variants={fadeInUp}
+							transition={{ duration: 0.8, ease }}
+						>
+							{t("hero.line1")}
+						</motion.span>
+						<motion.span
+							className="block"
+							variants={fadeInUp}
+							transition={{ duration: 0.8, ease }}
+						>
+							{t("hero.line2")}{" "}
+							<span className="font-serif italic text-accent">
+								{t("hero.accentWord")}
+							</span>
+						</motion.span>
+					</h1>
+
+					<motion.p
+						className="mb-8 max-w-2xl text-lg text-muted-foreground"
+						variants={fadeInUp}
+						transition={{ duration: 0.8, ease }}
+					>
+						{t("hero.subheadline")}
+					</motion.p>
+
+					<motion.div
+						className="flex items-center gap-5 max-[850px]:w-full max-[850px]:flex-col max-[850px]:items-stretch"
+						variants={fadeInScale}
+						transition={{ duration: 0.8, ease }}
+					>
+						<Link href="/shop" className="group relative inline-flex items-center max-[850px]:w-full">
+							<span className="absolute inset-y-0 right-0 w-[calc(100%-2rem)] rounded-xl bg-accent max-[850px]:w-full" />
+							<span className="relative z-10 rounded-xl bg-foreground px-6 py-3 font-medium text-background max-[850px]:flex-1">
+								{t("hero.primaryCta")}
+							</span>
+							<span className="relative -left-px z-10 flex h-11 w-11 items-center justify-center rounded-xl text-accent-foreground">
+								<ArrowDownRight className="h-5 w-5 transition-transform duration-300 group-hover:-rotate-45" />
+							</span>
+						</Link>
+						<Link
+							href="/stores"
+							className="rounded-xl px-4 py-3 text-sm font-medium text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground max-[850px]:text-center"
+						>
+							{t("hero.secondaryCta")}
+						</Link>
+					</motion.div>
+
+					<motion.div
+						className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground max-[850px]:justify-start"
+						variants={fadeInUp}
+						transition={{ duration: 0.8, ease }}
+					>
+						{trustItems.map((item) => (
+							<span key={item} className="inline-flex items-center gap-1.5">
+								<CheckCircle2Icon size={15} className="text-success" />
+								{item}
+							</span>
+						))}
+					</motion.div>
+				</motion.div>
+			</div>
+
+			{/* Masked preview panel (stands in for the saas dashboard screenshot) */}
+			<motion.div
+				className="relative mt-20 px-6 max-[850px]:mt-10"
+				initial={{ opacity: 0, y: 40 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1, delay: 0.6, ease }}
+			>
+				<div className="relative mx-auto max-w-5xl">
+					<div className="relative overflow-hidden rounded-2xl border border-border shadow-2xl/5 mask-[linear-gradient(to_bottom,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]">
+						<div className="bg-slate-950 p-6 text-white sm:p-8">
+							<div className="rounded-lg border border-white/10 bg-[#07120D] p-4 shadow-2xl shadow-black/30">
+								<div className="flex items-center justify-between border-b border-white/10 pb-4">
+									<div className="flex items-center gap-2 text-sm font-medium">
+										<TerminalIcon size={17} className="text-green-400" />
+										{t("hero.consoleTitle")}
+									</div>
+									<span className="rounded-md bg-green-500/15 px-2 py-1 text-xs text-green-300">
+										{t("hero.consoleStatus")}
+									</span>
 								</div>
-								<span className="rounded-md bg-green-500/15 px-2 py-1 text-xs text-green-300">
-									{t("hero.consoleStatus")}
-								</span>
+								<div className="mt-4 rounded-md bg-black/40 p-4 font-mono text-xs leading-6 text-slate-300">
+									<p>
+										<span className="text-green-400">$</span>{" "}
+										{t("hero.consoleLineOne")}
+									</p>
+									<p>
+										<span className="text-accent">include</span>{" "}
+										{t("hero.consoleLineTwo")}
+									</p>
+									<p>
+										<span className="text-green-400">ready</span>{" "}
+										{t("hero.consoleLineThree")}
+									</p>
+								</div>
+								<div className="mt-4 grid gap-3 sm:grid-cols-3">
+									{assetTypes.map((item) => (
+										<div
+											key={item.title}
+											className="rounded-md border border-white/10 bg-white/5 p-4"
+										>
+											<item.icon size={22} className="text-accent" />
+											<p className="mt-3 text-sm font-semibold">{item.title}</p>
+											<p className="mt-1 text-xs leading-5 opacity-80">
+												{item.description}
+											</p>
+										</div>
+									))}
+								</div>
 							</div>
-							<div className="mt-4 rounded-md bg-black/40 p-4 font-mono text-xs leading-6 text-slate-300">
-								<p>
-									<span className="text-green-400">$</span>{" "}
-									{t("hero.consoleLineOne")}
-								</p>
-								<p>
-									<span className="text-orange-300">include</span>{" "}
-									{t("hero.consoleLineTwo")}
-								</p>
-								<p>
-									<span className="text-green-400">ready</span>{" "}
-									{t("hero.consoleLineThree")}
-								</p>
-							</div>
-							<div className="mt-4 grid gap-3 sm:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
-								{assetTypes.map((item) => (
+							<div className="mt-4 grid gap-3 sm:grid-cols-3">
+								{infoCards.map((item) => (
 									<div
 										key={item.title}
-										className={`rounded-md border p-4 ${item.className}`}
+										className="rounded-md border border-white/10 bg-white/5 p-4"
 									>
-										<item.icon size={22} />
-										<p className="mt-3 text-sm font-semibold">{item.title}</p>
-										<p className="mt-1 text-xs leading-5 opacity-80">
+										<item.icon size={18} className={item.iconClass} />
+										<p className="mt-2 text-sm font-medium">{item.title}</p>
+										<p className="mt-1 text-xs text-slate-400">
 											{item.description}
 										</p>
 									</div>
 								))}
 							</div>
 						</div>
-						<div className="mt-4 grid gap-3 sm:grid-cols-3">
-							<div className="rounded-md border border-white/10 bg-white/5 p-4">
-								<PackageCheckIcon size={18} className="text-orange-300" />
-								<p className="mt-2 text-sm font-medium">
-									{t("hero.bestProducts")}
-								</p>
-								<p className="mt-1 text-xs text-slate-400">
-									{t("hero.bestProductsDesc")}
-								</p>
-							</div>
-							<div className="rounded-md border border-white/10 bg-white/5 p-4">
-								<Code2Icon size={18} className="text-green-300" />
-								<p className="mt-2 text-sm font-medium">
-									{t("hero.discounts")}
-								</p>
-								<p className="mt-1 text-xs text-slate-400">
-									{t("hero.discountsDesc")}
-								</p>
-							</div>
-							<div className="rounded-md border border-white/10 bg-white/5 p-4">
-								<ShieldCheckIcon size={18} className="text-sky-300" />
-								<p className="mt-2 text-sm font-medium">
-									{t("hero.secureDelivery")}
-								</p>
-								<p className="mt-1 text-xs text-slate-400">
-									{t("hero.secureDeliveryDesc")}
-								</p>
-							</div>
-						</div>
 					</div>
 				</div>
-			</div>
-			<CategoriesMarquee />
+			</motion.div>
+
+			<motion.div
+				className="pb-6 pt-10"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.8, delay: 1, ease }}
+			>
+				<CategoriesMarquee />
+			</motion.div>
 		</section>
 	);
 };

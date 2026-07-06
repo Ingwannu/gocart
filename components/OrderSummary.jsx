@@ -86,11 +86,11 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 	}, [dispatch]);
 
 	return (
-		<div className="w-full max-w-lg lg:max-w-[340px] bg-slate-50/30 border border-slate-200 text-slate-500 text-sm rounded-xl p-7">
-			<h2 className="text-xl font-medium text-slate-600">
+		<div className="w-full max-w-lg lg:max-w-[340px] bg-muted/30 border border-border text-muted-foreground text-sm rounded-xl p-7">
+			<h2 className="text-xl font-medium text-foreground">
 				{t("orderSummary.paymentSummary")}
 			</h2>
-			<p className="text-slate-400 text-xs my-4">
+			<p className="text-muted-foreground text-xs my-4">
 				{t("orderSummary.paymentMethod")}
 			</p>
 			<div className="flex gap-2 items-center">
@@ -122,7 +122,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 				</div>
 			)}
 			{requiresShippingAddress ? (
-				<div className="my-4 py-4 border-y border-slate-200 text-slate-400">
+				<div className="my-4 py-4 border-y border-border text-muted-foreground">
 					<p>{t("orderSummary.address")}</p>
 					{selectedAddress ? (
 						<div className="flex gap-2 items-center">
@@ -144,7 +144,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 										loading: t("addressModal.deletingAddress"),
 									})
 								}
-								className="cursor-pointer text-red-500 hover:text-red-700"
+								className="cursor-pointer text-danger hover:text-danger/80"
 								size={18}
 							/>
 							<XIcon
@@ -157,7 +157,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 						<div>
 							{addressList.length > 0 && (
 								<select
-									className="border border-slate-400 p-2 w-full my-3 outline-none rounded"
+									className="border border-border p-2 w-full my-3 outline-none rounded"
 									onChange={(e) =>
 										setSelectedAddress(addressList[e.target.value])
 									}
@@ -172,7 +172,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 								</select>
 							)}
 							<button
-								className="flex items-center gap-1 text-slate-600 mt-1"
+								className="flex items-center gap-1 text-foreground mt-1"
 								onClick={() => {
 									setEditingAddress(null);
 									setShowAddressModal(true);
@@ -184,14 +184,14 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 					)}
 				</div>
 			) : (
-				<div className="my-4 rounded border border-green-200 bg-green-50 p-3 text-green-700">
+				<div className="my-4 rounded border border-success/30 bg-success-soft p-3 text-success">
 					<p className="font-medium">{t("orderSummary.onlineDelivery")}</p>
 					<p className="text-xs">{t("orderSummary.digitalDeliveryNote")}</p>
 				</div>
 			)}
-			<div className="pb-4 border-b border-slate-200">
+			<div className="pb-4 border-b border-border">
 				<div className="flex justify-between">
-					<div className="flex flex-col gap-1 text-slate-400">
+					<div className="flex flex-col gap-1 text-muted-foreground">
 						<p>{t("orderSummary.subtotal")}</p>
 						<p>{t("orderSummary.shipping")}</p>
 						{coupon && <p>{t("orderSummary.coupon")}</p>}
@@ -221,9 +221,9 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 							value={couponCodeInput}
 							type="text"
 							placeholder={t("orderSummary.couponCode")}
-							className="border border-slate-400 p-1.5 rounded w-full outline-none"
+							className="border border-border p-1.5 rounded w-full outline-none"
 						/>
-						<button className="bg-[#1A1A1A] text-white px-3 rounded hover:bg-orange-600 active:scale-95 transition-all">
+						<button className="bg-accent text-accent-foreground px-3 rounded hover:brightness-95 active:scale-95 transition-all">
 							{t("common.apply")}
 						</button>
 					</form>
@@ -239,7 +239,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 						<XIcon
 							size={18}
 							onClick={() => setCoupon("")}
-							className="hover:text-red-700 transition cursor-pointer"
+							className="hover:text-danger transition cursor-pointer"
 						/>
 					</div>
 				)}
@@ -257,7 +257,7 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 				onClick={(e) =>
 					toast.promise(handlePlaceOrder(e), { loading: "placing Order..." })
 				}
-				className="w-full bg-[#1A1A1A] text-white py-2.5 rounded hover:bg-orange-600 active:scale-95 transition-all"
+				className="w-full bg-accent text-accent-foreground py-2.5 rounded hover:brightness-95 active:scale-95 transition-all"
 			>
 				{t("orderSummary.placeOrder")}
 			</button>

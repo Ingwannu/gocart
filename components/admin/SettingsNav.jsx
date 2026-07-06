@@ -22,8 +22,8 @@ export default function SettingsNav() {
 					href={link.href}
 					className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition ${
 						pathname === link.href
-							? "border-orange-300 bg-orange-50 text-orange-700"
-							: "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+							? "border-accent bg-accent-soft text-foreground font-medium"
+							: "border-border bg-frame text-muted-foreground hover:bg-muted"
 					}`}
 				>
 					<link.icon size={16} />

@@ -10,11 +10,55 @@ import { useTranslation } from "@/lib/i18n/LanguageContext";
 import { resolveProductImageSrc } from "@/lib/product-image.mjs";
 
 const statusStyles = {
-	ORDER_PLACED: "text-slate-500 bg-slate-100",
-	PROCESSING: "text-yellow-600 bg-yellow-100",
-	SHIPPED: "text-blue-600 bg-blue-100",
-	DELIVERED: "text-orange-600 bg-orange-100",
-	CANCELLED: "text-red-600 bg-red-100",
+	ORDER_PLACED: "text-muted-foreground bg-muted",
+	PROCESSING: "text-warning bg-warning-soft",
+	SHIPPED: "text-muted-foreground bg-muted",
+	DELIVERED: "text-success bg-success-soft",
+	CANCELLED: "text-danger bg-danger-soft",
+};
+
+const LicenseKeyBadge = ({ license }) => {
+	const { t } = useTranslation();
+	const [copied, setCopied] = useState(false);
+	if (!license) return null;
+	const isRevoked = license.status !== "ACTIVE" || license.revokedAt;
+
+	const copyKey = async () => {
+		try {
+			await navigator.clipboard.writeText(license.key);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 1500);
+		} catch {
+			// Clipboard may be unavailable (http, older browsers); the key is
+			// visible as text so the buyer can still select it manually.
+		}
+	};
+
+	return (
+		<div className="mt-1 flex flex-wrap items-center gap-1 text-xs">
+			<span className="text-muted-foreground">{t("ordersPage.licenseKey")}:</span>
+			<code
+				className={`rounded border px-1.5 py-0.5 font-mono ${
+					isRevoked
+						? "border-danger/30 bg-danger-soft text-danger line-through"
+						: "border-border bg-muted text-foreground"
+				}`}
+			>
+				{license.key}
+			</code>
+			{isRevoked ? (
+				<span className="text-danger">{t("ordersPage.licenseRevoked")}</span>
+			) : (
+				<button
+					type="button"
+					onClick={copyKey}
+					className="rounded border border-border px-1.5 py-0.5 text-muted-foreground hover:bg-muted"
+				>
+					{copied ? t("ordersPage.licenseCopied") : t("ordersPage.licenseCopy")}
+				</button>
+			)}
+		</div>
+	);
 };
 
 const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
@@ -35,7 +79,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 					<div className="flex flex-col gap-6">
 						{order.orderItems.map((item, index) => (
 							<div key={index} className="flex items-center gap-4">
-								<div className="w-20 aspect-square bg-slate-100 flex items-center justify-center rounded-md">
+								<div className="w-20 aspect-square bg-muted flex items-center justify-center rounded-md">
 									<Image
 										className="h-14 w-auto"
 										src={resolveProductImageSrc(item.product.images?.[0])}
@@ -45,7 +89,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 									/>
 								</div>
 								<div className="flex flex-col justify-center text-sm">
-									<p className="font-medium text-slate-600 text-base">
+									<p className="font-medium text-foreground text-base">
 										{item.product.name}
 									</p>
 									<p>
@@ -60,15 +104,20 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 											{canDownloadDigital ? (
 												<a
 													href={`/api/orders/${order.id}/downloads/${item.product.id}`}
-													className="inline-flex rounded border border-green-200 px-2 py-1 text-xs text-green-700 hover:bg-green-50"
+													className="inline-flex rounded border border-success/30 px-2 py-1 text-xs text-success hover:bg-success-soft"
 												>
 													{t("ordersPage.downloadDigitalProduct")}
 												</a>
 											) : (
-												<span className="text-xs text-slate-400">
+												<span className="text-xs text-muted-foreground">
 													{t("ordersPage.downloadAvailableAfterPayment")}
 												</span>
 											)}
+											<LicenseKeyBadge
+												license={order.licenseKeys?.find(
+													(license) => license.productId === item.product.id,
+												)}
+											/>
 										</div>
 									)}
 									<div>
@@ -94,7 +143,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 														productId: item.product.id,
 													})
 												}
-												className={`text-orange-500 hover:bg-orange-50 transition ${order.status !== "DELIVERED" && "hidden"}`}
+												className={`text-foreground font-medium hover:bg-accent-soft transition ${order.status !== "DELIVERED" && "hidden"}`}
 											>
 												{t("ordersPage.rateProduct")}
 											</button>
@@ -128,7 +177,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 							<p>{address.phone}</p>
 						</>
 					) : (
-						<p className="text-green-700">{t("ordersPage.onlineDelivery")}</p>
+						<p className="text-success">{t("ordersPage.onlineDelivery")}</p>
 					)}
 				</td>
 				<td className="text-left space-y-2 text-sm max-md:hidden">
@@ -140,7 +189,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 						<button
 							type="button"
 							onClick={() => onCancel?.(order.id)}
-							className="w-full rounded border border-red-200 px-3 py-1.5 text-xs text-red-600 hover:bg-red-50"
+							className="w-full rounded border border-danger/30 px-3 py-1.5 text-xs text-danger hover:bg-danger-soft"
 						>
 							{t("ordersPage.cancelOrder")}
 						</button>
@@ -148,7 +197,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 					<button
 						type="button"
 						onClick={() => onDownloadReceipt?.(order.id)}
-						className="w-full rounded border border-slate-200 px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50"
+						className="w-full rounded border border-border px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted"
 					>
 						{t("ordersPage.downloadReceipt")}
 					</button>
@@ -156,22 +205,22 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 						<button
 							type="button"
 							onClick={() => onReturnRequest?.(order.id)}
-							className="w-full rounded border border-orange-200 px-3 py-1.5 text-xs text-orange-600 hover:bg-orange-50"
+							className="w-full rounded border border-accent/30 px-3 py-1.5 text-xs text-foreground hover:bg-accent-soft"
 						>
 							{t("ordersPage.requestReturn")}
 						</button>
 					)}
 					{order.returnRequest && (
-						<div className="rounded border border-slate-200 bg-white p-2 text-xs text-slate-500">
-							<p className="font-medium text-slate-700">
+						<div className="rounded border border-border bg-frame p-2 text-xs text-muted-foreground">
+							<p className="font-medium text-foreground">
 								{t("ordersPage.returnRequest")}
 							</p>
 							<p>{order.returnRequest.status}</p>
 						</div>
 					)}
 					{hasTracking && (
-						<div className="rounded border border-slate-200 bg-white p-2 text-xs text-slate-500">
-							<p className="font-medium text-slate-700">
+						<div className="rounded border border-border bg-frame p-2 text-xs text-muted-foreground">
+							<p className="font-medium text-foreground">
 								{t("ordersPage.tracking")}
 							</p>
 							<p>
@@ -184,7 +233,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 									href={order.trackingUrl}
 									target="_blank"
 									rel="noreferrer"
-									className="text-orange-600"
+									className="text-foreground underline"
 								>
 									{t("ordersPage.trackPackage")}
 								</a>
@@ -207,7 +256,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 							<p>{address.phone}</p>
 						</>
 					) : (
-						<p className="text-green-700">{t("ordersPage.onlineDelivery")}</p>
+						<p className="text-success">{t("ordersPage.onlineDelivery")}</p>
 					)}
 					<br />
 					<div className="flex items-center">
@@ -219,7 +268,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 						<button
 							type="button"
 							onClick={() => onCancel?.(order.id)}
-							className="mt-3 w-full rounded border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+							className="mt-3 w-full rounded border border-danger/30 px-3 py-2 text-sm text-danger hover:bg-danger-soft"
 						>
 							{t("ordersPage.cancelOrder")}
 						</button>
@@ -227,7 +276,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 					<button
 						type="button"
 						onClick={() => onDownloadReceipt?.(order.id)}
-						className="mt-3 w-full rounded border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50"
+						className="mt-3 w-full rounded border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted"
 					>
 						{t("ordersPage.downloadReceipt")}
 					</button>
@@ -235,22 +284,22 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 						<button
 							type="button"
 							onClick={() => onReturnRequest?.(order.id)}
-							className="mt-3 w-full rounded border border-orange-200 px-3 py-2 text-sm text-orange-600 hover:bg-orange-50"
+							className="mt-3 w-full rounded border border-accent/30 px-3 py-2 text-sm text-foreground hover:bg-accent-soft"
 						>
 							{t("ordersPage.requestReturn")}
 						</button>
 					)}
 					{order.returnRequest && (
-						<div className="mt-3 rounded border border-slate-200 p-3 text-sm">
-							<p className="font-medium text-slate-700">
+						<div className="mt-3 rounded border border-border p-3 text-sm">
+							<p className="font-medium text-foreground">
 								{t("ordersPage.returnRequest")}
 							</p>
 							<p>{order.returnRequest.status}</p>
 						</div>
 					)}
 					{hasTracking && (
-						<div className="mt-3 rounded border border-slate-200 p-3 text-sm">
-							<p className="font-medium text-slate-700">
+						<div className="mt-3 rounded border border-border p-3 text-sm">
+							<p className="font-medium text-foreground">
 								{t("ordersPage.tracking")}
 							</p>
 							<p>
@@ -263,7 +312,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 									href={order.trackingUrl}
 									target="_blank"
 									rel="noreferrer"
-									className="text-orange-600"
+									className="text-foreground underline"
 								>
 									{t("ordersPage.trackPackage")}
 								</a>
@@ -274,7 +323,7 @@ const OrderItem = ({ order, onCancel, onReturnRequest, onDownloadReceipt }) => {
 			</tr>
 			<tr>
 				<td colSpan={4}>
-					<div className="border-b border-slate-300 w-6/7 mx-auto" />
+					<div className="border-b border-border w-6/7 mx-auto" />
 				</td>
 			</tr>
 		</>

@@ -22,23 +22,23 @@ const StoreInfo = ({ store }) => {
 				className="max-w-20 max-h-20 object-contain shadow rounded-full max-sm:mx-auto"
 			/>
 			<div className="flex flex-col sm:flex-row gap-3 items-center">
-				<h3 className="text-xl font-semibold text-slate-800"> {store.name} </h3>
+				<h3 className="text-xl font-semibold text-foreground"> {store.name} </h3>
 				<span className="text-sm">@{store.username}</span>
 
 				<span
 					className={`text-xs font-semibold px-4 py-1 rounded-full ${
 						store.status === "pending"
-							? "bg-yellow-100 text-yellow-800"
+							? "bg-warning-soft text-warning"
 							: store.status === "rejected"
-								? "bg-red-100 text-red-800"
-								: "bg-green-100 text-green-800"
+								? "bg-danger-soft text-danger"
+								: "bg-success-soft text-success"
 					}`}
 				>
 					{formatStoreStatus(t, store.status)}
 				</span>
 			</div>
 
-			<p className="text-slate-600 my-5 max-w-2xl">{store.description}</p>
+			<p className="text-muted-foreground my-5 max-w-2xl">{store.description}</p>
 			<p className="flex items-center gap-2">
 				<MapPin size={16} /> {store.address}
 			</p>
@@ -48,7 +48,7 @@ const StoreInfo = ({ store }) => {
 			<p className="flex items-center gap-2">
 				<Mail size={16} /> {store.email}
 			</p>
-			<p className="text-slate-700 mt-5">
+			<p className="text-foreground mt-5">
 				{t("admin.appliedOn", {
 					date: new Date(store.createdAt).toLocaleDateString(),
 				})}
@@ -62,8 +62,8 @@ const StoreInfo = ({ store }) => {
 					className="w-9 h-9 rounded-full"
 				/>
 				<div>
-					<p className="text-slate-600 font-medium">{store.user?.name}</p>
-					<p className="text-slate-400">{store.user?.email}</p>
+					<p className="text-muted-foreground font-medium">{store.user?.name}</p>
+					<p className="text-muted-foreground">{store.user?.email}</p>
 				</div>
 			</div>
 		</div>

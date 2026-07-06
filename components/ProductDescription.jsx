@@ -60,11 +60,11 @@ const ProductDescription = ({ product }) => {
 	};
 
 	return (
-		<div className="my-18 text-sm text-slate-600">
-			<div className="flex border-b border-slate-200 mb-6 max-w-2xl">
+		<div className="my-18 text-sm text-muted-foreground">
+			<div className="flex border-b border-border mb-6 max-w-2xl">
 				{["Description", "Reviews", "Questions"].map((tab, index) => (
 					<button
-						className={`${tab === selectedTab ? "border-b-[1.5px] font-semibold" : "text-slate-400"} px-3 py-2 font-medium`}
+						className={`${tab === selectedTab ? "border-b-[1.5px] font-semibold text-foreground" : "text-muted-foreground"} px-3 py-2 font-medium`}
 						key={index}
 						onClick={() => setSelectedTab(tab)}
 					>
@@ -107,7 +107,7 @@ const ProductDescription = ({ product }) => {
 										))}
 								</div>
 								<p className="text-sm max-w-lg my-4">{item.review}</p>
-								<p className="font-medium text-slate-800">{item.user?.name}</p>
+								<p className="font-medium text-foreground">{item.user?.name}</p>
 								<p className="mt-3 font-light">
 									{new Date(item.createdAt).toDateString()}
 								</p>
@@ -126,59 +126,59 @@ const ProductDescription = ({ product }) => {
 								error: (error) => error.message,
 							})
 						}
-						className="rounded-md border border-slate-200 bg-white p-4"
+						className="rounded-md border border-border bg-frame p-4"
 					>
-						<label className="block text-sm font-medium text-slate-700">
+						<label className="block text-sm font-medium text-foreground">
 							{t("product.askQuestion")}
 							<textarea
 								value={questionText}
 								onChange={(event) => setQuestionText(event.target.value)}
 								placeholder={t("product.questionPlaceholder")}
-								className="mt-2 min-h-24 w-full rounded border border-slate-200 p-3 text-sm outline-none focus:border-orange-400"
+								className="mt-2 min-h-24 w-full rounded border border-border p-3 text-sm outline-none focus:border-ring"
 								required
 							/>
 						</label>
 						<button
 							disabled={submittingQuestion}
-							className="mt-3 rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-3 rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{t("product.submitQuestion")}
 						</button>
 					</form>
 					<div className="mt-8 space-y-4">
 						{loadingQuestions ? (
-							<p className="text-slate-400">{t("common.loading")}</p>
+							<p className="text-muted-foreground">{t("common.loading")}</p>
 						) : questions.length ? (
 							questions.map((item) => (
 								<div
 									key={item.id}
-									className="rounded-md border border-slate-200 bg-white p-4"
+									className="rounded-md border border-border bg-frame p-4"
 								>
 									<div className="flex items-center justify-between gap-3">
-										<p className="font-medium text-slate-800">
+										<p className="font-medium text-foreground">
 											{item.user?.name || t("product.customer")}
 										</p>
-										<p className="text-xs text-slate-400">
+										<p className="text-xs text-muted-foreground">
 											{new Date(item.createdAt).toLocaleDateString()}
 										</p>
 									</div>
-									<p className="mt-2 text-slate-600">{item.question}</p>
+									<p className="mt-2 text-muted-foreground">{item.question}</p>
 									{item.answer ? (
-										<div className="mt-4 rounded bg-slate-50 p-3">
-											<p className="text-xs font-medium uppercase text-orange-500">
+										<div className="mt-4 rounded bg-muted p-3">
+											<p className="text-xs font-medium uppercase text-foreground">
 												{t("product.sellerAnswer")}
 											</p>
-											<p className="mt-1 text-slate-700">{item.answer}</p>
+											<p className="mt-1 text-foreground">{item.answer}</p>
 										</div>
 									) : (
-										<p className="mt-3 text-xs text-slate-400">
+										<p className="mt-3 text-xs text-muted-foreground">
 											{t("product.awaitingAnswer")}
 										</p>
 									)}
 								</div>
 							))
 						) : (
-							<p className="text-slate-400">{t("product.noQuestions")}</p>
+							<p className="text-muted-foreground">{t("product.noQuestions")}</p>
 						)}
 					</div>
 				</div>
@@ -187,17 +187,17 @@ const ProductDescription = ({ product }) => {
 				<Image
 					src={product.store?.logo || "/favicon.ico"}
 					alt=""
-					className="size-11 rounded-full ring ring-slate-400"
+					className="size-11 rounded-full ring ring-border"
 					width={100}
 					height={100}
 				/>
 				<div>
-					<p className="font-medium text-slate-600">
+					<p className="font-medium text-foreground">
 						{t("product.productBy", { store: product.store?.name })}
 					</p>
 					<Link
 						href={`/shop/${product.store?.username}`}
-						className="flex items-center gap-1.5 text-orange-500"
+						className="flex items-center gap-1.5 text-foreground font-medium"
 					>
 						{" "}
 						{t("product.viewStore")} <ArrowRight size={14} />

@@ -76,21 +76,21 @@ export default function StoreProfilePage() {
 	if (loading) return <Loading />;
 	if (store?.permissions?.canEditProfile === false) {
 		return (
-			<div className="text-slate-500 mb-28">
+			<div className="text-muted-foreground mb-28">
 				<h1 className="text-2xl">
 					{t("store.profile")}{" "}
-					<span className="text-slate-800 font-medium">
+					<span className="text-foreground font-medium">
 						{t("store.storeInfo")}
 					</span>
 				</h1>
-				<div className="mt-5 max-w-3xl rounded-lg border border-slate-200 bg-white p-8 text-center">
-					<p className="text-lg font-medium text-slate-700">
+				<div className="mt-5 max-w-3xl rounded-lg border border-border bg-frame p-8 text-center">
+					<p className="text-lg font-medium text-foreground">
 						{t("store.notAuthorized")}
 					</p>
 					{store?.username && (
 						<Link
 							href={`/shop/${store.username}`}
-							className="mt-4 inline-flex rounded border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+							className="mt-4 inline-flex rounded border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
 						>
 							{t("store.viewPublicStore")}
 						</Link>
@@ -101,16 +101,16 @@ export default function StoreProfilePage() {
 	}
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<div className="flex flex-wrap items-center justify-between gap-3">
 				<h1 className="text-2xl">
 					{t("store.profile")}{" "}
-					<span className="text-slate-800 font-medium">{t("store.storeInfo")}</span>
+					<span className="text-foreground font-medium">{t("store.storeInfo")}</span>
 				</h1>
 				{store?.username && (
 					<Link
 						href={`/shop/${store.username}`}
-						className="rounded border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+						className="rounded border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
 					>
 						{t("store.viewPublicStore")}
 					</Link>
@@ -122,7 +122,7 @@ export default function StoreProfilePage() {
 						loading: t("store.savingProfile"),
 					})
 				}
-				className="mt-5 max-w-3xl rounded-lg border border-slate-200 bg-white p-5"
+				className="mt-5 max-w-3xl rounded-lg border border-border bg-frame p-5"
 			>
 				<div className="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<Image
@@ -130,19 +130,19 @@ export default function StoreProfilePage() {
 						alt=""
 						width={96}
 						height={96}
-						className="size-24 rounded-md border border-slate-100 object-cover"
+						className="size-24 rounded-md border border-border object-cover"
 					/>
 					<div className="flex-1">
-						<label className="text-sm text-slate-600">
+						<label className="text-sm text-muted-foreground">
 							{t("admin.logoUrl")}
 							<input
-								className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+								className="mt-1 w-full rounded border border-border p-2 text-sm"
 								value={profile.logo}
 								onChange={(event) => updateProfile("logo", event.target.value)}
 								placeholder="/uploads/store-logo.png"
 							/>
 						</label>
-						<label className="mt-2 inline-flex cursor-pointer rounded border border-slate-200 px-3 py-2 text-sm hover:bg-slate-50">
+						<label className="mt-2 inline-flex cursor-pointer rounded border border-border px-3 py-2 text-sm hover:bg-muted">
 							{t("admin.uploadLogo")}
 							<input
 								type="file"
@@ -158,47 +158,47 @@ export default function StoreProfilePage() {
 					</div>
 				</div>
 				<div className="mt-5 grid gap-3 text-sm md:grid-cols-2">
-					<label className="text-slate-600">
+					<label className="text-muted-foreground">
 						{t("createStore.name")}
 						<input
-							className="mt-1 w-full rounded border border-slate-200 p-2"
+							className="mt-1 w-full rounded border border-border p-2"
 							value={profile.name}
 							onChange={(event) => updateProfile("name", event.target.value)}
 							required
 						/>
 					</label>
-					<label className="text-slate-600">
+					<label className="text-muted-foreground">
 						{t("createStore.email")}
 						<input
 							type="email"
-							className="mt-1 w-full rounded border border-slate-200 p-2"
+							className="mt-1 w-full rounded border border-border p-2"
 							value={profile.email}
 							onChange={(event) => updateProfile("email", event.target.value)}
 							required
 						/>
 					</label>
-					<label className="text-slate-600">
+					<label className="text-muted-foreground">
 						{t("createStore.contactNumber")}
 						<input
-							className="mt-1 w-full rounded border border-slate-200 p-2"
+							className="mt-1 w-full rounded border border-border p-2"
 							value={profile.contact}
 							onChange={(event) => updateProfile("contact", event.target.value)}
 							required
 						/>
 					</label>
-					<label className="text-slate-600">
+					<label className="text-muted-foreground">
 						{t("createStore.addressField")}
 						<input
-							className="mt-1 w-full rounded border border-slate-200 p-2"
+							className="mt-1 w-full rounded border border-border p-2"
 							value={profile.address}
 							onChange={(event) => updateProfile("address", event.target.value)}
 							required
 						/>
 					</label>
-					<label className="text-slate-600 md:col-span-2">
+					<label className="text-muted-foreground md:col-span-2">
 						{t("createStore.description")}
 						<textarea
-							className="mt-1 min-h-28 w-full rounded border border-slate-200 p-2"
+							className="mt-1 min-h-28 w-full rounded border border-border p-2"
 							value={profile.description}
 							onChange={(event) =>
 								updateProfile("description", event.target.value)
@@ -208,7 +208,7 @@ export default function StoreProfilePage() {
 				</div>
 				<button
 					disabled={saving}
-					className="mt-5 rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+					className="mt-5 rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 				>
 					{t("common.save")}
 				</button>

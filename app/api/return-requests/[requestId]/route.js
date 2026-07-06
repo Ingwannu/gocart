@@ -10,6 +10,8 @@ import {
 	normalizeAdminReturnRequestPatchPayload,
 	resolveReturnRequestWriteError,
 } from "@/lib/return-request.mjs";
+import { revokeOrderDownloadGrants } from "@/lib/download-grant.mjs";
+import { revokeOrderLicenseKeys } from "@/lib/license-key.mjs";
 
 const returnRequestInclude = {
 	user: true,
@@ -46,6 +48,12 @@ export async function PATCH(request, { params }) {
 				data,
 				include: returnRequestInclude,
 			});
+			// A refunded buyer must not keep working download links or license
+			// keys for the refunded digital goods.
+			if (request.status === "REFUNDED") {
+				await revokeOrderDownloadGrants(request.orderId, tx);
+				await revokeOrderLicenseKeys(request.orderId, tx);
+			}
 			await recordAuditLog(tx, {
 				actorId: admin.id,
 				action: "RETURN_REQUEST_UPDATED",

@@ -7,7 +7,14 @@ import {
 	orderStatuses as allowedOrderStatuses,
 } from "@/lib/order-filters.mjs";
 import prisma from "@/lib/prisma";
-import { ensureOrderDownloadGrants } from "@/lib/download-grant.mjs";
+import {
+	ensureOrderDownloadGrants,
+	revokeOrderDownloadGrants,
+} from "@/lib/download-grant.mjs";
+import {
+	ensureOrderLicenseKeys,
+	revokeOrderLicenseKeys,
+} from "@/lib/license-key.mjs";
 
 const payoutStatuses = ["PENDING", "READY", "PAID", "HOLD"];
 
@@ -156,6 +163,11 @@ export async function PATCH(request, { params }) {
 				...(violatesPaidPayoutInvariant(data)
 					? { payoutStatus: { not: "PAID" } }
 					: {}),
+				// Two concurrent cancels may both pass the transition check above;
+				// guard here so only one restores stock.
+				...(data.status === "CANCELLED"
+					? { status: { not: "CANCELLED" } }
+					: {}),
 			};
 
 			const updateResult = await tx.order.updateMany({
@@ -192,9 +204,14 @@ export async function PATCH(request, { params }) {
 				},
 			});
 
-			// When payment flips to paid, issue download grants for digital items.
-			if (nextOrder.isPaid) {
+			// When payment flips to paid, issue download grants and license keys
+			// for digital items. A cancelled order forfeits both.
+			if (nextOrder.status === "CANCELLED") {
+				await revokeOrderDownloadGrants(orderId, tx);
+				await revokeOrderLicenseKeys(orderId, tx);
+			} else if (nextOrder.isPaid) {
 				await ensureOrderDownloadGrants(nextOrder, tx);
+				await ensureOrderLicenseKeys(nextOrder, tx);
 			}
 
 			if (payoutEvent) {

@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+	STRIPE_CHECKOUT_PAID_EVENT_TYPES,
 	createStripeWebhookSignature,
 	extractStripeCheckoutOrderIds,
+	isPaidStripeCheckoutSession,
 	verifyStripeWebhookSignature,
 } from "../lib/stripe-webhook.mjs";
 
@@ -64,6 +66,39 @@ describe("extractStripeCheckoutOrderIds", () => {
 				metadata: { orderIds: " order_a,order_b,, " },
 			}),
 			["order_a", "order_b"],
+		);
+	});
+});
+
+describe("isPaidStripeCheckoutSession", () => {
+	it("accepts settled and zero-amount sessions", () => {
+		assert.equal(isPaidStripeCheckoutSession({ payment_status: "paid" }), true);
+		assert.equal(
+			isPaidStripeCheckoutSession({ payment_status: "no_payment_required" }),
+			true,
+		);
+	});
+
+	it("rejects unpaid sessions from delayed payment methods", () => {
+		assert.equal(isPaidStripeCheckoutSession({ payment_status: "unpaid" }), false);
+		assert.equal(isPaidStripeCheckoutSession({}), false);
+		assert.equal(isPaidStripeCheckoutSession(null), false);
+	});
+});
+
+describe("STRIPE_CHECKOUT_PAID_EVENT_TYPES", () => {
+	it("covers completed and delayed-settlement success events", () => {
+		assert.equal(
+			STRIPE_CHECKOUT_PAID_EVENT_TYPES.has("checkout.session.completed"),
+			true,
+		);
+		assert.equal(
+			STRIPE_CHECKOUT_PAID_EVENT_TYPES.has("checkout.session.async_payment_succeeded"),
+			true,
+		);
+		assert.equal(
+			STRIPE_CHECKOUT_PAID_EVENT_TYPES.has("checkout.session.async_payment_failed"),
+			false,
 		);
 	});
 });

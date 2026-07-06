@@ -53,6 +53,18 @@ function ShopContent() {
 		router.push(buildShopHref({ search, group: nextGroup, category }));
 	};
 
+	// The default seed mirrors every category as a group, which renders two
+	// identical filter rows. Only surface groups that add something beyond the
+	// category list (curated collections); keep the row while a group filter
+	// is active so it can be cleared.
+	const categoryKeys = new Set(
+		categories.flatMap((item) => [item.slug, item.name].filter(Boolean)),
+	);
+	const distinctGroups = groups.filter(
+		(item) => !categoryKeys.has(item.slug) && !categoryKeys.has(item.name),
+	);
+	const showGroupFilter = distinctGroups.length > 0 || Boolean(group);
+
 	const updateCategory = (nextCategory) => {
 		router.push(buildShopHref({ search, group, category: nextCategory }));
 	};
@@ -67,33 +79,33 @@ function ShopContent() {
 			<div className="max-w-7xl mx-auto">
 				<h1
 					onClick={() => router.push("/shop")}
-					className="text-2xl text-slate-500 my-6 flex items-center gap-2 cursor-pointer"
+					className="text-2xl text-muted-foreground my-6 flex items-center gap-2 cursor-pointer"
 				>
 					{" "}
 					{search && <MoveLeftIcon size={20} />} {t("shopPage.allProducts")}{" "}
-					<span className="text-slate-700 font-medium">{t("common.shop")}</span>
+					<span className="text-foreground font-medium">{t("common.shop")}</span>
 				</h1>
 				<form
 					onSubmit={submitSearch}
-					className="mb-5 grid gap-3 rounded-lg border border-slate-200 bg-white p-4 md:grid-cols-[minmax(220px,1fr)_auto_auto]"
+					className="mb-5 grid gap-3 rounded-lg border border-border bg-frame p-4 md:grid-cols-[minmax(220px,1fr)_auto_auto]"
 				>
 					<input
 						type="search"
 						value={searchInput}
 						onChange={(event) => setSearchInput(event.target.value)}
 						placeholder={t("shopPage.searchProducts")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border bg-frame px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<button
 						type="submit"
-						className="h-10 rounded bg-[#1A1A1A] px-5 text-sm text-white hover:bg-orange-600"
+						className="h-10 rounded bg-accent px-5 text-sm text-accent-foreground hover:brightness-95"
 					>
 						{t("common.search")}
 					</button>
 					<button
 						type="button"
 						onClick={() => router.push(buildShopHref({ group, category }))}
-						className="h-10 rounded border border-slate-200 px-5 text-sm text-slate-700 hover:bg-slate-50"
+						className="h-10 rounded border border-border px-5 text-sm text-foreground hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
@@ -101,7 +113,7 @@ function ShopContent() {
 				<div className="flex flex-wrap gap-2 mb-6">
 					<button
 						onClick={() => updateCategory("")}
-						className={`px-4 py-2 rounded-full border ${!category ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+						className={`px-4 py-2 rounded-full border ${!category ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 					>
 						{t("shopPage.allCategories")}
 					</button>
@@ -109,29 +121,31 @@ function ShopContent() {
 						<button
 							key={item.id}
 							onClick={() => updateCategory(item.name)}
-							className={`px-4 py-2 rounded-full border ${category === item.name ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+							className={`px-4 py-2 rounded-full border ${category === item.name ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 						>
 							{item.name}
 						</button>
 					))}
 				</div>
-				<div className="flex flex-wrap gap-2 mb-6">
-					<button
-						onClick={() => updateGroup("")}
-						className={`px-4 py-2 rounded-full border ${!group ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
-					>
-						{t("shopPage.allGroups")}
-					</button>
-					{groups.map((item) => (
+				{showGroupFilter && (
+					<div className="flex flex-wrap gap-2 mb-6">
 						<button
-							key={item.id}
-							onClick={() => updateGroup(item.slug)}
-							className={`px-4 py-2 rounded-full border ${group === item.slug ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+							onClick={() => updateGroup("")}
+							className={`px-4 py-2 rounded-full border ${!group ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 						>
-							{item.name}
+							{t("shopPage.allGroups")}
 						</button>
-					))}
-				</div>
+						{distinctGroups.map((item) => (
+							<button
+								key={item.id}
+								onClick={() => updateGroup(item.slug)}
+								className={`px-4 py-2 rounded-full border ${group === item.slug ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
+							>
+								{item.name}
+							</button>
+						))}
+					</div>
+				)}
 				{loading && <Loading />}
 				<div className="grid grid-cols-2 sm:flex flex-wrap gap-6 xl:gap-12 mx-auto mb-32">
 					{products.map((product) => (
@@ -139,7 +153,7 @@ function ShopContent() {
 					))}
 				</div>
 				{pagination && pagination.totalPages > 1 && (
-					<div className="-mt-20 mb-28 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-600">
+					<div className="-mt-20 mb-28 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
 						<button
 							type="button"
 							disabled={!pagination.hasPreviousPage}
@@ -153,7 +167,7 @@ function ShopContent() {
 									}),
 								)
 							}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -177,14 +191,14 @@ function ShopContent() {
 									}),
 								)
 							}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>
 					</div>
 				)}
 				{!loading && products.length === 0 && (
-					<div className="h-60 flex items-center justify-center text-slate-400 text-2xl">
+					<div className="h-60 flex items-center justify-center text-muted-foreground text-2xl">
 						{t("shopPage.noProductsFound")}
 					</div>
 				)}

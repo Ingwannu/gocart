@@ -221,15 +221,15 @@ export default function StoreManageProducts() {
 
 	return (
 		<>
-			<h1 className="text-2xl text-slate-500 mb-5">
+			<h1 className="text-2xl text-muted-foreground mb-5">
 				{t("store.manageProducts")}{" "}
-				<span className="text-slate-800 font-medium"></span>
+				<span className="text-foreground font-medium"></span>
 			</h1>
 			<div className="mb-5 max-w-5xl grid md:grid-cols-[1fr_180px_180px_160px] gap-3">
 				<label className="relative">
 					<SearchIcon
 						size={18}
-						className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
 					/>
 					<input
 						value={query}
@@ -238,7 +238,7 @@ export default function StoreManageProducts() {
 							setPage(1);
 						}}
 						placeholder={t("store.searchProducts")}
-						className="w-full pl-10 pr-3 py-2 border border-slate-200 rounded outline-slate-400"
+						className="w-full pl-10 pr-3 py-2 border border-border rounded outline-ring"
 					/>
 				</label>
 				<select
@@ -247,7 +247,7 @@ export default function StoreManageProducts() {
 						setCategoryFilter(event.target.value);
 						setPage(1);
 					}}
-					className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+					className="px-3 py-2 border border-border rounded outline-ring"
 				>
 					<option value="">{t("shopPage.allCategories")}</option>
 					{categories.map((category) => (
@@ -262,7 +262,7 @@ export default function StoreManageProducts() {
 						setGroupFilter(event.target.value);
 						setPage(1);
 					}}
-					className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+					className="px-3 py-2 border border-border rounded outline-ring"
 				>
 					<option value="">{t("shopPage.allGroups")}</option>
 					{groups.map((group) => (
@@ -277,7 +277,7 @@ export default function StoreManageProducts() {
 						setStockFilter(event.target.value);
 						setPage(1);
 					}}
-					className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+					className="px-3 py-2 border border-border rounded outline-ring"
 				>
 						<option value="">{t("admin.allStock")}</option>
 						<option value="low">{t("admin.lowStock")}</option>
@@ -292,16 +292,16 @@ export default function StoreManageProducts() {
 							loading: t("store.savingProduct"),
 						})
 					}
-					className="mb-8 max-w-4xl border border-slate-200 rounded-lg p-5 bg-white text-slate-600"
+					className="mb-8 max-w-4xl border border-border rounded-lg p-5 bg-frame text-muted-foreground"
 				>
 					<div className="flex items-center justify-between gap-4">
-						<h2 className="text-xl font-medium text-slate-800">
+						<h2 className="text-xl font-medium text-foreground">
 							{t("store.editProduct")}
 						</h2>
 						<button
 							type="button"
 							onClick={cancelEditing}
-							className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+							className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							title={t("common.close")}
 						>
 							<XIcon size={18} />
@@ -311,7 +311,7 @@ export default function StoreManageProducts() {
 						<label className="flex flex-col gap-2">
 							{t("store.productName")}
 							<input
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.name}
 								onChange={(event) => updateEditForm("name", event.target.value)}
 								required
@@ -320,7 +320,7 @@ export default function StoreManageProducts() {
 						<label className="flex flex-col gap-2">
 							{t("store.selectCategory")}
 							<select
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.category}
 								onChange={(event) =>
 									setEditForm((prev) => ({
@@ -341,7 +341,7 @@ export default function StoreManageProducts() {
 						<label className="flex flex-col gap-2">
 							{t("store.selectGroup")}
 							<select
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.groupId}
 								onChange={(event) =>
 									setEditForm((prev) => ({
@@ -362,7 +362,7 @@ export default function StoreManageProducts() {
 							{t("store.actualPrice")}
 							<input
 								type="number"
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.mrp}
 								onChange={(event) => updateEditForm("mrp", event.target.value)}
 								required
@@ -372,7 +372,7 @@ export default function StoreManageProducts() {
 							{t("store.offerPrice")}
 							<input
 								type="number"
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.price}
 								onChange={(event) => updateEditForm("price", event.target.value)}
 								required
@@ -383,7 +383,7 @@ export default function StoreManageProducts() {
 							<input
 								type="number"
 								min="0"
-								className="p-2 border border-slate-200 rounded outline-slate-400"
+								className="p-2 border border-border rounded outline-ring"
 								value={editForm.stockQuantity}
 								onChange={(event) =>
 									updateEditForm("stockQuantity", event.target.value)
@@ -391,12 +391,12 @@ export default function StoreManageProducts() {
 								placeholder={t("store.unlimitedStock")}
 							/>
 						</label>
-						<div className="md:col-span-2 rounded-lg border border-slate-200 bg-slate-50 p-4">
-							<p className="font-medium text-slate-800">
+						<div className="md:col-span-2 rounded-lg border border-border bg-muted p-4">
+							<p className="font-medium text-foreground">
 								{t("store.deliveryType")}
 							</p>
 							<div className="mt-3 flex flex-wrap gap-3">
-								<label className="flex items-center gap-2 rounded border border-slate-200 bg-white px-3 py-2">
+								<label className="flex items-center gap-2 rounded border border-border bg-frame px-3 py-2">
 									<input
 										type="radio"
 										name="editDeliveryType"
@@ -411,7 +411,7 @@ export default function StoreManageProducts() {
 									/>
 									{t("store.physicalProduct")}
 								</label>
-								<label className="flex items-center gap-2 rounded border border-slate-200 bg-white px-3 py-2">
+								<label className="flex items-center gap-2 rounded border border-border bg-frame px-3 py-2">
 									<input
 										type="radio"
 										name="editDeliveryType"
@@ -429,7 +429,7 @@ export default function StoreManageProducts() {
 							</div>
 							{editForm.deliveryType === "digital" && (
 								<div className="mt-4">
-									<label className="inline-flex cursor-pointer items-center gap-2 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600">
+									<label className="inline-flex cursor-pointer items-center gap-2 rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95">
 										<DownloadIcon size={16} />
 										{t("store.uploadDigitalFile")}
 										<input
@@ -445,19 +445,19 @@ export default function StoreManageProducts() {
 											hidden
 										/>
 									</label>
-									<p className="mt-2 text-xs text-slate-500">
+									<p className="mt-2 text-xs text-muted-foreground">
 										{editForm.digitalAssetName || t("store.noDigitalFile")}
 									</p>
 								</div>
 							)}
 						</div>
-						<div className="md:col-span-2 rounded-lg border border-slate-200 bg-slate-50 p-4">
-							<h3 className="font-medium text-slate-800">
+						<div className="md:col-span-2 rounded-lg border border-border bg-muted p-4">
+							<h3 className="font-medium text-foreground">
 								{t("store.inventoryAdjustment")}
 							</h3>
 							<div className="mt-3 grid gap-3 md:grid-cols-[150px_140px_minmax(220px,1fr)_auto]">
 								<select
-									className="h-10 rounded border border-slate-200 px-3"
+									className="h-10 rounded border border-border px-3"
 									value={inventoryForm.mode}
 									onChange={(event) =>
 										updateInventoryForm("mode", event.target.value)
@@ -468,7 +468,7 @@ export default function StoreManageProducts() {
 								</select>
 								<input
 									type="number"
-									className="h-10 rounded border border-slate-200 px-3"
+									className="h-10 rounded border border-border px-3"
 									value={inventoryForm.quantity}
 									onChange={(event) =>
 										updateInventoryForm("quantity", event.target.value)
@@ -480,7 +480,7 @@ export default function StoreManageProducts() {
 									}
 								/>
 								<input
-									className="h-10 rounded border border-slate-200 px-3"
+									className="h-10 rounded border border-border px-3"
 									value={inventoryForm.reason}
 									onChange={(event) =>
 										updateInventoryForm("reason", event.target.value)
@@ -496,30 +496,30 @@ export default function StoreManageProducts() {
 											error: (error) => error.message,
 										})
 									}
-									className="rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+									className="rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 								>
 									{t("store.applyInventory")}
 								</button>
 							</div>
-							<div className="mt-3 rounded border border-slate-200 bg-white">
+							<div className="mt-3 rounded border border-border bg-frame">
 								{inventoryHistory.map((entry) => (
 									<div
 										key={entry.id}
-										className="grid gap-2 border-b border-slate-100 p-3 text-xs text-slate-500 last:border-b-0 md:grid-cols-[90px_120px_minmax(160px,1fr)_160px]"
+										className="grid gap-2 border-b border-border p-3 text-xs text-muted-foreground last:border-b-0 md:grid-cols-[90px_120px_minmax(160px,1fr)_160px]"
 									>
-										<span className={entry.delta >= 0 ? "text-green-600" : "text-red-600"}>
+										<span className={entry.delta >= 0 ? "text-success" : "text-danger"}>
 											{entry.delta > 0 ? "+" : ""}
 											{entry.delta}
 										</span>
 										<span>
 											{entry.previousQuantity ?? "-"} → {entry.nextQuantity ?? "-"}
 										</span>
-										<span className="text-slate-700">{entry.reason}</span>
+										<span className="text-foreground">{entry.reason}</span>
 										<span>{new Date(entry.createdAt).toLocaleString()}</span>
 									</div>
 								))}
 								{inventoryHistory.length === 0 && (
-									<p className="p-3 text-center text-xs text-slate-400">
+									<p className="p-3 text-center text-xs text-muted-foreground">
 										{t("store.noInventoryHistory")}
 									</p>
 								)}
@@ -532,7 +532,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.markdownHeading")}
 								onClick={() => insertDescriptionSnippet("## ", "", "Heading")}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<Heading2Icon size={17} />
 							</button>
@@ -540,7 +540,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.markdownBold")}
 								onClick={() => insertDescriptionSnippet("**", "**", "bold")}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<BoldIcon size={17} />
 							</button>
@@ -548,7 +548,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.markdownItalic")}
 								onClick={() => insertDescriptionSnippet("*", "*", "italic")}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<ItalicIcon size={17} />
 							</button>
@@ -558,7 +558,7 @@ export default function StoreManageProducts() {
 								onClick={() =>
 									insertDescriptionSnippet("[", "](https://example.com)", "link")
 								}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<LinkIcon size={17} />
 							</button>
@@ -566,7 +566,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.markdownCode")}
 								onClick={() => insertDescriptionSnippet("`", "`", "code")}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<Code2Icon size={17} />
 							</button>
@@ -576,7 +576,7 @@ export default function StoreManageProducts() {
 								onClick={() =>
 									insertDescriptionSnippet("\n```\n", "\n```\n", "code block")
 								}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<SquareCode size={17} />
 							</button>
@@ -584,7 +584,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.attachDescriptionImage")}
 								onClick={() => imageAttachmentRef.current?.click()}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<ImagePlusIcon size={17} />
 							</button>
@@ -592,7 +592,7 @@ export default function StoreManageProducts() {
 								type="button"
 								title={t("store.attachDescriptionFile")}
 								onClick={() => fileAttachmentRef.current?.click()}
-								className="size-9 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50"
+								className="size-9 border border-border rounded flex items-center justify-center hover:bg-muted"
 							>
 								<PaperclipIcon size={17} />
 							</button>
@@ -623,7 +623,7 @@ export default function StoreManageProducts() {
 						</div>
 						<textarea
 							ref={descriptionRef}
-							className="p-2 border border-slate-200 rounded outline-slate-400 font-mono text-sm resize-y"
+							className="p-2 border border-border rounded outline-ring font-mono text-sm resize-y"
 							value={editForm.description}
 							onChange={(event) =>
 								updateEditForm("description", event.target.value)
@@ -637,7 +637,7 @@ export default function StoreManageProducts() {
 							<div className="flex flex-wrap gap-3 mt-2">
 								{[0, 1, 2, 3].map((index) => (
 									<div key={index} className="relative">
-										<label className="size-24 border border-slate-200 rounded flex items-center justify-center cursor-pointer bg-slate-50 overflow-hidden">
+										<label className="size-24 border border-border rounded flex items-center justify-center cursor-pointer bg-muted overflow-hidden">
 											{editForm.images?.[index] ? (
 												<Image
 													src={resolveProductImageSrc(editForm.images[index])}
@@ -647,7 +647,7 @@ export default function StoreManageProducts() {
 													className="size-24 object-cover"
 												/>
 											) : (
-												<ImagePlusIcon size={24} className="text-slate-400" />
+												<ImagePlusIcon size={24} className="text-muted-foreground" />
 											)}
 											<input
 												type="file"
@@ -666,7 +666,7 @@ export default function StoreManageProducts() {
 											<button
 												type="button"
 												onClick={() => removeEditImage(index)}
-												className="absolute -top-2 -right-2 size-6 rounded-full bg-slate-800 text-white flex items-center justify-center"
+												className="absolute -top-2 -right-2 size-6 rounded-full bg-foreground text-background flex items-center justify-center"
 												title={t("common.delete")}
 											>
 												<XIcon size={14} />
@@ -690,19 +690,19 @@ export default function StoreManageProducts() {
 							<button
 								type="button"
 								onClick={cancelEditing}
-								className="px-5 py-2 border border-slate-200 rounded hover:bg-slate-50"
+								className="px-5 py-2 border border-border rounded hover:bg-muted"
 							>
 								{t("common.close")}
 							</button>
-							<button className="px-5 py-2 bg-[#1A1A1A] text-white rounded hover:bg-orange-600 transition">
+							<button className="px-5 py-2 bg-accent text-accent-foreground rounded hover:brightness-95 transition">
 								{t("common.save")}
 							</button>
 						</div>
 					</div>
 				</form>
 			)}
-			<table className="w-full max-w-4xl text-left ring ring-slate-200 rounded overflow-hidden text-sm">
-				<thead className="bg-slate-50 text-gray-700 uppercase tracking-wider">
+			<table className="w-full max-w-4xl text-left ring ring-border rounded overflow-hidden text-sm">
+				<thead className="bg-muted text-foreground uppercase tracking-wider">
 					<tr>
 						<th className="px-4 py-3">{t("store.name")}</th>
 						<th className="px-4 py-3 hidden md:table-cell">
@@ -713,11 +713,11 @@ export default function StoreManageProducts() {
 						<th className="px-4 py-3">{t("store.actions")}</th>
 					</tr>
 				</thead>
-				<tbody className="text-slate-700">
+				<tbody className="text-foreground">
 					{products.map((product) => (
 						<tr
 							key={product.id}
-							className="border-t border-gray-200 hover:bg-gray-50"
+							className="border-t border-border hover:bg-muted"
 						>
 							<td className="px-4 py-3">
 								<div className="flex gap-2 items-center">
@@ -731,7 +731,7 @@ export default function StoreManageProducts() {
 									{product.name}
 								</div>
 							</td>
-							<td className="px-4 py-3 max-w-md text-slate-600 hidden md:table-cell truncate">
+							<td className="px-4 py-3 max-w-md text-muted-foreground hidden md:table-cell truncate">
 								{plainRichDescription(product.description)}
 							</td>
 							<td className="px-4 py-3 hidden md:table-cell">
@@ -742,7 +742,7 @@ export default function StoreManageProducts() {
 									<p>
 										{currency} {product.price.toLocaleString()}
 									</p>
-									<p className="text-xs text-slate-400">
+									<p className="text-xs text-muted-foreground">
 										{product.deliveryType === "digital"
 											? t("store.digitalProduct")
 											: product.stockQuantity ?? t("store.unlimitedStock")}
@@ -758,12 +758,12 @@ export default function StoreManageProducts() {
 												loading: t("store.loadingInventory"),
 											})
 										}
-										className="text-slate-500 hover:text-orange-600"
+										className="text-muted-foreground hover:text-foreground"
 										title={t("store.editProduct")}
 									>
 										<PencilIcon size={18} />
 									</button>
-									<label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+									<label className="relative inline-flex items-center cursor-pointer text-foreground gap-3">
 										<input
 											type="checkbox"
 											className="sr-only peer"
@@ -774,7 +774,7 @@ export default function StoreManageProducts() {
 											}
 											checked={product.inStock}
 										/>
-										<div className="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-[#22C55E] transition-colors duration-200"></div>
+										<div className="w-9 h-5 bg-border rounded-full peer peer-checked:bg-success transition-colors duration-200"></div>
 										<span className="dot absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-4"></span>
 									</label>
 									<button
@@ -784,7 +784,7 @@ export default function StoreManageProducts() {
 												loading: t("store.deletingProduct"),
 											})
 										}
-										className="text-red-500 hover:text-red-700"
+										className="text-danger hover:brightness-110"
 										title={t("common.delete")}
 									>
 										<TrashIcon size={18} />
@@ -796,12 +796,12 @@ export default function StoreManageProducts() {
 				</tbody>
 			</table>
 			{!products.length && (
-				<div className="max-w-4xl py-14 text-center text-slate-400">
+				<div className="max-w-4xl py-14 text-center text-muted-foreground">
 					{t("shopPage.noProductsFound")}
 				</div>
 			)}
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -814,7 +814,7 @@ export default function StoreManageProducts() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -822,7 +822,7 @@ export default function StoreManageProducts() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

@@ -36,12 +36,12 @@ const AdminLayout = ({ children }) => {
 		</div>
 	) : (
 		<div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-			<h1 className="text-2xl sm:text-4xl font-semibold text-slate-400">
+			<h1 className="text-2xl sm:text-4xl font-semibold text-muted-foreground">
 				{t("admin.notAuthorized")}
 			</h1>
 			<Link
 				href="/"
-				className="bg-[#1A1A1A] text-white flex items-center gap-2 mt-8 p-2 px-6 max-sm:text-sm rounded-full"
+				className="bg-accent text-accent-foreground flex items-center gap-2 mt-8 p-2 px-6 max-sm:text-sm rounded-full"
 			>
 				{t("admin.goToHome")} <ArrowRightIcon size={18} />
 			</Link>

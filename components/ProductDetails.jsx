@@ -92,7 +92,7 @@ const ProductDetails = ({ product }) => {
 						<div
 							key={index}
 							onClick={() => setMainImage(productImages[index])}
-							className="bg-slate-100 flex items-center justify-center size-26 rounded-lg group cursor-pointer"
+							className="bg-muted flex items-center justify-center size-26 rounded-lg group cursor-pointer"
 						>
 							<Image
 								src={image}
@@ -104,12 +104,12 @@ const ProductDetails = ({ product }) => {
 						</div>
 					))}
 				</div>
-				<div className="flex justify-center items-center h-100 sm:size-113 bg-slate-100 rounded-lg">
+				<div className="flex justify-center items-center h-100 sm:size-113 bg-muted rounded-lg">
 					<Image src={mainImage} alt="" width={250} height={250} />
 				</div>
 			</div>
 			<div className="flex-1">
-				<h1 className="text-3xl font-semibold text-slate-800">
+				<h1 className="text-3xl font-semibold text-foreground">
 					{product.name}
 				</h1>
 				<div className="flex items-center mt-2">
@@ -123,22 +123,22 @@ const ProductDetails = ({ product }) => {
 								fill={averageRating >= index + 1 ? "#FF7A29" : "#D1D5DB"}
 							/>
 						))}
-					<p className="text-sm ml-3 text-slate-500">
+					<p className="text-sm ml-3 text-muted-foreground">
 						{t("product.totalReviews", { count: ratings.length })}
 					</p>
 				</div>
-				<div className="flex items-start my-6 gap-3 text-2xl font-semibold text-slate-800">
+				<div className="flex items-start my-6 gap-3 text-2xl font-semibold text-foreground">
 					<p>
 						{" "}
 						{currency}
 						{product.price}{" "}
 					</p>
-					<p className="text-xl text-slate-500 line-through">
+					<p className="text-xl text-muted-foreground line-through">
 						{currency}
 						{product.mrp}
 					</p>
 				</div>
-				<div className="flex items-center gap-2 text-slate-500">
+				<div className="flex items-center gap-2 text-muted-foreground">
 					<TagIcon size={14} />
 					<p>
 						{t("product.savePercent", {
@@ -152,7 +152,7 @@ const ProductDetails = ({ product }) => {
 				<div className="flex items-end gap-5 mt-10">
 					{cart[productId] && (
 						<div className="flex flex-col gap-3">
-							<p className="text-lg text-slate-800 font-semibold">
+							<p className="text-lg text-foreground font-semibold">
 								{t("common.quantity")}
 							</p>
 							<Counter productId={productId} />
@@ -162,7 +162,7 @@ const ProductDetails = ({ product }) => {
 						onClick={() =>
 							!cart[productId] ? addToCartHandler() : router.push("/cart")
 						}
-						className="bg-[#1A1A1A] text-white px-10 py-3 text-sm font-medium rounded hover:bg-orange-600 active:scale-95 transition"
+						className="bg-accent text-accent-foreground px-10 py-3 text-sm font-medium rounded hover:brightness-95 active:scale-95 transition"
 					>
 						{!cart[productId] ? t("common.addToCart") : t("common.viewCart")}
 					</button>
@@ -180,33 +180,33 @@ const ProductDetails = ({ product }) => {
 								error: (error) => error.message,
 							})
 						}
-						className="flex items-center gap-2 rounded border border-slate-200 px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+						className="flex items-center gap-2 rounded border border-border px-5 py-3 text-sm font-medium text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						<HeartIcon
 							size={18}
 							fill={wishlistSaved ? "#FF7A29" : "transparent"}
-							className={wishlistSaved ? "text-orange-500" : "text-slate-500"}
+							className={wishlistSaved ? "text-orange-500" : "text-muted-foreground"}
 						/>
 						{wishlistSaved
 							? t("product.savedWishlist")
 							: t("product.saveWishlist")}
 					</button>
 				</div>
-				<hr className="border-gray-300 my-5" />
-				<div className="flex flex-col gap-4 text-slate-500">
+				<hr className="border-border my-5" />
+				<div className="flex flex-col gap-4 text-muted-foreground">
 					<p className="flex gap-3">
 						{" "}
-						<EarthIcon className="text-slate-400" />{" "}
+						<EarthIcon className="text-muted-foreground" />{" "}
 						{t("product.freeShippingWorldwide")}{" "}
 					</p>
 					<p className="flex gap-3">
 						{" "}
-						<CreditCardIcon className="text-slate-400" />{" "}
+						<CreditCardIcon className="text-muted-foreground" />{" "}
 						{t("product.securedPayment")}{" "}
 					</p>
 					<p className="flex gap-3">
 						{" "}
-						<UserIcon className="text-slate-400" />{" "}
+						<UserIcon className="text-muted-foreground" />{" "}
 						{t("product.trustedByBrands")}{" "}
 					</p>
 				</div>

@@ -9,14 +9,14 @@ export default function LanguageToggle() {
 	return (
 		<button
 			onClick={toggleLocale}
-			className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold transition hover:bg-[#F5F0E8] hover:border-orange-300"
+			className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border px-3 py-1.5 text-xs font-semibold transition hover:bg-muted hover:border-accent/30"
 		>
-			<Globe size={14} className="text-slate-500" />
-			<span className={locale === "ko" ? "text-orange-500" : "text-slate-500"}>
+			<Globe size={14} className="text-muted-foreground" />
+			<span className={locale === "ko" ? "text-foreground" : "text-muted-foreground"}>
 				한
 			</span>
-			<span className="text-slate-300">/</span>
-			<span className={locale === "en" ? "text-orange-500" : "text-slate-500"}>
+			<span className="text-border">/</span>
+			<span className={locale === "en" ? "text-foreground" : "text-muted-foreground"}>
 				EN
 			</span>
 		</button>

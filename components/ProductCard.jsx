@@ -27,12 +27,12 @@ const ProductCard = ({ product }) => {
 			href={`/product/${product.id}`}
 			className="group block max-w-60 max-xl:mx-auto"
 		>
-			<div className="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-[#F6F8F4] sm:h-68 sm:w-60">
-				<div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-md bg-white/90 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow-sm">
+			<div className="relative flex h-40 items-center justify-center overflow-hidden rounded-lg border border-border bg-muted sm:h-68 sm:w-60">
+				<div className="absolute left-3 top-3 z-10 flex items-center gap-2 rounded-md bg-frame/90 px-2.5 py-1.5 text-[11px] font-medium text-foreground shadow-sm">
 					{isDigital ? (
-						<DownloadCloudIcon size={13} className="text-green-600" />
+						<DownloadCloudIcon size={13} className="text-success" />
 					) : (
-						<Code2Icon size={13} className="text-orange-600" />
+						<Code2Icon size={13} className="text-foreground" />
 					)}
 					{isDigital ? t("productCard.digital") : t("productCard.asset")}
 				</div>
@@ -50,10 +50,10 @@ const ProductCard = ({ product }) => {
 					</span>
 				</div>
 			</div>
-			<div className="flex justify-between gap-3 pt-3 text-sm text-slate-800 max-w-60">
+			<div className="flex justify-between gap-3 pt-3 text-sm text-foreground max-w-60">
 				<div className="min-w-0">
 					<p className="truncate font-medium">{product.name}</p>
-					<p className="mt-1 flex items-center gap-1 truncate text-xs text-slate-500">
+					<p className="mt-1 flex items-center gap-1 truncate text-xs text-muted-foreground">
 						<StoreIcon size={12} />
 						{storeName}
 					</p>
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
 							))}
 					</div>
 				</div>
-				<p className="shrink-0 font-semibold text-slate-900">
+				<p className="shrink-0 font-semibold text-foreground">
 					{currency}
 					{product.price}
 				</p>

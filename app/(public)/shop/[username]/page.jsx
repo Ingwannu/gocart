@@ -62,28 +62,28 @@ export default function StoreShop() {
 	return !loading ? (
 		<div className="min-h-[70vh] mx-6">
 			{storeInfo && (
-				<div className="max-w-7xl mx-auto bg-slate-50 rounded-xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-6 shadow-xs">
+				<div className="max-w-7xl mx-auto bg-muted rounded-xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-6 shadow-xs">
 					<Image
 						src={storeInfo.logo || "/favicon.ico"}
 						alt={storeInfo.name}
-						className="size-32 sm:size-38 object-cover border-2 border-slate-100 rounded-md"
+						className="size-32 sm:size-38 object-cover border-2 border-border rounded-md"
 						width={200}
 						height={200}
 					/>
 					<div className="text-center md:text-left">
-						<h1 className="text-3xl font-semibold text-slate-800">
+						<h1 className="text-3xl font-semibold text-foreground">
 							{storeInfo.name}
 						</h1>
-						<p className="text-sm text-slate-600 mt-2 max-w-lg">
+						<p className="text-sm text-muted-foreground mt-2 max-w-lg">
 							{storeInfo.description}
 						</p>
-						<div className="space-y-2 text-sm text-slate-500 mt-4">
+						<div className="space-y-2 text-sm text-muted-foreground mt-4">
 							<div className="flex items-center">
-								<MapPinIcon className="w-4 h-4 text-gray-500 mr-2" />
+								<MapPinIcon className="w-4 h-4 text-muted-foreground mr-2" />
 								<span>{storeInfo.address}</span>
 							</div>
 							<div className="flex items-center">
-								<MailIcon className="w-4 h-4 text-gray-500 mr-2" />
+								<MailIcon className="w-4 h-4 text-muted-foreground mr-2" />
 								<span>{storeInfo.email}</span>
 							</div>
 						</div>
@@ -94,23 +94,23 @@ export default function StoreShop() {
 				<h1 className="text-2xl mt-12">{t("storeShop.shopProducts")}</h1>
 				<form
 					onSubmit={submitSearch}
-					className="mt-5 max-w-xl flex items-center gap-2 border border-slate-200 rounded px-3 py-2"
+					className="mt-5 max-w-xl flex items-center gap-2 border border-border rounded px-3 py-2"
 				>
-					<SearchIcon size={18} className="text-slate-400" />
+					<SearchIcon size={18} className="text-muted-foreground" />
 					<input
 						value={query}
 						onChange={(event) => setQuery(event.target.value)}
 						placeholder={t("storeShop.searchStoreProducts")}
-						className="w-full outline-none text-sm text-slate-700"
+						className="w-full outline-none text-sm text-foreground bg-transparent"
 					/>
-					<button className="px-4 py-1.5 bg-[#1A1A1A] text-white rounded hover:bg-orange-600 text-sm">
+					<button className="px-4 py-1.5 bg-accent text-accent-foreground rounded hover:brightness-95 text-sm">
 						{t("common.search")}
 					</button>
 				</form>
 				<div className="flex flex-wrap gap-2 mt-4">
 					<button
 						onClick={() => updateParams({ category: "" })}
-						className={`px-4 py-2 rounded-full border ${!category ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+						className={`px-4 py-2 rounded-full border ${!category ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 					>
 						{t("shopPage.allCategories")}
 					</button>
@@ -118,7 +118,7 @@ export default function StoreShop() {
 						<button
 							key={item.id}
 							onClick={() => updateParams({ category: item.name })}
-							className={`px-4 py-2 rounded-full border ${category === item.name ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+							className={`px-4 py-2 rounded-full border ${category === item.name ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 						>
 							{item.name}
 						</button>
@@ -127,7 +127,7 @@ export default function StoreShop() {
 				<div className="flex flex-wrap gap-2 mt-4">
 					<button
 						onClick={() => updateParams({ group: "" })}
-						className={`px-4 py-2 rounded-full border ${!group ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+						className={`px-4 py-2 rounded-full border ${!group ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 					>
 						{t("shopPage.allGroups")}
 					</button>
@@ -135,7 +135,7 @@ export default function StoreShop() {
 						<button
 							key={item.id}
 							onClick={() => updateParams({ group: item.slug })}
-							className={`px-4 py-2 rounded-full border ${group === item.slug ? "bg-[#1A1A1A] text-white" : "border-slate-200 text-slate-600"}`}
+							className={`px-4 py-2 rounded-full border ${group === item.slug ? "bg-accent text-accent-foreground" : "border-border text-muted-foreground"}`}
 						>
 							{item.name}
 						</button>
@@ -147,7 +147,7 @@ export default function StoreShop() {
 					))}
 				</div>
 				{products.length === 0 && (
-					<div className="h-60 flex items-center justify-center text-slate-400 text-2xl">
+					<div className="h-60 flex items-center justify-center text-muted-foreground text-2xl">
 						{t("shopPage.noProductsFound")}
 					</div>
 				)}

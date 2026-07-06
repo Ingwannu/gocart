@@ -62,7 +62,7 @@ const StoreSidebar = ({ storeInfo }) => {
 	);
 
 	return (
-		<div className="inline-flex h-full flex-col gap-5 border-r border-slate-200 sm:min-w-60">
+		<div className="inline-flex h-full flex-col gap-5 border-r border-border sm:min-w-60">
 			<div className="flex flex-col gap-3 justify-center items-center pt-8 max-sm:hidden">
 				<Image
 					className="w-14 h-14 rounded-full shadow-md"
@@ -71,19 +71,19 @@ const StoreSidebar = ({ storeInfo }) => {
 					width={80}
 					height={80}
 				/>
-				<p className="text-slate-700">{storeInfo?.name}</p>
+				<p className="text-foreground">{storeInfo?.name}</p>
 			</div>
 			<div className="max-sm:mt-6">
 				{visibleSidebarLinks.map((link, index) => (
 					<Link
 						key={index}
 						href={link.href}
-						className={`relative flex items-center gap-3 text-slate-500 hover:bg-slate-50 p-2.5 transition ${pathname === link.href && "bg-slate-100 sm:text-slate-600"}`}
+						className={`relative flex items-center gap-3 text-muted-foreground hover:bg-muted p-2.5 transition ${pathname === link.href && "bg-muted sm:text-muted-foreground"}`}
 					>
 						<link.icon size={18} className="sm:ml-5" />
 						<p className="max-sm:hidden">{link.name}</p>
 						{pathname === link.href && (
-							<span className="absolute bg-orange-500 right-0 top-1.5 bottom-1.5 w-1 sm:w-1.5 rounded-l"></span>
+							<span className="absolute bg-accent right-0 top-1.5 bottom-1.5 w-1 sm:w-1.5 rounded-l"></span>
 						)}
 					</Link>
 				))}

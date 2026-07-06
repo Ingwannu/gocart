@@ -41,8 +41,8 @@ const OurSpecs = () => {
 							}}
 							key={index}
 						>
-							<h3 className="text-slate-800 font-medium">{translated.title}</h3>
-							<p className="text-sm text-slate-600 mt-3">
+							<h3 className="text-foreground font-medium">{translated.title}</h3>
+							<p className="text-sm text-muted-foreground mt-3">
 								{translated.description}
 							</p>
 							<div

@@ -11,34 +11,57 @@ const {
 } = upload;
 
 describe("validateUploadFileMeta", () => {
-	it("accepts product images and common attachment files", () => {
+	it("accepts raster images for public uploads", () => {
+		for (const [name, type] of [
+			["cat.png", "image/png"],
+			["photo.jpg", "image/jpeg"],
+			["photo.jpeg", "image/jpeg"],
+			["banner.webp", "image/webp"],
+			["anim.gif", "image/gif"],
+		]) {
+			assert.equal(
+				validateUploadFileMeta({ name, type, size: 1024 }).ok,
+				true,
+				`expected ${name} to be accepted as a public upload`,
+			);
+		}
+	});
+
+	it("rejects browser-renderable non-images for public uploads", () => {
+		for (const [name, type] of [
+			["icon.svg", "image/svg+xml"],
+			["page.html", "text/html"],
+			["app.js", "text/javascript"],
+			["manual.pdf", "application/pdf"],
+			["source-code.zip", "application/zip"],
+			["fake.png", "text/html"],
+		]) {
+			assert.equal(
+				validateUploadFileMeta({ name, type, size: 1024 }).ok,
+				false,
+				`expected ${name} (${type}) to be rejected as a public upload`,
+			);
+		}
+	});
+
+	it("accepts attachments and archives for private digital downloads", () => {
 		assert.equal(
-			validateUploadFileMeta({
-				name: "cat.png",
-				type: "image/png",
-				size: 1024,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "manual.pdf", type: "application/pdf", size: 1024 },
+				{ visibility: "private" },
+			).ok,
 			true,
 		);
 		assert.equal(
-			validateUploadFileMeta({
-				name: "manual.pdf",
-				type: "application/pdf",
-				size: 1024,
-			}).ok,
-			true,
-		);
-		assert.equal(
-			validateUploadFileMeta({
-				name: "source-code.zip",
-				type: "application/zip",
-				size: 1024,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "source-code.zip", type: "application/zip", size: 1024 },
+				{ visibility: "private" },
+			).ok,
 			true,
 		);
 	});
 
-	it("accepts source-code extensions across languages", () => {
+	it("accepts source-code extensions for private digital downloads", () => {
 		for (const name of [
 			"app.js",
 			"server.mjs",
@@ -57,40 +80,36 @@ describe("validateUploadFileMeta", () => {
 			"icon.svg",
 		]) {
 			assert.equal(
-				validateUploadFileMeta({
-					name,
-					type: "application/octet-stream",
-					size: 1024,
-				}).ok,
+				validateUploadFileMeta(
+					{ name, type: "application/octet-stream", size: 1024 },
+					{ visibility: "private" },
+				).ok,
 				true,
 				`expected ${name} to be accepted`,
 			);
 		}
 	});
 
-	it("keeps rejecting native executables", () => {
+	it("keeps rejecting native executables even for private uploads", () => {
 		assert.equal(
-			validateUploadFileMeta({
-				name: "installer.exe",
-				type: "application/x-msdownload",
-				size: 1024,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "installer.exe", type: "application/x-msdownload", size: 1024 },
+				{ visibility: "private" },
+			).ok,
 			false,
 		);
 		assert.equal(
-			validateUploadFileMeta({
-				name: "setup.bat",
-				type: "application/x-msdownload",
-				size: 1024,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "setup.bat", type: "application/x-msdownload", size: 1024 },
+				{ visibility: "private" },
+			).ok,
 			false,
 		);
 		assert.equal(
-			validateUploadFileMeta({
-				name: "script.cmd",
-				type: "application/octet-stream",
-				size: 1024,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "script.cmd", type: "application/octet-stream", size: 1024 },
+				{ visibility: "private" },
+			).ok,
 			false,
 		);
 	});
@@ -98,19 +117,17 @@ describe("validateUploadFileMeta", () => {
 	it("accepts files up to 300 GB and rejects larger", () => {
 		const justUnder = 300 * 1024 * 1024 * 1024;
 		assert.equal(
-			validateUploadFileMeta({
-				name: "big-bundle.zip",
-				type: "application/zip",
-				size: justUnder,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "big-bundle.zip", type: "application/zip", size: justUnder },
+				{ visibility: "private" },
+			).ok,
 			true,
 		);
 		assert.equal(
-			validateUploadFileMeta({
-				name: "too-big.zip",
-				type: "application/zip",
-				size: justUnder + 1,
-			}).ok,
+			validateUploadFileMeta(
+				{ name: "too-big.zip", type: "application/zip", size: justUnder + 1 },
+				{ visibility: "private" },
+			).ok,
 			false,
 		);
 	});

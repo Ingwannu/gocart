@@ -1,5 +1,181 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   Team_WICKED Design Tokens
+   Full reference: docs/design-system.md — live demo at /design
+   ============================================================ */
+:root {
+	--background: #f5f5f5;
+	--foreground: #0a0a0a;
+	--muted: #ececec;
+	--muted-foreground: #737373;
+	--border: #e5e5e5;
+	--ring: #0066ff;
+	--frame: #ffffff;
+	--accent: #a8d946;
+	--accent-soft: #e8f5c8;
+	--accent-foreground: #171717;
+	--danger: #dc2626;
+	--danger-soft: #fee2e2;
+	--success: #16a34a;
+	--success-soft: #dcfce7;
+	--warning: #d97706;
+	--warning-soft: #fef3c7;
+}
+
+.dark {
+	--background: #141414;
+	--foreground: #fafafa;
+	--muted: #171717;
+	--muted-foreground: #a3a3a3;
+	--border: #262626;
+	--ring: #3b82f6;
+	--frame: #000000;
+	--accent: #a8d946;
+	--accent-soft: #2a3a1a;
+	--accent-foreground: #171717;
+	--danger: #f87171;
+	--danger-soft: #450a0a;
+	--success: #4ade80;
+	--success-soft: #052e16;
+	--warning: #fbbf24;
+	--warning-soft: #451a03;
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-border: var(--border);
+	--color-ring: var(--ring);
+	--color-frame: var(--frame);
+	--color-accent: var(--accent);
+	--color-accent-soft: var(--accent-soft);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-danger: var(--danger);
+	--color-danger-soft: var(--danger-soft);
+	--color-success: var(--success);
+	--color-success-soft: var(--success-soft);
+	--color-warning: var(--warning);
+	--color-warning-soft: var(--warning-soft);
+}
+
+html {
+	color-scheme: light;
+}
+
+html.dark {
+	color-scheme: dark;
+}
+
+::selection {
+	background-color: var(--accent);
+	color: #171717;
+}
+
+.focus-ring:focus-visible {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
+}
+
+/* AnimatedThemeToggler: let the circular clip-path animation drive the
+   view transition instead of the default cross-fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+/* Site frame (from the saas template): a fixed 10px frame around the whole
+   viewport with rounded corner cutouts. Signature premium look. */
+.site-frame {
+	display: block;
+	position: fixed;
+	z-index: 60;
+	pointer-events: none;
+	background-color: var(--frame);
+}
+
+.site-frame--top {
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 10px;
+}
+
+.site-frame--bottom {
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 10px;
+}
+
+.site-frame--left {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 10px;
+}
+
+.site-frame--right {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 10px;
+}
+
+.site-corner {
+	display: block;
+	position: fixed;
+	z-index: 59;
+	pointer-events: none;
+	color: var(--frame);
+}
+
+.site-corner--top-left {
+	transform: rotate(90deg);
+	top: 10px;
+	left: 10px;
+}
+
+.site-corner--top-right {
+	top: 10px;
+	right: 10px;
+	transform: rotate(180deg);
+}
+
+.site-corner--bottom-left {
+	bottom: 10px;
+	left: 10px;
+	transform: rotate(0deg);
+}
+
+.site-corner--bottom-right {
+	bottom: 10px;
+	right: 10px;
+	transform: rotate(270deg);
+}
+
+@media (max-width: 850px) {
+	.site-frame,
+	.site-corner {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
 @layer components {
     @keyframes marqueeScroll {
         0% {
@@ -32,19 +208,19 @@
 .rich-description h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--foreground);
 }
 
 .rich-description h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--foreground);
 }
 
 .rich-description h4 {
     font-size: 1.05rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--foreground);
 }
 
 .rich-description ul,
@@ -61,13 +237,13 @@
 }
 
 .rich-description blockquote {
-    border-left: 3px solid #fb923c;
+    border-left: 3px solid var(--accent);
     padding-left: 1rem;
-    color: #475569;
+    color: var(--muted-foreground);
 }
 
 .rich-description code {
-    background: #f1f5f9;
+    background: var(--muted);
     border-radius: 0.25rem;
     padding: 0.1rem 0.35rem;
 }
@@ -88,11 +264,11 @@
 .rich-description img {
     max-width: 100%;
     border-radius: 0.5rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
 }
 
 .rich-description a {
-    color: #ea580c;
+    color: var(--foreground);
     text-decoration: underline;
 }
 
@@ -104,7 +280,7 @@
 
 .rich-description th,
 .rich-description td {
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
     padding: 0.5rem;
     text-align: left;
 }

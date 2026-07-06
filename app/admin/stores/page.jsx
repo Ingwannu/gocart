@@ -235,14 +235,14 @@ export default function AdminStores() {
 	};
 
 	return !loading ? (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.manageStores")}{" "}
-				<span className="text-slate-800 font-medium">{t("admin.stores")}</span>
+				<span className="text-foreground font-medium">{t("admin.stores")}</span>
 			</h1>
 			<div className="mt-5 max-w-5xl grid md:grid-cols-[1fr_180px_180px] gap-3">
 				<input
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					placeholder={t("admin.searchStores")}
 					value={query}
 					onChange={(event) => {
@@ -251,7 +251,7 @@ export default function AdminStores() {
 					}}
 				/>
 				<select
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					value={statusFilter}
 					onChange={(event) => {
 						setStatusFilter(event.target.value);
@@ -266,7 +266,7 @@ export default function AdminStores() {
 					))}
 				</select>
 				<select
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					value={activeFilter}
 					onChange={(event) => {
 						setActiveFilter(event.target.value);
@@ -284,14 +284,14 @@ export default function AdminStores() {
 						loading: t("admin.creatingStore"),
 					})
 				}
-				className="mt-4 max-w-5xl border border-slate-200 rounded-lg p-5 bg-white"
+				className="mt-4 max-w-5xl border border-border rounded-lg p-5 bg-frame"
 			>
-				<h2 className="text-lg font-medium text-slate-700">
+				<h2 className="text-lg font-medium text-foreground">
 					{t("admin.createStore")}
 				</h2>
 				<div className="grid md:grid-cols-2 gap-3 mt-4 text-sm">
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("admin.ownerEmail")}
 						value={newStore.userEmail}
 						onChange={(e) => updateNewStore("userEmail", e.target.value)}
@@ -299,21 +299,21 @@ export default function AdminStores() {
 						required
 					/>
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("createStore.username")}
 						value={newStore.username}
 						onChange={(e) => updateNewStore("username", e.target.value)}
 						required
 					/>
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("createStore.name")}
 						value={newStore.name}
 						onChange={(e) => updateNewStore("name", e.target.value)}
 						required
 					/>
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("createStore.email")}
 						value={newStore.email}
 						onChange={(e) => updateNewStore("email", e.target.value)}
@@ -321,19 +321,19 @@ export default function AdminStores() {
 						required
 					/>
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("createStore.contactNumber")}
 						value={newStore.contact}
 						onChange={(e) => updateNewStore("contact", e.target.value)}
 						required
 					/>
 					<input
-						className="p-2 border border-slate-200 rounded"
+						className="p-2 border border-border rounded"
 						placeholder={t("admin.logoUrl")}
 						value={newStore.logo}
 						onChange={(e) => updateNewStore("logo", e.target.value)}
 					/>
-					<label className="p-2 border border-slate-200 rounded cursor-pointer hover:bg-slate-50 text-slate-600">
+					<label className="p-2 border border-border rounded cursor-pointer hover:bg-muted text-muted-foreground">
 						{t("admin.uploadLogo")}
 						<input
 							type="file"
@@ -348,14 +348,14 @@ export default function AdminStores() {
 						/>
 					</label>
 					<textarea
-						className="p-2 border border-slate-200 rounded md:col-span-2 resize-none"
+						className="p-2 border border-border rounded md:col-span-2 resize-none"
 						placeholder={t("createStore.description")}
 						value={newStore.description}
 						onChange={(e) => updateNewStore("description", e.target.value)}
 						rows={3}
 					/>
 					<textarea
-						className="p-2 border border-slate-200 rounded md:col-span-2 resize-none"
+						className="p-2 border border-border rounded md:col-span-2 resize-none"
 						placeholder={t("createStore.addressField")}
 						value={newStore.address}
 						onChange={(e) => updateNewStore("address", e.target.value)}
@@ -364,7 +364,7 @@ export default function AdminStores() {
 					/>
 					<div className="flex gap-3 items-center flex-wrap">
 						<select
-							className="p-2 border border-slate-200 rounded"
+							className="p-2 border border-border rounded"
 							value={newStore.status}
 							onChange={(e) => updateNewStore("status", e.target.value)}
 						>
@@ -384,7 +384,7 @@ export default function AdminStores() {
 						</label>
 					</div>
 				</div>
-				<button className="mt-4 bg-[#1A1A1A] text-white px-5 py-2 rounded hover:bg-orange-600 transition">
+				<button className="mt-4 bg-accent text-accent-foreground px-5 py-2 rounded hover:brightness-95 transition">
 					{t("admin.createStore")}
 				</button>
 			</form>
@@ -393,12 +393,12 @@ export default function AdminStores() {
 					{stores.map((store) => (
 						<div
 							key={store.id}
-							className="bg-white border border-slate-200 rounded-lg shadow-sm p-6 max-w-5xl"
+							className="bg-frame border border-border rounded-lg shadow-sm p-6 max-w-5xl"
 						>
 							<StoreInfo store={store} />
 							<div className="grid md:grid-cols-2 gap-3 mt-5 text-sm">
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("admin.ownerEmail")}
 									value={editingStores[store.id]?.userEmail || ""}
 									onChange={(e) =>
@@ -407,7 +407,7 @@ export default function AdminStores() {
 									type="email"
 								/>
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("createStore.username")}
 									value={editingStores[store.id]?.username || ""}
 									onChange={(e) =>
@@ -415,7 +415,7 @@ export default function AdminStores() {
 									}
 								/>
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("createStore.name")}
 									value={editingStores[store.id]?.name || ""}
 									onChange={(e) =>
@@ -423,7 +423,7 @@ export default function AdminStores() {
 									}
 								/>
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("createStore.email")}
 									value={editingStores[store.id]?.email || ""}
 									onChange={(e) =>
@@ -432,7 +432,7 @@ export default function AdminStores() {
 									type="email"
 								/>
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("createStore.contactNumber")}
 									value={editingStores[store.id]?.contact || ""}
 									onChange={(e) =>
@@ -440,14 +440,14 @@ export default function AdminStores() {
 									}
 								/>
 								<input
-									className="p-2 border border-slate-200 rounded"
+									className="p-2 border border-border rounded"
 									placeholder={t("admin.logoUrl")}
 									value={editingStores[store.id]?.logo || ""}
 									onChange={(e) =>
 										updateEditingStore(store.id, "logo", e.target.value)
 									}
 								/>
-								<label className="p-2 border border-slate-200 rounded cursor-pointer hover:bg-slate-50 text-slate-600">
+								<label className="p-2 border border-border rounded cursor-pointer hover:bg-muted text-muted-foreground">
 									{t("admin.uploadLogo")}
 									<input
 										type="file"
@@ -466,7 +466,7 @@ export default function AdminStores() {
 									/>
 								</label>
 								<textarea
-									className="p-2 border border-slate-200 rounded md:col-span-2 resize-none"
+									className="p-2 border border-border rounded md:col-span-2 resize-none"
 									placeholder={t("createStore.description")}
 									value={editingStores[store.id]?.description || ""}
 									onChange={(e) =>
@@ -475,7 +475,7 @@ export default function AdminStores() {
 									rows={3}
 								/>
 								<textarea
-									className="p-2 border border-slate-200 rounded md:col-span-2 resize-none"
+									className="p-2 border border-border rounded md:col-span-2 resize-none"
 									placeholder={t("createStore.addressField")}
 									value={editingStores[store.id]?.address || ""}
 									onChange={(e) =>
@@ -485,7 +485,7 @@ export default function AdminStores() {
 								/>
 								<div className="flex gap-3 items-center flex-wrap">
 									<select
-										className="p-2 border border-slate-200 rounded"
+										className="p-2 border border-border rounded"
 										value={editingStores[store.id]?.status || "approved"}
 										onChange={(e) =>
 											updateEditingStore(store.id, "status", e.target.value)
@@ -519,7 +519,7 @@ export default function AdminStores() {
 												loading: t("admin.updatingData"),
 											})
 										}
-										className="bg-[#1A1A1A] text-white px-5 py-2 rounded hover:bg-orange-600 transition"
+										className="bg-accent text-accent-foreground px-5 py-2 rounded hover:brightness-95 transition"
 									>
 										{t("common.save")}
 									</button>
@@ -530,19 +530,19 @@ export default function AdminStores() {
 												loading: t("admin.deletingStore"),
 											})
 										}
-										className="ml-3 border border-red-200 text-red-600 px-5 py-2 rounded hover:bg-red-50 transition"
+										className="ml-3 border border-danger-soft text-danger px-5 py-2 rounded hover:bg-danger-soft transition"
 									>
 										<TrashIcon size={16} />
 									</button>
 								</div>
 							</div>
-							<div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
-								<h3 className="font-medium text-slate-700">
+							<div className="mt-5 rounded-lg border border-border bg-muted p-4">
+								<h3 className="font-medium text-foreground">
 									{t("admin.storeStaff")}
 								</h3>
 								<div className="mt-3 grid gap-3 md:grid-cols-[minmax(220px,1fr)_140px_auto_auto]">
 									<input
-										className="h-10 rounded border border-slate-200 px-3 text-sm"
+										className="h-10 rounded border border-border px-3 text-sm"
 										placeholder={t("admin.staffEmail")}
 										value={staffForms[store.id]?.userEmail || ""}
 										onChange={(event) =>
@@ -550,7 +550,7 @@ export default function AdminStores() {
 										}
 									/>
 									<select
-										className="h-10 rounded border border-slate-200 px-3 text-sm"
+										className="h-10 rounded border border-border px-3 text-sm"
 										value={staffForms[store.id]?.role || "staff"}
 										onChange={(event) =>
 											updateStaffForm(store.id, "role", event.target.value)
@@ -581,27 +581,27 @@ export default function AdminStores() {
 												loading: t("admin.grantingStaff"),
 											})
 										}
-										className="rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+										className="rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 									>
 										{t("admin.grantAccess")}
 									</button>
 								</div>
-								<div className="mt-3 divide-y divide-slate-200 rounded border border-slate-200 bg-white">
+								<div className="mt-3 divide-y divide-border rounded border border-border bg-frame">
 									{(store.staffMembers || []).map((staff) => (
 										<div
 											key={staff.id}
 											className="grid gap-3 p-3 text-sm md:grid-cols-[minmax(220px,1fr)_140px_auto_auto] md:items-center"
 										>
 											<div>
-												<p className="font-medium text-slate-700">
+												<p className="font-medium text-foreground">
 													{staff.user?.name || "-"}
 												</p>
-												<p className="text-xs text-slate-400">
+												<p className="text-xs text-muted-foreground">
 													{staff.user?.email || "-"}
 												</p>
 											</div>
 											<select
-												className="h-9 rounded border border-slate-200 px-2"
+												className="h-9 rounded border border-border px-2"
 												value={staff.role}
 												onChange={(event) =>
 													toast.promise(
@@ -638,14 +638,14 @@ export default function AdminStores() {
 														loading: t("admin.revokingStaff"),
 													})
 												}
-												className="rounded border border-red-200 px-3 py-1.5 text-red-600 hover:bg-red-50"
+												className="rounded border border-danger-soft px-3 py-1.5 text-danger hover:bg-danger-soft"
 											>
 												{t("admin.revokeAccess")}
 											</button>
 										</div>
 									))}
 									{(store.staffMembers || []).length === 0 && (
-										<p className="p-4 text-center text-sm text-slate-400">
+										<p className="p-4 text-center text-sm text-muted-foreground">
 											{t("admin.noStoreStaff")}
 										</p>
 									)}
@@ -656,13 +656,13 @@ export default function AdminStores() {
 				</div>
 			) : (
 				<div className="flex items-center justify-center h-80">
-					<h1 className="text-3xl text-slate-400 font-medium">
+					<h1 className="text-3xl text-muted-foreground font-medium">
 						{t("admin.noStoresAvailable")}
 					</h1>
 				</div>
 			)}
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -675,7 +675,7 @@ export default function AdminStores() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -683,7 +683,7 @@ export default function AdminStores() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

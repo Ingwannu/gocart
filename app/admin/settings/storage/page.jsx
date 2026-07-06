@@ -89,16 +89,16 @@ export default function AdminStorageSettings() {
 
 	return (
 		<div className="max-w-2xl">
-			<h1 className="text-2xl text-slate-500 mb-5">
+			<h1 className="text-2xl text-muted-foreground mb-5">
 				{t("admin.storageSettings")}
 			</h1>
 			<SettingsNav />
 			<form
 				onSubmit={save}
-				className="rounded-md border border-gray-200 bg-white p-5 space-y-5"
+				className="rounded-md border border-border bg-frame p-5 space-y-5"
 			>
 				<div>
-					<label className="block text-sm font-medium text-slate-700 mb-2">
+					<label className="block text-sm font-medium text-foreground mb-2">
 						{t("admin.storageBackend")}
 					</label>
 					<div className="grid gap-2 sm:grid-cols-2">
@@ -107,8 +107,8 @@ export default function AdminStorageSettings() {
 							onClick={() => update("backend", "local")}
 							className={`flex items-center gap-3 rounded-md border p-3 text-left text-sm transition ${
 								settings.backend === "local"
-									? "border-orange-400 bg-orange-50 text-slate-800"
-									: "border-slate-200 hover:bg-slate-50 text-slate-600"
+									? "border-accent bg-accent-soft text-foreground"
+									: "border-border hover:bg-muted text-muted-foreground"
 							}`}
 						>
 							<HardDriveIcon size={18} />
@@ -121,8 +121,8 @@ export default function AdminStorageSettings() {
 							onClick={() => update("backend", "s3")}
 							className={`flex items-center gap-3 rounded-md border p-3 text-left text-sm transition ${
 								settings.backend === "s3"
-									? "border-orange-400 bg-orange-50 text-slate-800"
-									: "border-slate-200 hover:bg-slate-50 text-slate-600"
+									? "border-accent bg-accent-soft text-foreground"
+									: "border-border hover:bg-muted text-muted-foreground"
 							}`}
 						>
 							<CloudIcon size={18} />
@@ -131,7 +131,7 @@ export default function AdminStorageSettings() {
 							</div>
 						</button>
 					</div>
-					<p className="mt-2 text-xs text-slate-400">
+					<p className="mt-2 text-xs text-muted-foreground">
 						{t("admin.storageBackendHint")}
 					</p>
 				</div>
@@ -139,7 +139,7 @@ export default function AdminStorageSettings() {
 				{settings.backend === "s3" ? (
 					<>
 						<div>
-							<label className="block text-sm font-medium text-slate-700 mb-1">
+							<label className="block text-sm font-medium text-foreground mb-1">
 								{t("admin.s3Endpoint")}
 							</label>
 							<input
@@ -147,14 +147,14 @@ export default function AdminStorageSettings() {
 								value={settings.endpoint}
 								onChange={(e) => update("endpoint", e.target.value)}
 								placeholder="https://<account>.r2.cloudflarestorage.com"
-								className="w-full rounded border border-slate-200 p-2 text-sm"
+								className="w-full rounded border border-border p-2 text-sm"
 							/>
-							<p className="mt-1 text-xs text-slate-400">
+							<p className="mt-1 text-xs text-muted-foreground">
 								{t("admin.s3EndpointHint")}
 							</p>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-slate-700 mb-1">
+							<label className="block text-sm font-medium text-foreground mb-1">
 								{t("admin.s3Region")}
 							</label>
 							<input
@@ -162,7 +162,7 @@ export default function AdminStorageSettings() {
 								value={settings.region}
 								onChange={(e) => update("region", e.target.value)}
 								placeholder="auto"
-								className="w-full rounded border border-slate-200 p-2 text-sm"
+								className="w-full rounded border border-border p-2 text-sm"
 							/>
 							<datalist id="region-list">
 								{PLACEHOLDER_REGIONS.map((r) => (
@@ -171,7 +171,7 @@ export default function AdminStorageSettings() {
 							</datalist>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-slate-700 mb-1">
+							<label className="block text-sm font-medium text-foreground mb-1">
 								{t("admin.s3Bucket")}
 							</label>
 							<input
@@ -179,11 +179,11 @@ export default function AdminStorageSettings() {
 								value={settings.bucket}
 								onChange={(e) => update("bucket", e.target.value)}
 								placeholder="my-source-code-bucket"
-								className="w-full rounded border border-slate-200 p-2 text-sm"
+								className="w-full rounded border border-border p-2 text-sm"
 							/>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-slate-700 mb-1">
+							<label className="block text-sm font-medium text-foreground mb-1">
 								{t("admin.s3AccessKeyId")}
 							</label>
 							<input
@@ -191,12 +191,12 @@ export default function AdminStorageSettings() {
 								value={settings.accessKeyId}
 								onChange={(e) => update("accessKeyId", e.target.value)}
 								placeholder="AKIA..."
-								className="w-full rounded border border-slate-200 p-2 text-sm"
+								className="w-full rounded border border-border p-2 text-sm"
 								autoComplete="off"
 							/>
 						</div>
 						<div>
-							<label className="block text-sm font-medium text-slate-700 mb-1">
+							<label className="block text-sm font-medium text-foreground mb-1">
 								{t("admin.s3SecretAccessKey")}
 							</label>
 							<input
@@ -204,16 +204,16 @@ export default function AdminStorageSettings() {
 								value={settings.secretAccessKey}
 								onChange={(e) => update("secretAccessKey", e.target.value)}
 								placeholder={hasSecret ? "••••••••" : ""}
-								className="w-full rounded border border-slate-200 p-2 text-sm"
+								className="w-full rounded border border-border p-2 text-sm"
 								autoComplete="new-password"
 							/>
 							{hasSecret ? (
-								<p className="mt-1 text-xs text-slate-400">
+								<p className="mt-1 text-xs text-muted-foreground">
 									{t("admin.s3SecretHint")}
 								</p>
 							) : null}
 						</div>
-						<label className="flex items-start gap-2 text-sm text-slate-700">
+						<label className="flex items-start gap-2 text-sm text-foreground">
 							<input
 								type="checkbox"
 								checked={settings.forcePathStyle}
@@ -224,7 +224,7 @@ export default function AdminStorageSettings() {
 								<span className="font-medium">
 									{t("admin.s3ForcePathStyle")}
 								</span>
-								<span className="block text-xs text-slate-400">
+								<span className="block text-xs text-muted-foreground">
 									{t("admin.s3ForcePathStyleHint")}
 								</span>
 							</span>
@@ -236,7 +236,7 @@ export default function AdminStorageSettings() {
 					<button
 						type="submit"
 						disabled={saving}
-						className="rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:opacity-50"
+						className="rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:opacity-50"
 					>
 						{saving ? t("admin.storageSaving") : t("admin.storageSave")}
 					</button>

@@ -24,7 +24,7 @@ export default function Product() {
 	return (
 		<div className="mx-6">
 			<div className="max-w-7xl mx-auto">
-				<div className="text-gray-600 text-sm mt-8 mb-5">
+				<div className="text-muted-foreground text-sm mt-8 mb-5">
 					{t("breadcrumb.home")} / {t("breadcrumb.products")} /{" "}
 					{product?.category}
 				</div>

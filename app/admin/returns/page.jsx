@@ -80,14 +80,14 @@ export default function AdminReturnsPage() {
 	};
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.returns")}{" "}
-				<span className="font-medium text-slate-800">
+				<span className="font-medium text-foreground">
 					{t("admin.management")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-6xl rounded-lg border border-slate-200 bg-white p-4">
+			<div className="mt-5 max-w-6xl rounded-lg border border-border bg-frame p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_180px_auto]">
 					<input
 						type="search"
@@ -97,7 +97,7 @@ export default function AdminReturnsPage() {
 							setPage(1);
 						}}
 						placeholder={t("admin.searchReturns")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
@@ -105,7 +105,7 @@ export default function AdminReturnsPage() {
 							setStatus(event.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("admin.allReturnStatuses")}</option>
 						{returnStatuses.map((option) => (
@@ -121,7 +121,7 @@ export default function AdminReturnsPage() {
 							setStatus("");
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-4 text-sm hover:bg-slate-50"
+						className="h-10 rounded border border-border px-4 text-sm hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
@@ -133,14 +133,14 @@ export default function AdminReturnsPage() {
 				{requests.map((request) => (
 					<div
 						key={request.id}
-						className="rounded-lg border border-slate-200 bg-white p-4"
+						className="rounded-lg border border-border bg-frame p-4"
 					>
 						<div className="flex flex-wrap items-start justify-between gap-3">
 							<div>
-								<p className="text-xs text-slate-400">
+								<p className="text-xs text-muted-foreground">
 									{new Date(request.createdAt).toLocaleString()}
 								</p>
-								<h2 className="mt-1 text-base font-medium text-slate-800">
+								<h2 className="mt-1 text-base font-medium text-foreground">
 									{t("admin.order")} {request.orderId.slice(0, 8)}
 								</h2>
 								<p className="text-sm">
@@ -159,7 +159,7 @@ export default function AdminReturnsPage() {
 										{ loading: t("admin.updatingReturn") },
 									)
 								}
-								className="rounded border border-slate-200 px-3 py-2 text-sm"
+								className="rounded border border-border px-3 py-2 text-sm"
 							>
 								{returnStatuses.map((option) => (
 									<option key={option} value={option}>
@@ -168,7 +168,7 @@ export default function AdminReturnsPage() {
 								))}
 							</select>
 						</div>
-						<p className="mt-4 whitespace-pre-wrap text-sm text-slate-600">
+						<p className="mt-4 whitespace-pre-wrap text-sm text-muted-foreground">
 							{request.reason}
 						</p>
 						<div className="mt-4 grid gap-3 md:grid-cols-[160px_minmax(220px,1fr)_auto]">
@@ -178,7 +178,7 @@ export default function AdminReturnsPage() {
 									type="number"
 									min="0"
 									step="0.01"
-									className="mt-1 h-10 w-full rounded border border-slate-200 px-2"
+									className="mt-1 h-10 w-full rounded border border-border px-2"
 									value={amounts[request.id] ?? ""}
 									onChange={(event) =>
 										setAmounts((prev) => ({
@@ -191,7 +191,7 @@ export default function AdminReturnsPage() {
 							<label className="text-sm">
 								{t("admin.resolutionNote")}
 								<input
-									className="mt-1 h-10 w-full rounded border border-slate-200 px-2"
+									className="mt-1 h-10 w-full rounded border border-border px-2"
 									value={notes[request.id] ?? ""}
 									onChange={(event) =>
 										setNotes((prev) => ({
@@ -212,7 +212,7 @@ export default function AdminReturnsPage() {
 										{ loading: t("admin.updatingReturn") },
 									)
 								}
-								className="self-end rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+								className="self-end rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 							>
 								{t("common.save")}
 							</button>
@@ -220,13 +220,13 @@ export default function AdminReturnsPage() {
 					</div>
 				))}
 				{requests.length === 0 && !loading && (
-					<div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-400">
+					<div className="rounded-lg border border-border bg-frame p-8 text-center text-muted-foreground">
 						{t("admin.noReturnRequests")}
 					</div>
 				)}
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -239,7 +239,7 @@ export default function AdminReturnsPage() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -247,7 +247,7 @@ export default function AdminReturnsPage() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

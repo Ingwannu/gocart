@@ -98,7 +98,7 @@ export default function AdminCoupons() {
 	}, [page, q, audience, expiry]);
 
 	return (
-		<div className="text-slate-500 mb-40">
+		<div className="text-muted-foreground mb-40">
 			<form
 				onSubmit={(e) =>
 					toast.promise(handleAddCoupon(e), {
@@ -109,13 +109,13 @@ export default function AdminCoupons() {
 			>
 				<h2 className="text-2xl">
 					{t("admin.addCoupons")}{" "}
-					<span className="text-slate-800 font-medium"></span>
+					<span className="text-foreground font-medium"></span>
 				</h2>
 				<div className="flex gap-2 max-sm:flex-col mt-2">
 					<input
 						type="text"
 						placeholder={t("admin.couponCode")}
-						className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+						className="w-full mt-2 p-2 border border-border outline-ring rounded-md"
 						name="code"
 						value={newCoupon.code}
 						onChange={handleChange}
@@ -126,7 +126,7 @@ export default function AdminCoupons() {
 						placeholder={t("admin.couponDiscount")}
 						min={1}
 						max={100}
-						className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+						className="w-full mt-2 p-2 border border-border outline-ring rounded-md"
 						name="discount"
 						value={newCoupon.discount}
 						onChange={handleChange}
@@ -136,7 +136,7 @@ export default function AdminCoupons() {
 				<input
 					type="text"
 					placeholder={t("admin.couponDescription")}
-					className="w-full mt-2 p-2 border border-slate-200 outline-slate-400 rounded-md"
+					className="w-full mt-2 p-2 border border-border outline-ring rounded-md"
 					name="description"
 					value={newCoupon.description}
 					onChange={handleChange}
@@ -146,7 +146,7 @@ export default function AdminCoupons() {
 					<p className="mt-3">{t("admin.couponExpiry")}</p>
 					<input
 						type="date"
-						className="w-full mt-1 p-2 border border-slate-200 outline-slate-400 rounded-md"
+						className="w-full mt-1 p-2 border border-border outline-ring rounded-md"
 						name="expiresAt"
 						value={format(new Date(newCoupon.expiresAt), "yyyy-MM-dd")}
 						onChange={handleChange}
@@ -154,7 +154,7 @@ export default function AdminCoupons() {
 				</label>
 				<div className="mt-5">
 					<div className="flex gap-2 mt-3">
-						<label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+						<label className="relative inline-flex items-center cursor-pointer text-foreground gap-3">
 							<input
 								type="checkbox"
 								className="sr-only peer"
@@ -164,13 +164,13 @@ export default function AdminCoupons() {
 									setNewCoupon({ ...newCoupon, forNewUser: e.target.checked })
 								}
 							/>
-							<div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-[#22C55E] transition-colors duration-200"></div>
+							<div className="w-11 h-6 bg-border rounded-full peer peer-checked:bg-success transition-colors duration-200"></div>
 							<span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
 						</label>
 						<p>{t("admin.forNewUser")}</p>
 					</div>
 					<div className="flex gap-2 mt-3">
-						<label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+						<label className="relative inline-flex items-center cursor-pointer text-foreground gap-3">
 							<input
 								type="checkbox"
 								className="sr-only peer"
@@ -180,13 +180,13 @@ export default function AdminCoupons() {
 									setNewCoupon({ ...newCoupon, forMember: e.target.checked })
 								}
 							/>
-							<div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-[#22C55E] transition-colors duration-200"></div>
+							<div className="w-11 h-6 bg-border rounded-full peer peer-checked:bg-success transition-colors duration-200"></div>
 							<span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
 						</label>
 						<p>{t("admin.forMember")}</p>
 					</div>
 					<div className="flex gap-2 mt-3">
-						<label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+						<label className="relative inline-flex items-center cursor-pointer text-foreground gap-3">
 							<input
 								type="checkbox"
 								className="sr-only peer"
@@ -196,19 +196,19 @@ export default function AdminCoupons() {
 									setNewCoupon({ ...newCoupon, isPublic: e.target.checked })
 								}
 							/>
-							<div className="w-11 h-6 bg-slate-300 rounded-full peer peer-checked:bg-[#22C55E] transition-colors duration-200"></div>
+							<div className="w-11 h-6 bg-border rounded-full peer peer-checked:bg-success transition-colors duration-200"></div>
 							<span className="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
 						</label>
 						<p>{t("admin.publicCoupon")}</p>
 					</div>
 				</div>
-				<button className="mt-4 p-2 px-10 rounded bg-[#1A1A1A] text-white active:scale-95 transition">
+				<button className="mt-4 p-2 px-10 rounded bg-accent text-accent-foreground active:scale-95 transition">
 					{t("admin.addCoupon")}
 				</button>
 			</form>
 			<div className="mt-14">
 				<h2 className="text-2xl">{t("admin.listCoupons")}</h2>
-				<div className="mt-4 max-w-4xl rounded-lg border border-slate-200 bg-white p-4">
+				<div className="mt-4 max-w-4xl rounded-lg border border-border bg-frame p-4">
 					<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_160px_160px_auto]">
 						<input
 							type="search"
@@ -218,7 +218,7 @@ export default function AdminCoupons() {
 								setPage(1);
 							}}
 							placeholder={t("admin.searchCoupons")}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+							className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 						/>
 						<select
 							value={audience}
@@ -226,7 +226,7 @@ export default function AdminCoupons() {
 								setAudience(e.target.value);
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+							className="h-10 rounded border border-border px-3 text-sm text-foreground"
 						>
 							<option value="">{t("admin.allAudiences")}</option>
 							<option value="public">{t("admin.publicCoupon")}</option>
@@ -239,7 +239,7 @@ export default function AdminCoupons() {
 								setExpiry(e.target.value);
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+							className="h-10 rounded border border-border px-3 text-sm text-foreground"
 						>
 							<option value="">{t("admin.allExpiry")}</option>
 							<option value="active">{t("admin.activeCoupons")}</option>
@@ -253,56 +253,56 @@ export default function AdminCoupons() {
 								setExpiry("");
 								setPage(1);
 							}}
-							className="h-10 rounded border border-slate-200 px-4 text-sm text-slate-700 hover:bg-slate-50"
+							className="h-10 rounded border border-border px-4 text-sm text-foreground hover:bg-muted"
 						>
 							{t("ordersPage.reset")}
 						</button>
 					</div>
-					<p className="mt-3 text-xs text-slate-400">
+					<p className="mt-3 text-xs text-muted-foreground">
 						{t("admin.showingCoupons", {
 							count: pagination?.total ?? coupons.length,
 						})}
 					</p>
 				</div>
-				<div className="overflow-x-auto mt-4 rounded-lg border border-slate-200 max-w-4xl">
-					<table className="min-w-full bg-white text-sm">
-						<thead className="bg-slate-50">
+				<div className="overflow-x-auto mt-4 rounded-lg border border-border max-w-4xl">
+					<table className="min-w-full bg-frame text-sm">
+						<thead className="bg-muted">
 							<tr>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.code")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.description")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.discount")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.expiresAt")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.newUser")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.forMemberCol")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.publicCoupon")}
 								</th>
-								<th className="py-3 px-4 text-left font-semibold text-slate-600">
+								<th className="py-3 px-4 text-left font-semibold text-muted-foreground">
 									{t("admin.action")}
 								</th>
 							</tr>
 						</thead>
-							<tbody className="divide-y divide-slate-200">
+							<tbody className="divide-y divide-border">
 								{coupons.map((coupon) => {
 									const isEditing = editingCoupon === coupon.code;
 									return (
-										<tr key={coupon.code} className="hover:bg-slate-50">
-											<td className="py-3 px-4 font-medium text-slate-800">
+										<tr key={coupon.code} className="hover:bg-muted">
+											<td className="py-3 px-4 font-medium text-foreground">
 												{coupon.code}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="text"
@@ -313,13 +313,13 @@ export default function AdminCoupons() {
 																description: e.target.value,
 															}))
 														}
-														className="w-48 rounded border border-slate-200 px-2 py-1 text-sm outline-none focus:border-orange-400"
+														className="w-48 rounded border border-border px-2 py-1 text-sm outline-none focus:border-ring"
 													/>
 												) : (
 													coupon.description
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="number"
@@ -332,13 +332,13 @@ export default function AdminCoupons() {
 																discount: e.target.value,
 															}))
 														}
-														className="w-20 rounded border border-slate-200 px-2 py-1 text-sm outline-none focus:border-orange-400"
+														className="w-20 rounded border border-border px-2 py-1 text-sm outline-none focus:border-ring"
 													/>
 												) : (
 													`${coupon.discount}%`
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="date"
@@ -349,13 +349,13 @@ export default function AdminCoupons() {
 																expiresAt: e.target.value,
 															}))
 														}
-														className="w-36 rounded border border-slate-200 px-2 py-1 text-sm outline-none focus:border-orange-400"
+														className="w-36 rounded border border-border px-2 py-1 text-sm outline-none focus:border-ring"
 													/>
 												) : (
 													format(new Date(coupon.expiresAt), "yyyy-MM-dd")
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="checkbox"
@@ -373,7 +373,7 @@ export default function AdminCoupons() {
 													t("common.no")
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="checkbox"
@@ -391,7 +391,7 @@ export default function AdminCoupons() {
 													t("common.no")
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												{isEditing ? (
 													<input
 														type="checkbox"
@@ -409,7 +409,7 @@ export default function AdminCoupons() {
 													t("common.no")
 												)}
 											</td>
-											<td className="py-3 px-4 text-slate-800">
+											<td className="py-3 px-4 text-foreground">
 												<div className="flex items-center gap-2">
 													{isEditing ? (
 														<>
@@ -420,7 +420,7 @@ export default function AdminCoupons() {
 																		loading: t("admin.savingCoupon"),
 																	})
 																}
-																className="w-5 h-5 text-green-600 hover:text-green-800 cursor-pointer"
+																className="w-5 h-5 text-success hover:brightness-110 cursor-pointer"
 															/>
 															<XIcon
 																title={t("common.close")}
@@ -428,7 +428,7 @@ export default function AdminCoupons() {
 																	setEditingCoupon(null);
 																	setCouponDraft({});
 																}}
-																className="w-5 h-5 text-slate-500 hover:text-slate-800 cursor-pointer"
+																className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-pointer"
 															/>
 														</>
 													) : (
@@ -436,7 +436,7 @@ export default function AdminCoupons() {
 															<SquarePenIcon
 																title={t("admin.editCoupon")}
 																onClick={() => handleEditCoupon(coupon)}
-																className="w-5 h-5 text-slate-500 hover:text-slate-800 cursor-pointer"
+																className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-pointer"
 															/>
 															<DeleteIcon
 																title={t("common.delete")}
@@ -445,7 +445,7 @@ export default function AdminCoupons() {
 																		loading: t("admin.deletingCoupon"),
 																	})
 																}
-																className="w-5 h-5 text-red-500 hover:text-red-800 cursor-pointer"
+																className="w-5 h-5 text-danger hover:brightness-110 cursor-pointer"
 															/>
 														</>
 													)}
@@ -458,7 +458,7 @@ export default function AdminCoupons() {
 					</table>
 				</div>
 				{pagination && pagination.totalPages > 1 && (
-					<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+					<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 						<span>
 							{t("common.pageSummary", {
 								page: pagination.page,
@@ -471,7 +471,7 @@ export default function AdminCoupons() {
 								type="button"
 								disabled={!pagination.hasPreviousPage}
 								onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.previous")}
 							</button>
@@ -479,7 +479,7 @@ export default function AdminCoupons() {
 								type="button"
 								disabled={!pagination.hasNextPage}
 								onClick={() => setPage((prev) => prev + 1)}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.next")}
 							</button>

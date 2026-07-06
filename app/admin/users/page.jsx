@@ -100,13 +100,13 @@ export default function AdminUsers() {
 	if (loading) return <Loading />;
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
-				{t("admin.users")} <span className="text-slate-800 font-medium">{t("admin.management")}</span>
+				{t("admin.users")} <span className="text-foreground font-medium">{t("admin.management")}</span>
 			</h1>
 			<div className="mt-5 max-w-5xl grid md:grid-cols-[1fr_180px_180px] gap-3">
 				<input
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					placeholder={t("admin.searchUsers")}
 					value={query}
 					onChange={(event) => {
@@ -115,7 +115,7 @@ export default function AdminUsers() {
 					}}
 				/>
 				<select
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					value={roleFilter}
 					onChange={(event) => {
 						setRoleFilter(event.target.value);
@@ -130,7 +130,7 @@ export default function AdminUsers() {
 					))}
 				</select>
 				<select
-					className="p-2 border border-slate-200 rounded outline-slate-400"
+					className="p-2 border border-border rounded outline-ring"
 					value={statusFilter}
 					onChange={(event) => {
 						setStatusFilter(event.target.value);
@@ -147,21 +147,21 @@ export default function AdminUsers() {
 			</div>
 			<form
 				onSubmit={(event) => toast.promise(createUser(event), { loading: t("admin.creatingUser") })}
-				className="mt-5 max-w-5xl border border-slate-200 rounded-lg p-5 bg-white grid md:grid-cols-4 gap-3 text-sm"
+				className="mt-5 max-w-5xl border border-border rounded-lg p-5 bg-frame grid md:grid-cols-4 gap-3 text-sm"
 			>
-				<input className="p-2 border border-slate-200 rounded" placeholder={t("signupPage.nameLabel")} value={newUser.name} onChange={(e) => setNewUser((p) => ({ ...p, name: e.target.value }))} required />
-				<input className="p-2 border border-slate-200 rounded" placeholder={t("loginPage.emailLabel")} type="email" value={newUser.email} onChange={(e) => setNewUser((p) => ({ ...p, email: e.target.value }))} required />
-				<input className="p-2 border border-slate-200 rounded" placeholder={t("loginPage.passwordLabel")} type="password" value={newUser.password} onChange={(e) => setNewUser((p) => ({ ...p, password: e.target.value }))} required />
+				<input className="p-2 border border-border rounded" placeholder={t("signupPage.nameLabel")} value={newUser.name} onChange={(e) => setNewUser((p) => ({ ...p, name: e.target.value }))} required />
+				<input className="p-2 border border-border rounded" placeholder={t("loginPage.emailLabel")} type="email" value={newUser.email} onChange={(e) => setNewUser((p) => ({ ...p, email: e.target.value }))} required />
+				<input className="p-2 border border-border rounded" placeholder={t("loginPage.passwordLabel")} type="password" value={newUser.password} onChange={(e) => setNewUser((p) => ({ ...p, password: e.target.value }))} required />
 				<div className="flex gap-2">
-					<select className="p-2 border border-slate-200 rounded flex-1" value={newUser.role} onChange={(e) => setNewUser((p) => ({ ...p, role: e.target.value }))}>
+					<select className="p-2 border border-border rounded flex-1" value={newUser.role} onChange={(e) => setNewUser((p) => ({ ...p, role: e.target.value }))}>
 						{roles.map((role) => <option key={role} value={role}>{role}</option>)}
 					</select>
-					<button className="bg-[#1A1A1A] text-white px-4 rounded hover:bg-orange-600">{t("admin.createUser")}</button>
+					<button className="bg-accent text-accent-foreground px-4 rounded hover:brightness-95">{t("admin.createUser")}</button>
 				</div>
 			</form>
-			<div className="overflow-x-auto mt-5 rounded-lg border border-slate-200 max-w-5xl">
-				<table className="min-w-full bg-white text-sm">
-					<thead className="bg-slate-50 text-slate-600">
+			<div className="overflow-x-auto mt-5 rounded-lg border border-border max-w-5xl">
+				<table className="min-w-full bg-frame text-sm">
+					<thead className="bg-muted text-muted-foreground">
 						<tr>
 							<th className="py-3 px-4 text-left">{t("signupPage.nameLabel")}</th>
 							<th className="py-3 px-4 text-left">{t("loginPage.emailLabel")}</th>
@@ -171,22 +171,22 @@ export default function AdminUsers() {
 							<th className="py-3 px-4 text-left">{t("admin.action")}</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-slate-200">
+					<tbody className="divide-y divide-border">
 						{users.map((user) => (
 							<tr key={user.id}>
-								<td className="py-3 px-4"><input className="p-2 border border-slate-200 rounded" value={editing[user.id]?.name || ""} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], name: e.target.value } }))} /></td>
+								<td className="py-3 px-4"><input className="p-2 border border-border rounded" value={editing[user.id]?.name || ""} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], name: e.target.value } }))} /></td>
 								<td className="py-3 px-4">
 									<input
-										className="p-2 border border-slate-200 rounded min-w-56"
+										className="p-2 border border-border rounded min-w-56"
 										type="email"
 										value={editing[user.id]?.email || ""}
 										onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], email: e.target.value } }))}
 									/>
 								</td>
-								<td className="py-3 px-4"><select className="p-2 border border-slate-200 rounded" value={editing[user.id]?.role || user.role} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], role: e.target.value } }))}>{roles.map((role) => <option key={role} value={role}>{role}</option>)}</select></td>
+								<td className="py-3 px-4"><select className="p-2 border border-border rounded" value={editing[user.id]?.role || user.role} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], role: e.target.value } }))}>{roles.map((role) => <option key={role} value={role}>{role}</option>)}</select></td>
 								<td className="py-3 px-4">
 									<select
-										className="p-2 border border-slate-200 rounded"
+										className="p-2 border border-border rounded"
 										value={editing[user.id]?.isSuspended ? "suspended" : "active"}
 										onChange={(e) =>
 											setEditing((p) => ({
@@ -205,12 +205,12 @@ export default function AdminUsers() {
 										))}
 									</select>
 								</td>
-								<td className="py-3 px-4 text-slate-700">{user.store?.name || "-"}</td>
+								<td className="py-3 px-4 text-foreground">{user.store?.name || "-"}</td>
 								<td className="py-3 px-4">
 									<div className="flex gap-3 items-center">
-										<input className="p-2 border border-slate-200 rounded w-36" type="password" placeholder={t("admin.newPassword")} value={editing[user.id]?.password || ""} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], password: e.target.value } }))} />
-										<button onClick={() => toast.promise(saveUser(user.id), { loading: t("admin.updatingData") })} className="px-3 py-2 bg-[#1A1A1A] text-white rounded">{t("common.save")}</button>
-										<button type="button" onClick={() => toast.promise(deleteUser(user.id), { loading: t("admin.deletingUser") })} className="text-red-500"><TrashIcon size={18} /></button>
+										<input className="p-2 border border-border rounded w-36" type="password" placeholder={t("admin.newPassword")} value={editing[user.id]?.password || ""} onChange={(e) => setEditing((p) => ({ ...p, [user.id]: { ...p[user.id], password: e.target.value } }))} />
+										<button onClick={() => toast.promise(saveUser(user.id), { loading: t("admin.updatingData") })} className="px-3 py-2 bg-accent text-accent-foreground rounded">{t("common.save")}</button>
+										<button type="button" onClick={() => toast.promise(deleteUser(user.id), { loading: t("admin.deletingUser") })} className="text-danger"><TrashIcon size={18} /></button>
 									</div>
 								</td>
 							</tr>
@@ -219,7 +219,7 @@ export default function AdminUsers() {
 				</table>
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -232,7 +232,7 @@ export default function AdminUsers() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -240,7 +240,7 @@ export default function AdminUsers() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

@@ -36,15 +36,15 @@ export default function SignupPage() {
 	};
 
 	return (
-		<div className="min-h-[80vh] flex items-center justify-center bg-white">
+		<div className="min-h-[80vh] flex items-center justify-center bg-background">
 			<div className="w-full max-w-md mx-auto px-6">
 				<div className="text-center mb-8">
-					<h1 className="text-4xl font-semibold text-slate-700">
-						<span className="text-orange-500">wicked</span>{" "}
-						<span className="text-green-600">shop</span>
-						<span className="text-orange-500 text-5xl leading-0">.</span>
+					<h1 className="text-4xl font-semibold text-foreground">
+						<span className="text-foreground">wicked</span>{" "}
+						<span className="text-success">shop</span>
+						<span className="text-accent text-5xl leading-0">.</span>
 					</h1>
-					<p className="text-slate-500 mt-3 text-sm">{t("signupPage.subtitle")}</p>
+					<p className="text-muted-foreground mt-3 text-sm">{t("signupPage.subtitle")}</p>
 				</div>
 				<form
 					onSubmit={(event) =>
@@ -54,36 +54,36 @@ export default function SignupPage() {
 					}
 					className="space-y-4"
 				>
-					<label className="block text-sm text-slate-600">
+					<label className="block text-sm text-muted-foreground">
 						{t("signupPage.nameLabel")}
 						<input
 							value={form.name}
 							onChange={(event) => updateForm("name", event.target.value)}
-							className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							required
 						/>
 					</label>
-					<label className="block text-sm text-slate-600">
+					<label className="block text-sm text-muted-foreground">
 						{t("loginPage.emailLabel")}
 						<input
 							type="email"
 							value={form.email}
 							onChange={(event) => updateForm("email", event.target.value)}
-							className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							required
 						/>
 					</label>
-						<label className="block text-sm text-slate-600">
+						<label className="block text-sm text-muted-foreground">
 							{t("loginPage.passwordLabel")}
 							<input
 								type="password"
 							value={form.password}
 							onChange={(event) => updateForm("password", event.target.value)}
-							className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 								required
 							/>
 						</label>
-						<label className="block text-sm text-slate-600">
+						<label className="block text-sm text-muted-foreground">
 							{t("signupPage.confirmPasswordLabel")}
 							<input
 								type="password"
@@ -91,17 +91,17 @@ export default function SignupPage() {
 								onChange={(event) =>
 									updateForm("confirmPassword", event.target.value)
 								}
-								className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+								className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 								required
 							/>
 						</label>
-						<button className="w-full bg-[#1A1A1A] text-white py-3 rounded-lg hover:bg-orange-600 active:scale-[0.98] transition font-medium">
+						<button className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:brightness-95 active:scale-[0.98] transition font-medium">
 						{t("signupPage.signupButton")}
 					</button>
 				</form>
-				<p className="mt-5 text-center text-sm text-slate-500">
+				<p className="mt-5 text-center text-sm text-muted-foreground">
 					{t("signupPage.hasAccount")}{" "}
-					<Link href="/login" className="text-orange-600">
+					<Link href="/login" className="text-foreground font-medium underline">
 						{t("common.login")}
 					</Link>
 				</p>

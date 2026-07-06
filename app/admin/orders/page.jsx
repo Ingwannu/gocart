@@ -56,14 +56,14 @@ export default function AdminOrders() {
 	}, [page, q, status, paid, payoutStatus]);
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.orders")}{" "}
-				<span className="text-slate-800 font-medium">
+				<span className="text-foreground font-medium">
 					{t("admin.ordersAndPayouts")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-6xl border border-slate-200 bg-white rounded-lg p-4">
+			<div className="mt-5 max-w-6xl border border-border bg-frame rounded-lg p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_170px_150px_170px_auto]">
 					<input
 						type="search"
@@ -73,7 +73,7 @@ export default function AdminOrders() {
 							setPage(1);
 						}}
 						placeholder={t("ordersPage.searchAdminPlaceholder")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
@@ -81,7 +81,7 @@ export default function AdminOrders() {
 							setStatus(e.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("ordersPage.allOrderStatuses")}</option>
 						{orderStatuses.map((option) => (
@@ -96,7 +96,7 @@ export default function AdminOrders() {
 							setPaid(e.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("ordersPage.allPayments")}</option>
 						<option value="true">{t("ordersPage.paid")}</option>
@@ -108,7 +108,7 @@ export default function AdminOrders() {
 							setPayoutStatus(e.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("ordersPage.allPayouts")}</option>
 						{payoutStatuses.map((option) => (
@@ -126,21 +126,21 @@ export default function AdminOrders() {
 							setPayoutStatus("");
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-4 text-sm text-slate-700 hover:bg-slate-50"
+						className="h-10 rounded border border-border px-4 text-sm text-foreground hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
 				</div>
-				<p className="mt-3 text-xs text-slate-400">
+				<p className="mt-3 text-xs text-muted-foreground">
 					{t("ordersPage.showingOrders", {
 						count: (pagination?.total ?? orders.length).toLocaleString(),
 					})}
 				</p>
 			</div>
 			{loading ? <Loading /> : null}
-			<div className="overflow-x-auto mt-5 rounded-lg border border-slate-200 max-w-6xl">
-				<table className="min-w-full bg-white text-sm">
-					<thead className="bg-slate-50 text-slate-600">
+			<div className="overflow-x-auto mt-5 rounded-lg border border-border max-w-6xl">
+				<table className="min-w-full bg-frame text-sm">
+					<thead className="bg-muted text-muted-foreground">
 						<tr>
 							<th className="py-3 px-4 text-left">{t("ordersPage.order")}</th>
 							<th className="py-3 px-4 text-left">{t("admin.store")}</th>
@@ -159,22 +159,22 @@ export default function AdminOrders() {
 							</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-slate-200">
+					<tbody className="divide-y divide-border">
 						{orders.map((order) => (
-							<tr key={order.id} className="hover:bg-slate-50">
-								<td className="py-3 px-4 text-slate-700">
+							<tr key={order.id} className="hover:bg-muted">
+								<td className="py-3 px-4 text-foreground">
 									<p className="font-medium">{order.id.slice(0, 8)}</p>
-									<p className="text-xs text-slate-400">
+									<p className="text-xs text-muted-foreground">
 										{new Date(order.createdAt).toLocaleString()}
 									</p>
 								</td>
-								<td className="py-3 px-4 text-slate-700">
+								<td className="py-3 px-4 text-foreground">
 									{order.store?.name || "-"}
 								</td>
-								<td className="py-3 px-4 text-slate-700">
+								<td className="py-3 px-4 text-foreground">
 									{order.user?.name || "-"}
 								</td>
-								<td className="py-3 px-4 text-slate-700">
+								<td className="py-3 px-4 text-foreground">
 									{currency}
 									{order.total.toLocaleString()}
 								</td>
@@ -187,7 +187,7 @@ export default function AdminOrders() {
 												{ loading: t("ordersPage.updatingOrder") },
 											)
 										}
-										className="border border-slate-200 rounded p-1"
+										className="border border-border rounded p-1"
 									>
 										{orderStatuses.map((status) => (
 											<option key={status} value={status}>
@@ -211,7 +211,7 @@ export default function AdminOrders() {
 													);
 												}
 											}}
-											className="rounded border border-slate-200 p-1 text-xs"
+											className="rounded border border-border p-1 text-xs"
 										/>
 										<input
 											defaultValue={order.trackingNumber || ""}
@@ -226,7 +226,7 @@ export default function AdminOrders() {
 													);
 												}
 											}}
-											className="rounded border border-slate-200 p-1 text-xs"
+											className="rounded border border-border p-1 text-xs"
 										/>
 										<input
 											defaultValue={order.trackingUrl || ""}
@@ -241,7 +241,7 @@ export default function AdminOrders() {
 													);
 												}
 											}}
-											className="rounded border border-slate-200 p-1 text-xs"
+											className="rounded border border-border p-1 text-xs"
 										/>
 									</div>
 								</td>
@@ -266,7 +266,7 @@ export default function AdminOrders() {
 												{ loading: t("ordersPage.updatingPayout") },
 											)
 										}
-										className="border border-slate-200 rounded p-1"
+										className="border border-border rounded p-1"
 									>
 										{payoutStatuses.map((status) => (
 											<option key={status} value={status}>
@@ -275,11 +275,11 @@ export default function AdminOrders() {
 										))}
 									</select>
 								</td>
-								<td className="py-3 px-4 text-slate-700">
+								<td className="py-3 px-4 text-foreground">
 									{currency}
 									{order.payoutAmount.toLocaleString()}
 									{order.paidOutAt && (
-										<p className="text-xs text-slate-400">
+										<p className="text-xs text-muted-foreground">
 											{t("ordersPage.paidOn", {
 												date: new Date(order.paidOutAt).toLocaleDateString(),
 											})}
@@ -290,7 +290,7 @@ export default function AdminOrders() {
 						))}
 						{orders.length === 0 && !loading && (
 							<tr>
-								<td colSpan={9} className="px-4 py-8 text-center text-slate-400">
+								<td colSpan={9} className="px-4 py-8 text-center text-muted-foreground">
 									{t("ordersPage.noMatchingOrders")}
 								</td>
 							</tr>
@@ -299,7 +299,7 @@ export default function AdminOrders() {
 				</table>
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -312,7 +312,7 @@ export default function AdminOrders() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -320,7 +320,7 @@ export default function AdminOrders() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

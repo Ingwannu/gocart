@@ -7,11 +7,11 @@ const PageTitle = ({ heading, text, path = "/", linkText }) => {
 		<div className="my-6">
 			<h2 className="text-2xl font-semibold">{heading}</h2>
 			<div className="flex items-center gap-3">
-				<p className="text-slate-600">{text}</p>
+				<p className="text-muted-foreground">{text}</p>
 				{linkText && (
 					<Link
 						href={path}
-						className="flex items-center gap-1 text-orange-500 text-sm"
+						className="flex items-center gap-1 text-foreground font-medium text-sm"
 					>
 						{linkText} <ArrowRightIcon size={14} />
 					</Link>

@@ -54,14 +54,14 @@ export default function AdminNewsletterPage() {
 	};
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.newsletter")}{" "}
-				<span className="font-medium text-slate-800">
+				<span className="font-medium text-foreground">
 					{t("admin.subscribers")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-5xl rounded-lg border border-slate-200 bg-white p-4">
+			<div className="mt-5 max-w-5xl rounded-lg border border-border bg-frame p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_170px_auto]">
 					<input
 						type="search"
@@ -71,7 +71,7 @@ export default function AdminNewsletterPage() {
 							setPage(1);
 						}}
 						placeholder={t("admin.searchNewsletter")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
@@ -79,7 +79,7 @@ export default function AdminNewsletterPage() {
 							setStatus(event.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm"
+						className="h-10 rounded border border-border px-3 text-sm"
 					>
 						<option value="">{t("admin.allSubscriptionStatuses")}</option>
 						<option value="active">{t("admin.active")}</option>
@@ -92,7 +92,7 @@ export default function AdminNewsletterPage() {
 							setStatus("");
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-4 text-sm hover:bg-slate-50"
+						className="h-10 rounded border border-border px-4 text-sm hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
@@ -100,9 +100,9 @@ export default function AdminNewsletterPage() {
 			</div>
 
 			{loading ? <Loading /> : null}
-			<div className="mt-5 overflow-x-auto rounded-lg border border-slate-200 max-w-5xl">
-				<table className="min-w-full bg-white text-sm">
-					<thead className="bg-slate-50 text-slate-600">
+			<div className="mt-5 overflow-x-auto rounded-lg border border-border max-w-5xl">
+				<table className="min-w-full bg-frame text-sm">
+					<thead className="bg-muted text-muted-foreground">
 						<tr>
 							<th className="px-4 py-3 text-left">{t("contact.email")}</th>
 							<th className="px-4 py-3 text-left">{t("admin.status")}</th>
@@ -110,18 +110,18 @@ export default function AdminNewsletterPage() {
 							<th className="px-4 py-3 text-left">{t("admin.action")}</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-slate-200">
+					<tbody className="divide-y divide-border">
 						{subscriptions.map((subscription) => (
 							<tr key={subscription.id}>
-								<td className="px-4 py-3 text-slate-700">
+								<td className="px-4 py-3 text-foreground">
 									{subscription.email}
 								</td>
 								<td className="px-4 py-3">
 									<span
 										className={`rounded-full px-2 py-1 text-xs ${
 											subscription.isActive
-												? "bg-green-100 text-green-700"
-												: "bg-slate-100 text-slate-500"
+												? "bg-success-soft text-success"
+												: "bg-muted text-muted-foreground"
 										}`}
 									>
 										{subscription.isActive
@@ -129,7 +129,7 @@ export default function AdminNewsletterPage() {
 											: t("admin.inactive")}
 									</span>
 								</td>
-								<td className="px-4 py-3 text-slate-500">
+								<td className="px-4 py-3 text-muted-foreground">
 									{new Date(subscription.createdAt).toLocaleString()}
 								</td>
 								<td className="px-4 py-3">
@@ -144,7 +144,7 @@ export default function AdminNewsletterPage() {
 												{ loading: t("admin.updatingNewsletter") },
 											)
 										}
-										className="rounded border border-slate-200 px-3 py-1.5 hover:bg-slate-50"
+										className="rounded border border-border px-3 py-1.5 hover:bg-muted"
 									>
 										{subscription.isActive
 											? t("admin.disable")
@@ -155,7 +155,7 @@ export default function AdminNewsletterPage() {
 						))}
 						{subscriptions.length === 0 && !loading && (
 							<tr>
-								<td colSpan={4} className="px-4 py-8 text-center text-slate-400">
+								<td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
 									{t("admin.noNewsletterSubscribers")}
 								</td>
 							</tr>
@@ -164,7 +164,7 @@ export default function AdminNewsletterPage() {
 				</table>
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -177,7 +177,7 @@ export default function AdminNewsletterPage() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -185,7 +185,7 @@ export default function AdminNewsletterPage() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

@@ -67,14 +67,14 @@ export default function AdminSupportPage() {
 	};
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.support")}{" "}
-				<span className="font-medium text-slate-800">
+				<span className="font-medium text-foreground">
 					{t("admin.supportTickets")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-6xl rounded-lg border border-slate-200 bg-white p-4">
+			<div className="mt-5 max-w-6xl rounded-lg border border-border bg-frame p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_180px_auto]">
 					<input
 						type="search"
@@ -84,7 +84,7 @@ export default function AdminSupportPage() {
 							setPage(1);
 						}}
 						placeholder={t("admin.searchSupport")}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
@@ -92,7 +92,7 @@ export default function AdminSupportPage() {
 							setStatus(event.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-3 text-sm text-slate-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("admin.allSupportStatuses")}</option>
 						{statuses.map((option) => (
@@ -108,7 +108,7 @@ export default function AdminSupportPage() {
 							setStatus("");
 							setPage(1);
 						}}
-						className="h-10 rounded border border-slate-200 px-4 text-sm hover:bg-slate-50"
+						className="h-10 rounded border border-border px-4 text-sm hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
@@ -120,14 +120,14 @@ export default function AdminSupportPage() {
 				{tickets.map((ticket) => (
 					<div
 						key={ticket.id}
-						className="rounded-lg border border-slate-200 bg-white p-4"
+						className="rounded-lg border border-border bg-frame p-4"
 					>
 						<div className="flex flex-wrap items-start justify-between gap-3">
 							<div>
-								<p className="text-xs text-slate-400">
+								<p className="text-xs text-muted-foreground">
 									{new Date(ticket.createdAt).toLocaleString()}
 								</p>
-								<h2 className="mt-1 text-lg font-medium text-slate-800">
+								<h2 className="mt-1 text-lg font-medium text-foreground">
 									{ticket.subject}
 								</h2>
 								<p className="text-sm">
@@ -142,7 +142,7 @@ export default function AdminSupportPage() {
 										{ loading: t("admin.updatingSupport") },
 									)
 								}
-								className="rounded border border-slate-200 px-3 py-2 text-sm"
+								className="rounded border border-border px-3 py-2 text-sm"
 							>
 								{statuses.map((option) => (
 									<option key={option} value={option}>
@@ -151,14 +151,14 @@ export default function AdminSupportPage() {
 								))}
 							</select>
 						</div>
-						<p className="mt-4 whitespace-pre-wrap text-sm text-slate-600">
+						<p className="mt-4 whitespace-pre-wrap text-sm text-muted-foreground">
 							{ticket.message}
 						</p>
 						<div className="mt-4">
 							<label className="text-sm">
 								{t("admin.internalNote")}
 								<textarea
-									className="mt-1 min-h-20 w-full rounded border border-slate-200 p-2"
+									className="mt-1 min-h-20 w-full rounded border border-border p-2"
 									value={notes[ticket.id] ?? ""}
 									onChange={(event) =>
 										setNotes((prev) => ({
@@ -178,7 +178,7 @@ export default function AdminSupportPage() {
 										{ loading: t("admin.updatingSupport") },
 									)
 								}
-								className="mt-2 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+								className="mt-2 rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 							>
 								{t("common.save")}
 							</button>
@@ -186,13 +186,13 @@ export default function AdminSupportPage() {
 					</div>
 				))}
 				{tickets.length === 0 && !loading && (
-					<div className="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-400">
+					<div className="rounded-lg border border-border bg-frame p-8 text-center text-muted-foreground">
 						{t("admin.noSupportTickets")}
 					</div>
 				)}
 			</div>
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -205,7 +205,7 @@ export default function AdminSupportPage() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -213,7 +213,7 @@ export default function AdminSupportPage() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

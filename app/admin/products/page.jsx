@@ -89,19 +89,19 @@ export default function AdminProducts() {
 	if (loading) return <Loading />;
 
 	return (
-		<div className="text-slate-500 mb-28">
+		<div className="text-muted-foreground mb-28">
 			<h1 className="text-2xl">
 				{t("admin.products")}{" "}
-				<span className="text-slate-800 font-medium">
+				<span className="text-foreground font-medium">
 					{t("admin.management")}
 				</span>
 			</h1>
-			<div className="mt-5 max-w-6xl border border-slate-200 rounded-lg p-4 bg-white">
+			<div className="mt-5 max-w-6xl border border-border rounded-lg p-4 bg-frame">
 				<div className="grid md:grid-cols-[1fr_160px_160px_150px_170px] gap-3">
 					<label className="relative">
 						<PackageSearchIcon
 							size={18}
-							className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+							className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
 						/>
 						<input
 							value={query}
@@ -110,7 +110,7 @@ export default function AdminProducts() {
 								setPage(1);
 							}}
 							placeholder={t("admin.searchProducts")}
-							className="w-full pl-10 pr-3 py-2 border border-slate-200 rounded outline-slate-400"
+							className="w-full pl-10 pr-3 py-2 border border-border rounded outline-ring"
 						/>
 					</label>
 					<select
@@ -119,7 +119,7 @@ export default function AdminProducts() {
 							setCategory(event.target.value);
 							setPage(1);
 						}}
-						className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+						className="px-3 py-2 border border-border rounded outline-ring"
 					>
 						<option value="">{t("shopPage.allCategories")}</option>
 						{categories.map((item) => (
@@ -134,7 +134,7 @@ export default function AdminProducts() {
 							setGroup(event.target.value);
 							setPage(1);
 						}}
-						className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+						className="px-3 py-2 border border-border rounded outline-ring"
 					>
 						<option value="">{t("shopPage.allGroups")}</option>
 						{groups.map((item) => (
@@ -149,7 +149,7 @@ export default function AdminProducts() {
 							setStock(event.target.value);
 							setPage(1);
 						}}
-						className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+						className="px-3 py-2 border border-border rounded outline-ring"
 					>
 						<option value="">{t("admin.allStock")}</option>
 						<option value="low">{t("admin.lowStock")}</option>
@@ -162,7 +162,7 @@ export default function AdminProducts() {
 							setFeatured(event.target.value);
 							setPage(1);
 						}}
-						className="px-3 py-2 border border-slate-200 rounded outline-slate-400"
+						className="px-3 py-2 border border-border rounded outline-ring"
 					>
 						<option value="">{t("admin.allFeatured")}</option>
 						<option value="true">{t("admin.featuredProducts")}</option>
@@ -171,7 +171,7 @@ export default function AdminProducts() {
 				</div>
 				<div className="overflow-x-auto mt-4">
 					<table className="min-w-full text-sm">
-						<thead className="bg-slate-50 text-slate-600">
+						<thead className="bg-muted text-muted-foreground">
 							<tr>
 								<th className="py-3 px-4 text-left">{t("store.name")}</th>
 								<th className="py-3 px-4 text-left">{t("admin.store")}</th>
@@ -184,37 +184,37 @@ export default function AdminProducts() {
 								<th className="py-3 px-4 text-left">{t("admin.action")}</th>
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-slate-200">
+						<tbody className="divide-y divide-border">
 							{products.map((product) => (
-								<tr key={product.id} className="hover:bg-slate-50">
+								<tr key={product.id} className="hover:bg-muted">
 									<td className="py-3 px-4">
-										<div className="flex items-center gap-3 text-slate-700">
+										<div className="flex items-center gap-3 text-foreground">
 											<Image
 												src={resolveProductImageSrc(product.images?.[0])}
 												alt=""
 												width={40}
 												height={40}
-												className="size-10 rounded object-cover bg-slate-100"
+												className="size-10 rounded object-cover bg-muted"
 											/>
 											<div>
 												<p className="font-medium">{product.name}</p>
-												<p className="text-xs text-slate-400">
+												<p className="text-xs text-muted-foreground">
 													{product.group?.name || product.category}
 												</p>
 											</div>
 										</div>
 									</td>
-									<td className="py-3 px-4 text-slate-700">
+									<td className="py-3 px-4 text-foreground">
 										<p>{product.store?.name || "-"}</p>
-										<p className="text-xs text-slate-400">
+										<p className="text-xs text-muted-foreground">
 											/{product.store?.username || "-"}
 										</p>
 									</td>
-									<td className="py-3 px-4 text-slate-700">
+									<td className="py-3 px-4 text-foreground">
 										{currency}
 										{product.price.toLocaleString()}
 									</td>
-									<td className="py-3 px-4 text-slate-700">
+									<td className="py-3 px-4 text-foreground">
 										{product.stockQuantity ?? t("store.unlimitedStock")}
 									</td>
 									<td className="py-3 px-4">
@@ -255,7 +255,7 @@ export default function AdminProducts() {
 														{ loading: t("admin.updatingData") },
 													)
 												}
-												className="text-slate-500 hover:text-orange-600"
+												className="text-muted-foreground hover:text-foreground"
 												title={t("admin.hideProduct")}
 											>
 												<EyeOffIcon size={18} />
@@ -267,7 +267,7 @@ export default function AdminProducts() {
 														loading: t("admin.deletingProduct"),
 													})
 												}
-												className="text-red-500 hover:text-red-700"
+												className="text-danger hover:brightness-110"
 												title={t("common.delete")}
 											>
 												<TrashIcon size={18} />
@@ -279,13 +279,13 @@ export default function AdminProducts() {
 						</tbody>
 					</table>
 					{!products.length && (
-						<div className="py-14 text-center text-slate-400">
+						<div className="py-14 text-center text-muted-foreground">
 							{t("shopPage.noProductsFound")}
 						</div>
 					)}
 				</div>
 				{pagination && pagination.totalPages > 1 && (
-					<div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+					<div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 						<span>
 							{t("common.pageSummary", {
 								page: pagination.page,
@@ -298,7 +298,7 @@ export default function AdminProducts() {
 								type="button"
 								disabled={!pagination.hasPreviousPage}
 								onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.previous")}
 							</button>
@@ -306,7 +306,7 @@ export default function AdminProducts() {
 								type="button"
 								disabled={!pagination.hasNextPage}
 								onClick={() => setPage((prev) => prev + 1)}
-								className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+								className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 							>
 								{t("common.next")}
 							</button>

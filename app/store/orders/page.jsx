@@ -109,8 +109,8 @@ export default function StoreOrders() {
 
 	return (
 		<>
-			<h1 className="text-2xl text-slate-500 mb-5">{t("store.storeOrders")}</h1>
-			<div className="mb-5 max-w-4xl rounded-md border border-gray-200 bg-white p-4">
+			<h1 className="text-2xl text-muted-foreground mb-5">{t("store.storeOrders")}</h1>
+			<div className="mb-5 max-w-4xl rounded-md border border-border bg-frame p-4">
 				<div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_170px_150px_auto]">
 					<input
 						type="search"
@@ -120,7 +120,7 @@ export default function StoreOrders() {
 							setPage(1);
 						}}
 						placeholder={t("ordersPage.searchStorePlaceholder")}
-						className="h-10 rounded border border-gray-200 px-3 text-sm text-gray-700 outline-none focus:border-orange-400"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 					<select
 						value={status}
@@ -128,7 +128,7 @@ export default function StoreOrders() {
 							setStatus(e.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-gray-200 px-3 text-sm text-gray-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("ordersPage.allStatuses")}</option>
 						<option value="ORDER_PLACED">ORDER_PLACED</option>
@@ -143,7 +143,7 @@ export default function StoreOrders() {
 							setPaid(e.target.value);
 							setPage(1);
 						}}
-						className="h-10 rounded border border-gray-200 px-3 text-sm text-gray-700"
+						className="h-10 rounded border border-border px-3 text-sm text-foreground"
 					>
 						<option value="">{t("ordersPage.allPayments")}</option>
 						<option value="true">{t("ordersPage.paid")}</option>
@@ -157,12 +157,12 @@ export default function StoreOrders() {
 							setPaid("");
 							setPage(1);
 						}}
-						className="h-10 rounded border border-gray-200 px-4 text-sm text-gray-700 hover:bg-gray-50"
+						className="h-10 rounded border border-border px-4 text-sm text-foreground hover:bg-muted"
 					>
 						{t("ordersPage.reset")}
 					</button>
 				</div>
-				<p className="mt-3 text-xs text-gray-400">
+				<p className="mt-3 text-xs text-muted-foreground">
 					{t("ordersPage.showingOrders", {
 						count: (pagination?.total ?? orders.length).toLocaleString(),
 					})}
@@ -172,9 +172,9 @@ export default function StoreOrders() {
 			{orders.length === 0 && !loading ? (
 				<p>{t("store.noOrdersFound")}</p>
 			) : (
-				<div className="overflow-x-auto max-w-4xl rounded-md shadow border border-gray-200">
-					<table className="w-full text-sm text-left text-gray-600">
-						<thead className="bg-gray-50 text-gray-700 text-xs uppercase tracking-wider">
+				<div className="overflow-x-auto max-w-4xl rounded-md shadow border border-border">
+					<table className="w-full text-sm text-left text-muted-foreground">
+						<thead className="bg-muted text-foreground text-xs uppercase tracking-wider">
 							<tr>
 								{[
 									t("store.srNo"),
@@ -191,23 +191,23 @@ export default function StoreOrders() {
 								))}
 							</tr>
 						</thead>
-						<tbody className="divide-y divide-gray-100">
+						<tbody className="divide-y divide-border">
 							{orders.map((order, index) => (
 								<tr
 									key={order.id}
-									className="hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
+									className="hover:bg-muted transition-colors duration-150 cursor-pointer"
 									onClick={() => openModal(order)}
 								>
-									<td className="pl-6 text-orange-500">{index + 1}</td>
+									<td className="pl-6 text-muted-foreground">{index + 1}</td>
 									<td className="px-4 py-3">{order.user?.name}</td>
-									<td className="px-4 py-3 font-medium text-slate-800">
+									<td className="px-4 py-3 font-medium text-foreground">
 										{currency}
 										{order.total.toLocaleString()}
 									</td>
 									<td className="px-4 py-3">{order.paymentMethod}</td>
 									<td className="px-4 py-3">
 										{order.isCouponUsed ? (
-											<span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full">
+											<span className="bg-accent-soft text-foreground text-xs px-2 py-1 rounded-full">
 												{order.coupon?.code}
 											</span>
 										) : (
@@ -228,7 +228,7 @@ export default function StoreOrders() {
 													{ loading: t("store.updatingOrder") },
 												)
 											}
-											className="border-gray-300 rounded-md text-sm focus:ring focus:ring-blue-200"
+											className="border-border rounded-md text-sm focus:ring focus:ring-ring"
 										>
 											<option value="ORDER_PLACED">ORDER_PLACED</option>
 											<option value="PROCESSING">PROCESSING</option>
@@ -237,7 +237,7 @@ export default function StoreOrders() {
 											<option value="CANCELLED">CANCELLED</option>
 										</select>
 									</td>
-									<td className="px-4 py-3 text-gray-500">
+									<td className="px-4 py-3 text-muted-foreground">
 										{new Date(order.createdAt).toLocaleString()}
 									</td>
 								</tr>
@@ -247,7 +247,7 @@ export default function StoreOrders() {
 				</div>
 			)}
 			{pagination && pagination.totalPages > 1 && (
-				<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
+				<div className="mt-4 flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
 					<span>
 						{t("common.pageSummary", {
 							page: pagination.page,
@@ -260,7 +260,7 @@ export default function StoreOrders() {
 							type="button"
 							disabled={!pagination.hasPreviousPage}
 							onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -268,7 +268,7 @@ export default function StoreOrders() {
 							type="button"
 							disabled={!pagination.hasNextPage}
 							onClick={() => setPage((prev) => prev + 1)}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>
@@ -278,13 +278,13 @@ export default function StoreOrders() {
 			{isModalOpen && selectedOrder && (
 				<div
 					onClick={closeModal}
-					className="fixed inset-0 flex items-center justify-center bg-black/50 text-slate-700 text-sm backdrop-blur-xs z-50"
+					className="fixed inset-0 flex items-center justify-center bg-black/50 text-foreground text-sm backdrop-blur-xs z-50"
 				>
 					<div
 						onClick={(e) => e.stopPropagation()}
-						className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 relative"
+						className="bg-frame rounded-lg shadow-lg max-w-2xl w-full p-6 relative"
 					>
-						<h2 className="text-xl font-semibold text-slate-900 mb-4 text-center">
+						<h2 className="text-xl font-semibold text-foreground mb-4 text-center">
 							{t("store.orderDetails")}
 						</h2>
 						<div className="mb-4">
@@ -292,19 +292,19 @@ export default function StoreOrders() {
 								{t("store.customerDetails")}
 							</h3>
 							<p>
-								<span className="text-orange-700">{t("store.nameField")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.nameField")}</span>{" "}
 								{selectedOrder.user?.name}
 							</p>
 							<p>
-								<span className="text-orange-700">{t("store.emailField")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.emailField")}</span>{" "}
 								{selectedOrder.user?.email}
 							</p>
 							<p>
-								<span className="text-orange-700">{t("store.phoneField")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.phoneField")}</span>{" "}
 								{selectedOrder.address?.phone}
 							</p>
 							<p>
-								<span className="text-orange-700">
+								<span className="text-foreground font-medium">
 									{t("store.addressField")}
 								</span>{" "}
 								{`${selectedOrder.address?.street}, ${selectedOrder.address?.city}, ${selectedOrder.address?.state}, ${selectedOrder.address?.zip}, ${selectedOrder.address?.country}`}
@@ -316,7 +316,7 @@ export default function StoreOrders() {
 								{selectedOrder.orderItems.map((item, i) => (
 									<div
 										key={i}
-										className="flex items-center gap-4 border border-slate-100 shadow rounded p-2"
+										className="flex items-center gap-4 border border-border shadow rounded p-2"
 									>
 										<img
 											src={resolveProductImageSrc(item.product.images?.[0])}
@@ -324,7 +324,7 @@ export default function StoreOrders() {
 											className="w-16 h-16 object-cover rounded"
 										/>
 										<div className="flex-1">
-											<p className="text-slate-800">{item.product?.name}</p>
+											<p className="text-foreground">{item.product?.name}</p>
 											<p>
 												{t("ordersPage.quantityLabel")} {item.quantity}
 											</p>
@@ -339,29 +339,29 @@ export default function StoreOrders() {
 						</div>
 						<div className="mb-4">
 							<p>
-								<span className="text-orange-700">
+								<span className="text-foreground font-medium">
 									{t("store.paymentMethod")}
 								</span>{" "}
 								{selectedOrder.paymentMethod}
 							</p>
 							<p>
-								<span className="text-orange-700">{t("store.paid")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.paid")}</span>{" "}
 								{selectedOrder.isPaid ? t("common.yes") : t("common.no")}
 							</p>
 							{selectedOrder.isCouponUsed && (
 								<p>
-									<span className="text-orange-700">{t("store.coupon")}</span>{" "}
+									<span className="text-foreground font-medium">{t("store.coupon")}</span>{" "}
 									{selectedOrder.coupon.code} ({selectedOrder.coupon.discount}%
 									{t("ordersPage.discountOff")})
 								</p>
 							)}
 							<p>
-								<span className="text-orange-700">{t("store.status")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.status")}</span>{" "}
 								{selectedOrder.status}
 							</p>
 							{selectedOrder.trackingCarrier || selectedOrder.trackingNumber ? (
 								<p>
-									<span className="text-orange-700">
+									<span className="text-foreground font-medium">
 										{t("ordersPage.tracking")}
 									</span>{" "}
 									{[selectedOrder.trackingCarrier, selectedOrder.trackingNumber]
@@ -370,7 +370,7 @@ export default function StoreOrders() {
 								</p>
 							) : null}
 							<p>
-								<span className="text-orange-700">{t("store.orderDate")}</span>{" "}
+								<span className="text-foreground font-medium">{t("store.orderDate")}</span>{" "}
 								{new Date(selectedOrder.createdAt).toLocaleString()}
 							</p>
 						</div>
@@ -388,37 +388,37 @@ export default function StoreOrders() {
 									},
 								)
 							}
-							className="mb-4 rounded border border-slate-100 bg-slate-50 p-3"
+							className="mb-4 rounded border border-border bg-muted p-3"
 						>
-							<h3 className="font-semibold mb-2 text-slate-800">
+							<h3 className="font-semibold mb-2 text-foreground">
 								{t("ordersPage.fulfillment")}
 							</h3>
 							<div className="grid gap-2 sm:grid-cols-2">
-								<label className="text-xs text-slate-500">
+								<label className="text-xs text-muted-foreground">
 									{t("ordersPage.trackingCarrier")}
 									<input
-										className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+										className="mt-1 w-full rounded border border-border p-2 text-sm"
 										value={trackingForm.trackingCarrier}
 										onChange={(event) =>
 											updateTrackingForm("trackingCarrier", event.target.value)
 										}
 									/>
 								</label>
-								<label className="text-xs text-slate-500">
+								<label className="text-xs text-muted-foreground">
 									{t("ordersPage.trackingNumber")}
 									<input
-										className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+										className="mt-1 w-full rounded border border-border p-2 text-sm"
 										value={trackingForm.trackingNumber}
 										onChange={(event) =>
 											updateTrackingForm("trackingNumber", event.target.value)
 										}
 									/>
 								</label>
-								<label className="text-xs text-slate-500 sm:col-span-2">
+								<label className="text-xs text-muted-foreground sm:col-span-2">
 									{t("ordersPage.trackingUrl")}
 									<input
 										type="url"
-										className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+										className="mt-1 w-full rounded border border-border p-2 text-sm"
 										value={trackingForm.trackingUrl}
 										onChange={(event) =>
 											updateTrackingForm("trackingUrl", event.target.value)
@@ -429,14 +429,14 @@ export default function StoreOrders() {
 							</div>
 							<button
 								type="submit"
-								className="mt-3 rounded bg-[#1A1A1A] px-4 py-2 text-sm text-white hover:bg-orange-600"
+								className="mt-3 rounded bg-accent px-4 py-2 text-sm text-accent-foreground hover:brightness-95"
 							>
 								{t("ordersPage.saveTracking")}
 							</button>
 						</form>
 						{selectedOrder.isPaid && grants.length > 0 ? (
-							<div className="mb-4 rounded border border-slate-100 bg-slate-50 p-3">
-								<h3 className="font-semibold mb-2 text-slate-800">
+							<div className="mb-4 rounded border border-border bg-muted p-3">
+								<h3 className="font-semibold mb-2 text-foreground">
 									{t("ordersPage.downloadGrants")}
 								</h3>
 								<div className="space-y-2">
@@ -452,11 +452,11 @@ export default function StoreOrders() {
 										return (
 											<div
 												key={grant.id}
-												className="flex items-center justify-between gap-2 rounded border border-slate-200 bg-white p-2"
+												className="flex items-center justify-between gap-2 rounded border border-border bg-frame p-2"
 											>
 												<div className="flex-1">
-													<p className="text-slate-800">{grant.productName}</p>
-													<p className="text-xs text-slate-500">
+													<p className="text-foreground">{grant.productName}</p>
+													<p className="text-xs text-muted-foreground">
 														{t("ordersPage.downloadCount", {
 															used: grant.downloadCount,
 															max: grant.maxDownloads,
@@ -466,16 +466,16 @@ export default function StoreOrders() {
 															: ""}
 													</p>
 													{grant.expiresAt ? (
-														<p className="text-xs text-slate-400">
+														<p className="text-xs text-muted-foreground">
 															{t("ordersPage.expiresAt")}{" "}
 															{new Date(grant.expiresAt).toLocaleDateString()}
 														</p>
 													) : null}
 													{isRevoked ? (
-														<p className="text-xs text-red-600">{t("ordersPage.revoked")}</p>
+														<p className="text-xs text-danger">{t("ordersPage.revoked")}</p>
 													) : null}
 													{isExpired && !isRevoked ? (
-														<p className="text-xs text-red-600">{t("ordersPage.expired")}</p>
+														<p className="text-xs text-danger">{t("ordersPage.expired")}</p>
 													) : null}
 												</div>
 												<div className="flex gap-1">
@@ -484,7 +484,7 @@ export default function StoreOrders() {
 														target="_blank"
 														rel="noreferrer"
 														title={t("ordersPage.downloadLink")}
-														className="rounded border border-slate-200 p-2 text-slate-600 hover:bg-slate-50"
+														className="rounded border border-border p-2 text-muted-foreground hover:bg-muted"
 													>
 														<DownloadIcon size={16} />
 													</a>
@@ -492,7 +492,7 @@ export default function StoreOrders() {
 														type="button"
 														onClick={() => manageGrant(grant.id, "reissue", grant.productName)}
 														title={t("ordersPage.reissueGrant")}
-														className="rounded border border-slate-200 p-2 text-slate-600 hover:bg-slate-50"
+														className="rounded border border-border p-2 text-muted-foreground hover:bg-muted"
 													>
 														<RefreshCwIcon size={16} />
 													</button>
@@ -501,7 +501,7 @@ export default function StoreOrders() {
 															type="button"
 															onClick={() => manageGrant(grant.id, "revoke", grant.productName)}
 															title={t("ordersPage.revokeGrant")}
-															className="rounded border border-red-200 p-2 text-red-600 hover:bg-red-50"
+															className="rounded border border-danger-soft p-2 text-danger hover:bg-danger-soft"
 														>
 															<BanIcon size={16} />
 														</button>
@@ -514,14 +514,14 @@ export default function StoreOrders() {
 							</div>
 						) : null}
 						{selectedOrder.isPaid && grantsLoading ? (
-							<p className="mb-4 text-xs text-slate-400">
+							<p className="mb-4 text-xs text-muted-foreground">
 								{t("ordersPage.loadingGrants")}
 							</p>
 						) : null}
 						<div className="flex justify-end">
 							<button
 								onClick={closeModal}
-								className="px-4 py-2 bg-slate-200 rounded hover:bg-slate-300"
+								className="px-4 py-2 bg-muted rounded hover:bg-border"
 							>
 								{t("common.close")}
 							</button>

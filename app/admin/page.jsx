@@ -85,10 +85,10 @@ export default function AdminDashboard() {
 	if (loading) return <Loading />;
 
 	return (
-		<div className="text-slate-500">
+		<div className="text-muted-foreground">
 			<h1 className="text-2xl">
 				{t("admin.dashboard")}{" "}
-				<span className="text-slate-800 font-medium">
+				<span className="text-foreground font-medium">
 					{t("admin.adminDashboard")}
 				</span>
 			</h1>
@@ -96,28 +96,28 @@ export default function AdminDashboard() {
 				{dashboardCardsData.map((card, index) => (
 					<div
 						key={index}
-						className="flex items-center gap-10 border border-slate-200 p-3 px-6 rounded-lg"
+						className="flex items-center gap-10 border border-border p-3 px-6 rounded-lg"
 					>
 						<div className="flex flex-col gap-3 text-xs">
 							<p>{card.title}</p>
-							<b className="text-2xl font-medium text-slate-700">
+							<b className="text-2xl font-medium text-foreground">
 								{card.value}
 							</b>
 						</div>
 						<card.icon
 							size={50}
-							className="w-11 h-11 p-2.5 text-slate-400 bg-slate-100 rounded-full"
+							className="w-11 h-11 p-2.5 text-muted-foreground bg-muted rounded-full"
 						/>
 					</div>
 				))}
 			</div>
-			<div className="mb-10 max-w-5xl rounded-lg border border-slate-200 bg-white">
-				<div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 p-4">
+			<div className="mb-10 max-w-5xl rounded-lg border border-border bg-frame">
+				<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border p-4">
 					<div>
-						<h2 className="font-medium text-slate-800">
+						<h2 className="font-medium text-foreground">
 							{t("admin.lowStockProducts")}
 						</h2>
-						<p className="text-xs text-slate-400">
+						<p className="text-xs text-muted-foreground">
 							{t("admin.lowStockThreshold", {
 								count: dashboardData.lowStockThreshold,
 							})}
@@ -125,31 +125,31 @@ export default function AdminDashboard() {
 					</div>
 					<Link
 						href="/admin/products?stock=low"
-						className="rounded border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+						className="rounded border border-border px-3 py-1.5 text-sm hover:bg-muted"
 					>
 						{t("store.manageProducts")}
 					</Link>
 				</div>
-				<div className="divide-y divide-slate-100">
+				<div className="divide-y divide-border">
 					{(dashboardData.lowStockProducts || []).map((product) => (
 						<div
 							key={product.id}
 							className="grid gap-3 p-4 text-sm md:grid-cols-[minmax(220px,1fr)_160px_120px]"
 						>
 							<div>
-								<p className="font-medium text-slate-700">{product.name}</p>
-								<p className="text-xs text-slate-400">
+								<p className="font-medium text-foreground">{product.name}</p>
+								<p className="text-xs text-muted-foreground">
 									{product.store?.name || "-"}
 								</p>
 							</div>
 							<p>{product.category}</p>
-							<p className={product.stockQuantity === 0 ? "text-red-600" : "text-orange-600"}>
+							<p className={product.stockQuantity === 0 ? "text-danger" : "text-warning"}>
 								{product.stockQuantity}
 							</p>
 						</div>
 					))}
 					{(dashboardData.lowStockProducts || []).length === 0 && (
-						<p className="p-6 text-center text-sm text-slate-400">
+						<p className="p-6 text-center text-sm text-muted-foreground">
 							{t("admin.noLowStockProducts")}
 						</p>
 					)}

@@ -1,8 +1,11 @@
 import { json, jsonError } from "@/lib/api";
 import prisma from "@/lib/prisma";
 import { ensureOrderDownloadGrants } from "@/lib/download-grant.mjs";
+import { ensureOrderLicenseKeys } from "@/lib/license-key.mjs";
 import {
+	STRIPE_CHECKOUT_PAID_EVENT_TYPES,
 	extractStripeCheckoutOrderIds,
+	isPaidStripeCheckoutSession,
 	verifyStripeWebhookSignature,
 } from "@/lib/stripe-webhook.mjs";
 
@@ -23,11 +26,16 @@ export async function POST(request) {
 	}
 
 	const event = JSON.parse(payload);
-	if (event.type !== "checkout.session.completed") {
+	if (!STRIPE_CHECKOUT_PAID_EVENT_TYPES.has(event.type)) {
 		return json({ received: true, ignored: true });
 	}
 
 	const session = event.data?.object;
+	// Delayed-settlement methods emit `completed` while still unpaid; wait for
+	// the follow-up `async_payment_succeeded` before fulfilling.
+	if (!isPaidStripeCheckoutSession(session)) {
+		return json({ received: true, ignored: true, unpaid: true });
+	}
 	const orderIds = extractStripeCheckoutOrderIds(session);
 	if (!orderIds.length || !session?.id) {
 		return jsonError("Stripe checkout session is missing order metadata", 400);
@@ -52,6 +60,11 @@ export async function POST(request) {
 				await ensureOrderDownloadGrants(order);
 			} catch (error) {
 				console.error("Failed to issue download grants for order", order.id, error);
+			}
+			try {
+				await ensureOrderLicenseKeys(order);
+			} catch (error) {
+				console.error("Failed to issue license keys for order", order.id, error);
 			}
 		}
 	}

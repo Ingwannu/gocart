@@ -7,7 +7,7 @@ const Rating = ({ value = 4 }) => {
 			{Array.from({ length: 5 }, (_, i) => (
 				<Star
 					key={i}
-					className={`shrink-0 size-4 fill-current ${value > i ? "text-orange-400" : "text-gray-300"}`}
+					className={`shrink-0 size-4 fill-current ${value > i ? "text-warning" : "text-border"}`}
 				/>
 			))}
 		</div>

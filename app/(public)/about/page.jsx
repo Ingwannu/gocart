@@ -11,9 +11,9 @@ export default function AboutPage() {
 	];
 
 	return (
-		<div className="mx-6 min-h-[70vh] text-slate-600">
+		<div className="mx-6 min-h-[70vh] text-muted-foreground">
 			<div className="mx-auto my-16 max-w-5xl">
-				<h1 className="text-4xl font-semibold text-slate-800">
+				<h1 className="text-4xl font-semibold text-foreground">
 					{t("about.title")}
 				</h1>
 				<p className="mt-4 max-w-3xl text-sm leading-6">{t("about.subtitle")}</p>
@@ -21,7 +21,7 @@ export default function AboutPage() {
 					{items.map((item) => (
 						<div
 							key={item}
-							className="rounded-lg border border-slate-200 bg-white p-5"
+							className="rounded-lg border border-border bg-frame p-5"
 						>
 							<p className="text-sm leading-6">{item}</p>
 						</div>

@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+*:Zone.Identifier
+.idea/
+.pi-lens/
 
 # debug
 npm-debug.log*

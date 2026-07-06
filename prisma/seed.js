@@ -12,11 +12,17 @@ const defaultProductTaxonomy = [
 ];
 
 function getSeedAdminConfig(env = process.env) {
+	// No credential fallbacks: a well-known default admin login is a backdoor.
+	if (!env.ADMIN_EMAIL || !env.ADMIN_PASSWORD) {
+		throw new Error(
+			"Set ADMIN_EMAIL and ADMIN_PASSWORD in .env before running db:seed",
+		);
+	}
 	return {
 		id: env.ADMIN_ID || "admin_001",
-		name: env.ADMIN_NAME || "ingwannu",
-		email: String(env.ADMIN_EMAIL || "ingwannu@gmail.com").trim().toLowerCase(),
-		password: env.ADMIN_PASSWORD || "ddkcy1914",
+		name: env.ADMIN_NAME || "admin",
+		email: String(env.ADMIN_EMAIL).trim().toLowerCase(),
+		password: env.ADMIN_PASSWORD,
 	};
 }
 

@@ -22,13 +22,13 @@ export default function ForgotPasswordPage() {
 	};
 
 	return (
-		<div className="min-h-[80vh] flex items-center justify-center bg-white">
+		<div className="min-h-[80vh] flex items-center justify-center bg-background">
 			<div className="w-full max-w-md mx-auto px-6">
 				<div className="text-center mb-8">
-					<h1 className="text-3xl font-semibold text-slate-700">
+					<h1 className="text-3xl font-semibold text-foreground">
 						{t("passwordReset.forgotTitle")}
 					</h1>
-					<p className="text-slate-500 mt-3 text-sm">
+					<p className="text-muted-foreground mt-3 text-sm">
 						{t("passwordReset.forgotSubtitle")}
 					</p>
 				</div>
@@ -40,32 +40,32 @@ export default function ForgotPasswordPage() {
 					}
 					className="space-y-4"
 				>
-					<label className="block text-sm text-slate-600">
+					<label className="block text-sm text-muted-foreground">
 						{t("loginPage.emailLabel")}
 						<input
 							type="email"
 							value={email}
 							onChange={(event) => setEmail(event.target.value)}
-							className="w-full p-3 mt-1 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 mt-1 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							required
 						/>
 					</label>
-					<button className="w-full bg-[#1A1A1A] text-white py-3 rounded-lg hover:bg-orange-600 active:scale-[0.98] transition font-medium">
+					<button className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:brightness-95 active:scale-[0.98] transition font-medium">
 						{t("passwordReset.sendLink")}
 					</button>
 				</form>
 				{submitted && (
-					<div className="mt-5 rounded-lg bg-slate-50 p-4 text-sm text-slate-600">
+					<div className="mt-5 rounded-lg bg-muted p-4 text-sm text-muted-foreground">
 						<p>{t("passwordReset.requestSubmitted")}</p>
 						{resetUrl && (
-							<Link className="mt-3 block break-all text-orange-600" href={resetUrl}>
+							<Link className="mt-3 block break-all text-foreground underline" href={resetUrl}>
 								{resetUrl}
 							</Link>
 						)}
 					</div>
 				)}
-				<p className="mt-5 text-center text-sm text-slate-500">
-					<Link href="/login" className="text-orange-600">
+				<p className="mt-5 text-center text-sm text-muted-foreground">
+					<Link href="/login" className="text-foreground font-medium underline">
 						{t("common.login")}
 					</Link>
 				</p>

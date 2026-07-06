@@ -34,65 +34,65 @@ export default function LoginPage() {
 	};
 
 	return (
-		<div className="min-h-[80vh] flex items-center justify-center bg-white">
+		<div className="min-h-[80vh] flex items-center justify-center bg-background">
 			<div className="w-full max-w-md mx-auto px-6">
 				<div className="text-center mb-8">
-					<h1 className="text-4xl font-semibold text-slate-700">
-						<span className="text-orange-500">wicked</span>{" "}
-						<span className="text-green-600">shop</span>
-						<span className="text-orange-500 text-5xl leading-0">.</span>
+					<h1 className="text-4xl font-semibold text-foreground">
+						<span className="text-foreground">wicked</span>{" "}
+						<span className="text-success">shop</span>
+						<span className="text-accent text-5xl leading-0">.</span>
 					</h1>
-					<p className="text-slate-500 mt-3 text-sm">
+					<p className="text-muted-foreground mt-3 text-sm">
 						{t("loginPage.subtitle")}
 					</p>
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					{error && (
-						<div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg text-center">
+						<div className="bg-danger-soft text-danger text-sm p-3 rounded-lg text-center">
 							{error}
 						</div>
 					)}
 					<div>
-						<label className="block text-sm text-slate-600 mb-1">
+						<label className="block text-sm text-muted-foreground mb-1">
 							{t("loginPage.emailLabel")}
 						</label>
 						<input
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
-							className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							placeholder="example@teamwicked.me"
 							required
 						/>
 					</div>
 					<div>
-						<label className="block text-sm text-slate-600 mb-1">
+						<label className="block text-sm text-muted-foreground mb-1">
 							{t("loginPage.passwordLabel")}
 						</label>
 						<input
 							type="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
-							className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+							className="w-full p-3 bg-frame border border-border rounded-lg outline-none focus:border-ring focus:ring-2 focus:ring-ring/25 transition"
 							placeholder="••••••••"
 							required
 						/>
 					</div>
 					<button
 						type="submit"
-						className="w-full bg-[#1A1A1A] text-white py-3 rounded-lg hover:bg-orange-600 active:scale-[0.98] transition font-medium"
+						className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:brightness-95 active:scale-[0.98] transition font-medium"
 					>
 						{t("loginPage.loginButton")}
 					</button>
 				</form>
 				<p className="mt-4 text-center text-sm">
-					<Link href="/forgot-password" className="text-orange-600">
+					<Link href="/forgot-password" className="text-foreground font-medium underline">
 						{t("loginPage.forgotPassword")}
 					</Link>
 				</p>
-				<p className="mt-5 text-center text-sm text-slate-500">
+				<p className="mt-5 text-center text-sm text-muted-foreground">
 					{t("loginPage.noAccount")}{" "}
-					<Link href="/signup" className="text-orange-600">
+					<Link href="/signup" className="text-foreground font-medium underline">
 						{t("signupPage.signupButton")}
 					</Link>
 				</p>

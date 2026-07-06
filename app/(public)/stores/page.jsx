@@ -48,32 +48,32 @@ function StoresContent() {
 			<div className="max-w-7xl mx-auto py-8">
 				<div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
 					<div>
-						<h1 className="text-3xl font-semibold text-slate-800">
+						<h1 className="text-3xl font-semibold text-foreground">
 							{t("storesPage.heading")}
 						</h1>
-						<p className="mt-2 max-w-2xl text-sm text-slate-500">
+						<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
 							{t("storesPage.subtitle")}
 						</p>
 					</div>
 					<form
 						onSubmit={submitSearch}
-						className="flex w-full max-w-md items-center gap-2 rounded border border-slate-200 px-3 py-2"
+						className="flex w-full max-w-md items-center gap-2 rounded border border-border px-3 py-2"
 					>
-						<SearchIcon size={18} className="text-slate-400" />
+						<SearchIcon size={18} className="text-muted-foreground" />
 						<input
 							value={query}
 							onChange={(event) => setQuery(event.target.value)}
 							placeholder={t("storesPage.searchStores")}
-							className="w-full text-sm text-slate-700 outline-none"
+							className="w-full text-sm text-foreground bg-transparent outline-none"
 						/>
-						<button className="rounded bg-[#1A1A1A] px-4 py-1.5 text-sm text-white hover:bg-orange-600">
+						<button className="rounded bg-accent px-4 py-1.5 text-sm text-accent-foreground hover:brightness-95">
 							{t("common.search")}
 						</button>
 					</form>
 				</div>
 				{loading && <Loading />}
 				{!loading && stores.length === 0 && (
-					<div className="flex h-60 items-center justify-center text-2xl text-slate-400">
+					<div className="flex h-60 items-center justify-center text-2xl text-muted-foreground">
 						{t("storesPage.noStoresFound")}
 					</div>
 				)}
@@ -82,7 +82,7 @@ function StoresContent() {
 						<Link
 							key={store.id}
 							href={`/shop/${store.username}`}
-							className="rounded-lg border border-slate-200 bg-white p-5 transition hover:border-orange-300 hover:shadow-sm"
+							className="rounded-lg border border-border bg-frame p-5 transition hover:border-accent/30 hover:shadow-sm"
 						>
 							<div className="flex items-start gap-4">
 								<Image
@@ -90,19 +90,19 @@ function StoresContent() {
 									alt={store.name}
 									width={72}
 									height={72}
-									className="size-18 rounded-md border border-slate-100 object-cover"
+									className="size-18 rounded-md border border-border object-cover"
 								/>
 								<div className="min-w-0">
-									<h2 className="truncate text-lg font-medium text-slate-800">
+									<h2 className="truncate text-lg font-medium text-foreground">
 										{store.name}
 									</h2>
-									<p className="text-sm text-slate-400">@{store.username}</p>
+									<p className="text-sm text-muted-foreground">@{store.username}</p>
 								</div>
 							</div>
-							<p className="mt-4 line-clamp-3 min-h-14 text-sm text-slate-600">
+							<p className="mt-4 line-clamp-3 min-h-14 text-sm text-muted-foreground">
 								{store.description || t("storesPage.noDescription")}
 							</p>
-							<div className="mt-4 space-y-2 text-sm text-slate-500">
+							<div className="mt-4 space-y-2 text-sm text-muted-foreground">
 								<div className="flex items-center gap-2">
 									<MailIcon size={15} className="shrink-0" />
 									<span className="truncate">{store.email}</span>
@@ -112,7 +112,7 @@ function StoresContent() {
 									<span className="truncate">{store.address}</span>
 								</div>
 							</div>
-							<div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-orange-600">
+							<div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-foreground underline">
 								<StoreIcon size={16} />
 								{t("storesPage.visitStore")}
 							</div>
@@ -120,7 +120,7 @@ function StoresContent() {
 					))}
 				</div>
 				{pagination && pagination.totalPages > 1 && (
-					<div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-slate-600">
+					<div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
 						<button
 							type="button"
 							disabled={!pagination.hasPreviousPage}
@@ -132,7 +132,7 @@ function StoresContent() {
 									}),
 								)
 							}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.previous")}
 						</button>
@@ -154,7 +154,7 @@ function StoresContent() {
 									}),
 								)
 							}
-							className="rounded border border-slate-200 px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-slate-50"
+							className="rounded border border-border px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
 						>
 							{t("common.next")}
 						</button>

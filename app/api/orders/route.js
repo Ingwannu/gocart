@@ -96,6 +96,7 @@ export async function GET(request) {
 			store: true,
 			address: true,
 			returnRequest: true,
+			licenseKeys: true,
 			orderItems: { include: { product: { include: { rating: true, store: true } } } },
 		},
 		orderBy: { createdAt: "desc" },

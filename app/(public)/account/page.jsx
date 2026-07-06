@@ -100,14 +100,14 @@ export default function AccountPage() {
 
 	if (!authorized) {
 		return (
-			<div className="mx-6 flex min-h-[60vh] items-center justify-center text-center text-slate-600">
+			<div className="mx-6 flex min-h-[60vh] items-center justify-center text-center text-muted-foreground">
 				<div>
-					<h1 className="text-2xl font-medium text-slate-800">
+					<h1 className="text-2xl font-medium text-foreground">
 						{t("account.loginRequired")}
 					</h1>
 					<Link
 						href="/login?callbackUrl=/account"
-						className="mt-5 inline-flex rounded bg-[#1A1A1A] px-6 py-2 text-white hover:bg-orange-600"
+						className="mt-5 inline-flex rounded bg-accent px-6 py-2 text-accent-foreground hover:brightness-95"
 					>
 						{t("common.login")}
 					</Link>
@@ -117,20 +117,20 @@ export default function AccountPage() {
 	}
 
 	return (
-		<div className="mx-6 min-h-[70vh] text-slate-600">
+		<div className="mx-6 min-h-[70vh] text-muted-foreground">
 			<div className="mx-auto my-16 max-w-4xl">
-				<h1 className="text-3xl font-medium text-slate-800">
+				<h1 className="text-3xl font-medium text-foreground">
 					{t("account.title")}
 				</h1>
 				<p className="mt-2 text-sm">{t("account.subtitle")}</p>
 
-				<div className="mt-8 rounded-lg border border-slate-200 bg-white p-5">
+				<div className="mt-8 rounded-lg border border-border bg-frame p-5">
 					<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 						<div>
-							<h2 className="text-lg font-medium text-slate-800">
+							<h2 className="text-lg font-medium text-foreground">
 								{t("account.dataExportSection")}
 							</h2>
-							<p className="mt-1 text-sm text-slate-500">
+							<p className="mt-1 text-sm text-muted-foreground">
 								{t("account.dataExportDesc")}
 							</p>
 						</div>
@@ -144,7 +144,7 @@ export default function AccountPage() {
 									error: (error) => error.message,
 								})
 							}
-							className="rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+							className="rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{t("account.downloadData")}
 						</button>
@@ -160,9 +160,9 @@ export default function AccountPage() {
 								error: (error) => error.message,
 							})
 						}
-						className="rounded-lg border border-slate-200 bg-white p-5"
+						className="rounded-lg border border-border bg-frame p-5"
 					>
-						<h2 className="text-lg font-medium text-slate-800">
+						<h2 className="text-lg font-medium text-foreground">
 							{t("account.profileSection")}
 						</h2>
 						<div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -171,12 +171,12 @@ export default function AccountPage() {
 								alt=""
 								width={80}
 								height={80}
-								className="size-20 rounded-full border border-slate-100 object-cover"
+								className="size-20 rounded-full border border-border object-cover"
 							/>
 							<label className="flex-1 text-sm">
 								{t("account.imageUrl")}
 								<input
-									className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+									className="mt-1 w-full rounded border border-border bg-frame p-2 text-sm"
 									value={profile.image}
 									onChange={(event) => updateProfile("image", event.target.value)}
 									placeholder="/uploads/avatar.png"
@@ -187,7 +187,7 @@ export default function AccountPage() {
 							<label className="text-sm">
 								{t("signupPage.nameLabel")}
 								<input
-									className="mt-1 w-full rounded border border-slate-200 p-2"
+									className="mt-1 w-full rounded border border-border bg-frame p-2"
 									value={profile.name}
 									onChange={(event) => updateProfile("name", event.target.value)}
 									required
@@ -197,7 +197,7 @@ export default function AccountPage() {
 								{t("loginPage.emailLabel")}
 								<input
 									type="email"
-									className="mt-1 w-full rounded border border-slate-200 p-2"
+									className="mt-1 w-full rounded border border-border bg-frame p-2"
 									value={profile.email}
 									onChange={(event) => updateProfile("email", event.target.value)}
 									required
@@ -206,7 +206,7 @@ export default function AccountPage() {
 						</div>
 						<button
 							disabled={savingProfile}
-							className="mt-5 rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-5 rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{t("common.save")}
 						</button>
@@ -220,9 +220,9 @@ export default function AccountPage() {
 								error: (error) => error.message,
 							})
 						}
-						className="rounded-lg border border-slate-200 bg-white p-5"
+						className="rounded-lg border border-border bg-frame p-5"
 					>
-						<h2 className="text-lg font-medium text-slate-800">
+						<h2 className="text-lg font-medium text-foreground">
 							{t("account.passwordSection")}
 						</h2>
 						<div className="mt-5 space-y-4">
@@ -230,7 +230,7 @@ export default function AccountPage() {
 								{t("account.currentPassword")}
 								<input
 									type="password"
-									className="mt-1 w-full rounded border border-slate-200 p-2"
+									className="mt-1 w-full rounded border border-border bg-frame p-2"
 									value={password.currentPassword}
 									onChange={(event) =>
 										updatePassword("currentPassword", event.target.value)
@@ -242,7 +242,7 @@ export default function AccountPage() {
 								{t("passwordReset.newPassword")}
 								<input
 									type="password"
-									className="mt-1 w-full rounded border border-slate-200 p-2"
+									className="mt-1 w-full rounded border border-border bg-frame p-2"
 									value={password.newPassword}
 									onChange={(event) =>
 										updatePassword("newPassword", event.target.value)
@@ -254,7 +254,7 @@ export default function AccountPage() {
 						</div>
 						<button
 							disabled={savingPassword}
-							className="mt-5 rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+							className="mt-5 rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{t("passwordReset.updatePassword")}
 						</button>

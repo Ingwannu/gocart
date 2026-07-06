@@ -48,12 +48,12 @@ export default function WishlistPage() {
 		return (
 			<div className="mx-6 flex min-h-[70vh] items-center justify-center text-center">
 				<div>
-					<h1 className="text-2xl font-medium text-slate-800">
+					<h1 className="text-2xl font-medium text-foreground">
 						{t("wishlist.loginRequired")}
 					</h1>
 					<Link
 						href="/login?callbackUrl=/wishlist"
-						className="mt-5 inline-flex rounded bg-[#1A1A1A] px-6 py-2 text-white hover:bg-orange-600"
+						className="mt-5 inline-flex rounded bg-accent px-6 py-2 text-accent-foreground hover:brightness-95"
 					>
 						{t("common.login")}
 					</Link>
@@ -70,13 +70,13 @@ export default function WishlistPage() {
 					text={t("wishlist.subtitle")}
 					linkText={t("common.shop")}
 				/>
-				<div className="mb-8 max-w-lg rounded-md border border-slate-200 bg-white p-4">
+				<div className="mb-8 max-w-lg rounded-md border border-border bg-frame p-4">
 					<input
 						type="search"
 						value={q}
 						onChange={(event) => setQ(event.target.value)}
 						placeholder={t("wishlist.searchPlaceholder")}
-						className="h-10 w-full rounded border border-slate-200 px-3 text-sm text-slate-700 outline-none focus:border-orange-400"
+						className="h-10 w-full rounded border border-border bg-frame px-3 text-sm text-foreground outline-none focus:border-ring"
 					/>
 				</div>
 				{loading ? (
@@ -88,7 +88,7 @@ export default function WishlistPage() {
 						))}
 					</div>
 				) : (
-					<div className="py-16 text-center text-slate-400">
+					<div className="py-16 text-center text-muted-foreground">
 						{q.trim() ? t("wishlist.noMatchingItems") : t("wishlist.empty")}
 					</div>
 				)}

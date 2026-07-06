@@ -61,31 +61,31 @@ export default function AdminGeneralSettings() {
 
 	return (
 		<div className="max-w-2xl">
-			<h1 className="mb-5 text-2xl text-slate-500">
+			<h1 className="mb-5 text-2xl text-muted-foreground">
 				{t("admin.generalSettings")}
 			</h1>
 			<SettingsNav />
 			<form
 				onSubmit={save}
-				className="space-y-5 rounded-md border border-gray-200 bg-white p-5"
+				className="space-y-5 rounded-md border border-border bg-frame p-5"
 			>
-				<label className="block text-sm font-medium text-slate-700">
+				<label className="block text-sm font-medium text-foreground">
 					{t("admin.publicUrl")}
 					<input
 						type="url"
 						value={settings.publicUrl}
 						onChange={(event) => update("publicUrl", event.target.value)}
 						placeholder="https://shop.example.com"
-						className="mt-1 w-full rounded border border-slate-200 p-2 text-sm"
+						className="mt-1 w-full rounded border border-border p-2 text-sm"
 					/>
 				</label>
-				<label className="block text-sm font-medium text-slate-700">
+				<label className="block text-sm font-medium text-foreground">
 					{t("admin.currencySymbol")}
 					<input
 						type="text"
 						value={settings.currencySymbol}
 						onChange={(event) => update("currencySymbol", event.target.value)}
-						className="mt-1 w-32 rounded border border-slate-200 p-2 text-sm"
+						className="mt-1 w-32 rounded border border-border p-2 text-sm"
 						maxLength={8}
 					/>
 				</label>
@@ -93,7 +93,7 @@ export default function AdminGeneralSettings() {
 					<button
 						type="submit"
 						disabled={saving}
-						className="rounded bg-[#1A1A1A] px-5 py-2 text-sm text-white hover:bg-orange-600 disabled:opacity-50"
+						className="rounded bg-accent px-5 py-2 text-sm text-accent-foreground hover:brightness-95 disabled:opacity-50"
 					>
 						{saving ? t("admin.settingsSaving") : t("admin.settingsSave")}
 					</button>

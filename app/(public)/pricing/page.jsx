@@ -41,32 +41,32 @@ export default function PricingPage() {
 	];
 
 	return (
-		<div className="mx-6 min-h-[70vh] text-slate-600">
+		<div className="mx-6 min-h-[70vh] text-muted-foreground">
 			<div className="mx-auto my-14 max-w-5xl">
 				<div className="max-w-2xl">
-					<p className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-600">
+					<p className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-foreground">
 						<SparklesIcon size={16} />
 						{t("pricing.badge")}
 					</p>
-					<h1 className="mt-5 text-3xl font-semibold text-slate-900 sm:text-5xl">
+					<h1 className="mt-5 text-3xl font-semibold text-foreground sm:text-5xl">
 						{t("pricing.title")}
 					</h1>
-					<p className="mt-4 text-base leading-7 text-slate-500">
+					<p className="mt-4 text-base leading-7 text-muted-foreground">
 						{t("pricing.subtitle")}
 					</p>
 				</div>
 
 				<div className="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
-					<section className="rounded-lg border border-slate-200 bg-white p-6">
+					<section className="rounded-lg border border-border bg-frame p-6">
 						<div className="flex items-start gap-4">
-							<div className="flex size-11 items-center justify-center rounded-lg bg-green-50 text-green-600">
+							<div className="flex size-11 items-center justify-center rounded-lg bg-success-soft text-success">
 								<BadgePercentIcon size={22} />
 							</div>
 							<div>
-								<h2 className="text-xl font-medium text-slate-900">
+								<h2 className="text-xl font-medium text-foreground">
 									{t("pricing.plusPlan")}
 								</h2>
-								<p className="mt-1 text-sm text-slate-500">
+								<p className="mt-1 text-sm text-muted-foreground">
 									{t("pricing.plusDescription")}
 								</p>
 							</div>
@@ -75,24 +75,24 @@ export default function PricingPage() {
 						<ul className="mt-6 space-y-3">
 							{benefits.map((benefit) => (
 								<li key={benefit} className="flex items-start gap-3 text-sm">
-									<CheckIcon size={18} className="mt-0.5 text-green-600" />
+									<CheckIcon size={18} className="mt-0.5 text-success" />
 									<span>{benefit}</span>
 								</li>
 							))}
 						</ul>
 					</section>
 
-					<aside className="rounded-lg border border-slate-200 bg-slate-50 p-6">
+					<aside className="rounded-lg border border-border bg-muted p-6">
 						<div className="flex items-center justify-between gap-4">
 							<div>
-								<p className="text-sm text-slate-400">{t("pricing.priceLabel")}</p>
-								<p className="mt-1 text-3xl font-semibold text-slate-900">
+								<p className="text-sm text-muted-foreground">{t("pricing.priceLabel")}</p>
+								<p className="mt-1 text-3xl font-semibold text-foreground">
 									{t("pricing.freePrice")}
 								</p>
 							</div>
-							<ShieldCheckIcon size={30} className="text-green-600" />
+							<ShieldCheckIcon size={30} className="text-success" />
 						</div>
-						<p className="mt-5 rounded bg-white p-3 text-sm text-slate-500">
+						<p className="mt-5 rounded bg-frame p-3 text-sm text-muted-foreground">
 							{hasPlusAccess
 								? t("pricing.activeStatus")
 								: t("pricing.inactiveStatus")}
@@ -101,14 +101,14 @@ export default function PricingPage() {
 						{!isLoggedIn ? (
 							<Link
 								href="/login?callbackUrl=/pricing"
-								className="mt-5 block rounded bg-[#1A1A1A] px-5 py-3 text-center text-sm font-medium text-white hover:bg-orange-600"
+								className="mt-5 block rounded bg-accent px-5 py-3 text-center text-sm font-medium text-accent-foreground hover:brightness-95"
 							>
 								{t("pricing.loginToActivate")}
 							</Link>
 						) : hasPlusAccess ? (
 							<Link
 								href="/shop"
-								className="mt-5 block rounded border border-slate-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:bg-slate-50"
+								className="mt-5 block rounded border border-border bg-frame px-5 py-3 text-center text-sm font-medium text-foreground hover:bg-muted"
 							>
 								{t("pricing.browseMemberDeals")}
 							</Link>
@@ -123,7 +123,7 @@ export default function PricingPage() {
 										error: (error) => error.message,
 									})
 								}
-								className="mt-5 w-full rounded bg-[#1A1A1A] px-5 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+								className="mt-5 w-full rounded bg-accent px-5 py-3 text-sm font-medium text-accent-foreground hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 							>
 								{t("pricing.activate")}
 							</button>
